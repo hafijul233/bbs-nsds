@@ -69,6 +69,9 @@ return [
     'Select the district(s) where you want to work in future (maximum 3)' => 'Select the district(s) where you want to work in future (maximum 3)',
     'Are you revenue staff of BBS?' => 'Are you a revenue staff of BBS?',
     'Work Experience in BBS as Enumerator' => 'Work Experience in BBS as Enumerator',
-
+    'SSC or Equivalent' => 'SSC or Equivalent',
+    'HSC or Equivalent' => 'HSC or Equivalent',
+    'Graduate or Equivalent' => 'Graduate or Equivalent',
+    'Post-Graduate or Equivalent' => 'Post-Graduate or Equivalent',
 
 ];
