@@ -69,5 +69,10 @@ return [
     'Select the district(s) where you want to work in future (maximum 3)' => 'ভবিষ্যতে কোন কোন জেলায় কাজ করতে আগ্রহী (সর্বাধিক ৩টি)',
     'Are you revenue staff of BBS?' => 'আপনি কি বিবিএস এর রেভিনিউ স্টাফ?',
     'Work Experience in BBS as Enumerator' => 'গণনাকারী হিসাবে বিবিএস এ কাজের অভিজ্ঞতা',
+    'SSC or Equivalent' => 'মাধ্যমিক স্তরের শিক্ষা (এসএসসি/ও-লেভেল/সমমান)',
+    'HSC or Equivalent' => 'উচ্চ মাধ্যমিক স্তরের শিক্ষা (এইচএসসি/এ-লেভেল/সমমান)',
+    'Graduate or Equivalent' => 'স্নাতক বা সমমানের স্তর',
+    'Post-Graduate or Equivalent' => 'স্নাতকোত্তর বা সমমানের স্তর',
+
 
 ];
