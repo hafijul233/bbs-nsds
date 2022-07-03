@@ -17,7 +17,7 @@ return [
     'Dashboard' => 'ড্যাশবোর্ড',
     'Address Book' => 'ঠিকানা বই',
     'Organization' => 'সংস্থা',
-    'Enumerators' => 'পরিগণক',
+    'Enumerators' => 'গণনাকারী',
     'Users' => 'ব্যবহারকারীরা',
     'Roles' => 'ভূমিকা',
     'Permissions' => 'অনুমতি',
