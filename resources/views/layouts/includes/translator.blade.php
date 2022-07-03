@@ -7,7 +7,7 @@
                 {!! __('menu-sidebar.Dashboard') !!}
             </a>
         @endcan
-        {!! \Form::open(['route' => 'translate-locale', 'method' => 'post']) !!}
+        {!! \Form::open(['route' => 'translate-locale', 'method' => 'get']) !!}
         <div class="btn-group">
             <button type="button" class="font-weight-bold btn btn-default">
                 <i class="fas fa-globe"></i>
