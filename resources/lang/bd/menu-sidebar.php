@@ -23,7 +23,7 @@ return [
     'Permissions' => 'অনুমতি',
     'Catalogs' => 'ক্যটালগ',
     'Countries' => 'দেশ',
-    'States' => 'রাজ্যগুলি',
+    'States' => 'জেলাগুলি',
     'Cities' => 'শহর',
     'Settings' => 'সেটিংস',
     'Surveys' => 'জরিপ'
