@@ -31,7 +31,7 @@ return [
     'Mobile' => 'মোবাইল',
     'Email' => 'ইমেইল',
     'Enabled' => 'সক্রিয়',
-    'Created' => 'এ নির্মিত',
+    'Created' => 'তৈরি করা হয়েছে',
     'Remarks' => 'মন্তব্য',
     'Government of the People’s Republic of Bangladesh' => 'গণপ্রজাতন্ত্রী বাংলাদেশ সরকার',
     'Bangladesh Bureau of Statistics' => 'বাংলাদেশ পরিসংখ্যান ব্যুরো',
