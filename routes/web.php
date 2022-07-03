@@ -41,7 +41,7 @@ Route::get('/', function () {
     return redirect()->to('backend/login');
 })->name('home');
 
-Route::post('translate-locale', TranslateController::class)->name('translate-locale');
+Route::get('translate-locale', TranslateController::class)->name('translate-locale');
 
 Route::get('cache-clear', function () {
     Artisan::call('optimize:clear');
