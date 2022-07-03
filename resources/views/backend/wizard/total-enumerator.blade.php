@@ -4,11 +4,11 @@
         <div class="inner">
             <h3>{{ $enumerators ?? 0 }}</h3>
 
-            <p>Enumerators</p>
+            <p>{!! __('menu-sidebar.Enumerators') !!}</p>
         </div>
         <div class="icon">
             <i class="fas fa-user-check"></i>
         </div>
-        <a href="{{ route('backend.organization.enumerators.index') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+        <a href="{{ route('backend.organization.enumerators.index') }}" class="small-box-footer">{!! __('common.More info') !!} <i class="fas fa-arrow-circle-right"></i></a>
     </div>
 </div>

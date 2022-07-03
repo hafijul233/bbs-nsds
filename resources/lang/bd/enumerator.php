@@ -12,8 +12,8 @@ return [
     | these language lines according to your application's requirements.
     |
     */
-    'Add Enumerator' => 'পরিগণক যুক্ত করুন',
-    'Edit Enumerator' => 'পরিগণক সম্পাদনা',
+    'Add Enumerator' => 'গণনাকারী যুক্ত করুন',
+    'Edit Enumerator' => 'গণনাকারী সম্পাদনা',
     'Survey' => 'গণনাকারী হিসাবে বিবিএস এ কাজের অভিজ্ঞতা (প্রযোজ্য ক্ষেত্রে একের অধিক নির্বাচন করুন)',
     'Select a Survey Option' => 'একটি সমীক্ষা বিকল্প নির্বাচন করুন',
     'Name' => 'নাম (ইংরেজিতে)',

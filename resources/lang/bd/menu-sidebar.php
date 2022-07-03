@@ -12,19 +12,19 @@ return [
     | these language lines according to your application's requirements.
     |
     */
-    'Home' => 'বাসা',
+    'Home' => 'হোম',
     'Backend' => 'ব্যাকএন্ড',
     'Dashboard' => 'ড্যাশবোর্ড',
     'Address Book' => 'ঠিকানা বই',
-    'Organization' => 'সংস্থা',
-    'Enumerators' => 'পরিগণক',
+    'Organization' => 'অর্গানিজশন',
+    'Enumerators' => 'গণনাকারী',
     'Users' => 'ব্যবহারকারীরা',
     'Roles' => 'ভূমিকা',
     'Permissions' => 'অনুমতি',
     'Catalogs' => 'ক্যটালগ',
     'Countries' => 'দেশ',
-    'States' => 'রাজ্যগুলি',
+    'States' => 'জেলাগুলি',
     'Cities' => 'শহর',
     'Settings' => 'সেটিংস',
-    'Surveys' => 'সমীক্ষা'
+    'Surveys' => 'জরিপ'
 ];
