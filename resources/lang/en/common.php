@@ -41,4 +41,5 @@ return [
     'Database of Enumerators' => 'Database of Enumerators',
     'Yes' => 'Yes',
     'No' => 'No',
+    'More info' => 'More info',
 ];

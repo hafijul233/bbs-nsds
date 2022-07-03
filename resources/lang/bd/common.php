@@ -41,4 +41,5 @@ return [
     'Database of Enumerators' => 'গণনাকারীদের ডাটাবেস',
     'Yes' => 'হ্যাঁ',
     'No' => 'না',
+    'More info' => 'আরও তথ্য',
 ];
