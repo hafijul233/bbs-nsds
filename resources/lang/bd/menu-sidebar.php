@@ -26,5 +26,5 @@ return [
     'States' => 'রাজ্যগুলি',
     'Cities' => 'শহর',
     'Settings' => 'সেটিংস',
-    'Surveys' => 'সমীক্ষা'
+    'Surveys' => 'জরিপ'
 ];
