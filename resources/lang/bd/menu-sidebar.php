@@ -16,7 +16,7 @@ return [
     'Backend' => 'ব্যাকএন্ড',
     'Dashboard' => 'ড্যাশবোর্ড',
     'Address Book' => 'ঠিকানা বই',
-    'Organization' => 'অর্গানিজশন',
+    'Organization' => 'অর্গানাইজেশন',
     'Enumerators' => 'গণনাকারী',
     'Users' => 'ব্যবহারকারীরা',
     'Roles' => 'ভূমিকা',
