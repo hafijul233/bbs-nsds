@@ -21,7 +21,7 @@ return [
     'Users' => 'ব্যবহারকারীরা',
     'Roles' => 'ভূমিকা',
     'Permissions' => 'অনুমতি',
-    'Catalogs' => 'ক্যটালগ',
+    'Catalogs' => 'ক্যাটালগ',
     'Countries' => 'দেশ',
     'States' => 'জেলাগুলি',
     'Cities' => 'শহর',
