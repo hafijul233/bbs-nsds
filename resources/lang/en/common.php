@@ -42,4 +42,6 @@ return [
     'Yes' => 'Yes',
     'No' => 'No',
     'More info' => 'More info',
+    'Profile' => 'Profile',
+    'Sign out' => 'Sign out',
 ];

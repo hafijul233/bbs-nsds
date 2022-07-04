@@ -21,9 +21,9 @@ return [
     'Users' => 'ব্যবহারকারীরা',
     'Roles' => 'ভূমিকা',
     'Permissions' => 'অনুমতি',
-    'Catalogs' => 'ক্যটালগ',
+    'Catalogs' => 'ক্যাটালগ',
     'Countries' => 'দেশ',
-    'States' => 'জেলাগুলি',
+    'States' => 'জেলা',
     'Cities' => 'শহর',
     'Settings' => 'সেটিংস',
     'Surveys' => 'জরিপ'
