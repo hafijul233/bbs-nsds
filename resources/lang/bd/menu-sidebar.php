@@ -18,7 +18,7 @@ return [
     'Address Book' => 'ঠিকানা বই',
     'Organization' => 'অর্গানাইজেশন',
     'Enumerators' => 'গণনাকারী',
-    'Users' => 'ব্যবহারকারীরা',
+    'Users' => 'ব্যবহারকারী',
     'Roles' => 'ভূমিকা',
     'Permissions' => 'অনুমতি',
     'Catalogs' => 'ক্যাটালগ',
