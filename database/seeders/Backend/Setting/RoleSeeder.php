@@ -21,22 +21,41 @@ class RoleSeeder extends Seeder
             'remarks' => 'Role which will have all privileges.'
         ]);
 
-        Role::create([
-            'id' => 2,
-            'name' => 'Administrator',
-            'remarks' => 'Role which will have all privileges with out restore deleted data.'
-        ]);
+        $roles = [
+            [
+                'name' => 'Administrator',
+                'remarks' => 'Role which will have all privileges with out restore deleted data.'
+            ]
+            , [
+                'name' => 'Director',
+                'remarks' => 'Role which will have basic privileges and report generation.'
+            ]
+            , [
+                'name' => 'Joint Director',
+                'remarks' => 'Role which will have basic privileges and report generation.'
+            ]
+            , [
+                'name' => 'Deputy Director',
+                'remarks' => 'Role which will have basic privileges and report generation.'
+            ]
+            , [
+                'name' => 'Project Director',
+                'remarks' => 'Role which will have basic privileges and report generation.'
+            ]
 
-        Role::create([
-            'id' => 3,
-            'name' => 'Manager',
-            'remarks' => 'Role which will have basic privileges and report generation.'
-        ]);
+            , [
+                'name' => 'Field Project Officer',
+                'remarks' => 'Role which will have basic privileges and report generation.'
+            ]
 
-        Role::create([
-            'id' => 4,
-            'name' => 'Enumerator',
-            'remarks' => 'Role which will have basic operation and minimal system options.'
-        ]);
+            , [
+                'name' => 'Enumerator',
+                'remarks' => 'Role which will have basic operation and minimal system options.'
+            ]
+        ];
+
+        foreach ($roles as $role) {
+            Role::create($role);
+        }
     }
 }
