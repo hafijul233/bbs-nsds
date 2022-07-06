@@ -19,10 +19,10 @@ class CreateUsersTable extends Migration
             $table->id();
             $table->foreignId('parent_id')->nullable()->index();
             $table->string('name');
-            $table->string('email')->nullable()->unique();
-            $table->string('username')->nullable()->unique();
-            $table->string('mobile')->nullable()->unique();
-            $table->string('password');
+            $table->string('email')->nullable()->unique()->collation('utf8mb4_bin')->index();
+            $table->string('username')->nullable()->unique()->collation('utf8mb4_bin')->index();
+            $table->string('mobile')->nullable()->unique()->collation('utf8mb4_bin')->index();
+            $table->string('password')->index();
             $table->boolean('force_pass_reset')->default(false);
             $table->string('remarks')->nullable();
             $table->string('locale', 10)->default(config('app.locale', Constant::LOCALE));
