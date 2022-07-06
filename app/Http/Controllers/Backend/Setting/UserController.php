@@ -62,7 +62,7 @@ class UserController extends Controller
     public function index(Request $request): View
     {
         $filters = $request->except('page');
-        $filters['role'] = [2, 3, 4];
+        $filters['role'] = [2, 3, 4, 5, 6, 7];
 
         if (AuthenticatedSessionService::isSuperAdmin()) {
             $filters['role'][] = 1;

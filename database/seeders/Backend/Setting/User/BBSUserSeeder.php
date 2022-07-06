@@ -1,6 +1,6 @@
 <?php
 
-namespace Database\Seeders\Backend\User;
+namespace Database\Seeders\Backend\Setting\User;
 
 use App\Models\Backend\Setting\Role;
 use App\Models\Backend\Setting\User;
@@ -33,127 +33,6 @@ class BBSUserSeeder extends Seeder
     {
         $faker = Factory::create('bn_BD');
 
-        //Director’s User ID
-        $Director_Agriculture=$this->userRepository->create(
-            array(
-                'name' => 'Agriculture Wing',
-                'username' => 'Director_Agriculture',
-                'email' => strtolower('Director_Agriculture@bbs.com'),
-                'password' => Utility::hashPassword('12345678'),
-                'mobile' => BanglaConverter::bn2en($faker->phoneNumber),
-                'remarks' => 'Director’s User ID',
-                'enabled' => Constant::ENABLED_OPTION,
-                'force_pass_reset' => false
-            )
-        );
-        if (!$this->attachUserRoles($Director_Agriculture)) {
-            throw new \RuntimeException("Director_Agriculture User Role Assignment Failed");
-        }
-        $Director_Census=$this->userRepository->create(
-            array(
-                'name' => 'Census Wing',
-                'username' => 'Director_Census',
-                'email' => strtolower('Director_Census@bbs.com'),
-                'password' => Utility::hashPassword('12345678'),
-                'mobile' => BanglaConverter::bn2en($faker->phoneNumber),
-                'remarks' => 'Director’s User ID',
-                'enabled' => Constant::ENABLED_OPTION,
-                'force_pass_reset' => false
-            )
-        );
-        if (!$this->attachUserRoles($Director_Census)) {
-            throw new \RuntimeException("Director_Census User Role Assignment Failed");
-        }
-        $Director_Computer=$this->userRepository->create(
-            array(
-                'name' => 'Computer Wing',
-                'username' => 'Director_Computer',
-                'email' => strtolower('Director_Computer@bbs.com'),
-                'password' => Utility::hashPassword('12345678'),
-                'mobile' => BanglaConverter::bn2en($faker->phoneNumber),
-                'remarks' => 'Director’s User ID',
-                'enabled' => Constant::ENABLED_OPTION,
-                'force_pass_reset' => false
-            )
-        );
-        if (!$this->attachUserRoles($Director_Computer)) {
-            throw new \RuntimeException("Director_Computer User Role Assignment Failed");
-        }
-        $Director_Demography=$this->userRepository->create(
-            array(
-                'name' => 'Demography and Health Wing',
-                'username' => 'Director_Demography',
-                'email' => strtolower('Director_Demography@bbs.com'),
-                'password' => Utility::hashPassword('12345678'),
-                'mobile' => BanglaConverter::bn2en($faker->phoneNumber),
-                'remarks' => 'Director’s User ID',
-                'enabled' => Constant::ENABLED_OPTION,
-                'force_pass_reset' => false
-            )
-        );
-        if (!$this->attachUserRoles($Director_Demography)) {
-            throw new \RuntimeException("Director_Demography User Role Assignment Failed");
-        }
-        $Director_MIS=$this->userRepository->create(
-            array(
-                'name' => 'FA and MIS Wing',
-                'username' => 'Director_MIS',
-                'email' => strtolower('Director_MIS@bbs.com'),
-                'password' => Utility::hashPassword('12345678'),
-                'mobile' => BanglaConverter::bn2en($faker->phoneNumber),
-                'remarks' => 'Director’s User ID',
-                'enabled' => Constant::ENABLED_OPTION,
-                'force_pass_reset' => false
-            )
-        );
-        if (!$this->attachUserRoles($Director_MIS)) {
-            throw new \RuntimeException("Director_MIS User Role Assignment Failed");
-        }
-        $Director_Industry=$this->userRepository->create(
-            array(
-                'name' => 'Industry and Labor Wing',
-                'username' => 'Director_Industry',
-                'email' => strtolower('Director_Industry@bbs.com'),
-                'password' => Utility::hashPassword('12345678'),
-                'mobile' => BanglaConverter::bn2en($faker->phoneNumber),
-                'remarks' => 'Director’s User ID',
-                'enabled' => Constant::ENABLED_OPTION,
-                'force_pass_reset' => false
-            )
-        );
-        if (!$this->attachUserRoles($Director_Industry)) {
-            throw new \RuntimeException("Director_Industry User Role Assignment Failed");
-        }
-        $Director_National=$this->userRepository->create(
-            array(
-                'name' => 'National Accounting Wing',
-                'username' => 'Director_National',
-                'email' => strtolower('Director_National@bbs.com'),
-                'password' => Utility::hashPassword('12345678'),
-                'mobile' => BanglaConverter::bn2en($faker->phoneNumber),
-                'remarks' => 'Director’s User ID',
-                'enabled' => Constant::ENABLED_OPTION,
-                'force_pass_reset' => false
-            )
-        );
-        if (!$this->attachUserRoles($Director_National)) {
-            throw new \RuntimeException("Director_National User Role Assignment Failed");
-        }
-        $Director_SSTI=$this->userRepository->create(
-            array(
-                'name' => 'SSTI',
-                'username' => 'Director_SSTI',
-                'email' => strtolower('Director_SSTI@bbs.com'),
-                'password' => Utility::hashPassword('12345678'),
-                'mobile' => BanglaConverter::bn2en($faker->phoneNumber),
-                'remarks' => 'Director’s User ID',
-                'enabled' => Constant::ENABLED_OPTION,
-                'force_pass_reset' => false
-            )
-        );
-        if (!$this->attachUserRoles($Director_SSTI)) {
-            throw new \RuntimeException("Director_SSTI User Role Assignment Failed");
-        }
 
         //Project Information User ID
         $PD_LFS=$this->userRepository->create(

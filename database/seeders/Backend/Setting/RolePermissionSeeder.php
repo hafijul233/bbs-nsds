@@ -34,21 +34,17 @@ class RolePermissionSeeder extends Seeder
 
         $adminRole = Role::findByName('Administrator'); //admin
 
-        $operatorRole = Role::findByName('Manager'); //manager&operator
+        $operatorRole = Role::findByName('Director'); //manager&operator
 
         foreach ($permissions as $permission) :
             $superAdminRole->givePermissionTo($permission);
 
             if (strpos($permission->name, 'restore') === false) {
-
-                $this->command->line('A -> ' . $permission->name . PHP_EOL);
-
                 $adminRole->givePermissionTo($permission);
 
                 if ((strpos($permission->name, 'destroy') === false) &&
                     (strpos($permission->name, 'delete') === false)
                 ) {
-                    $this->command->line('M -> ' . $permission->name . PHP_EOL);
                     $operatorRole->givePermissionTo($permission);
                 }
             }

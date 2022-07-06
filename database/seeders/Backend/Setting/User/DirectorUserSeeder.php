@@ -68,7 +68,7 @@ class DirectorUserSeeder extends Seeder
 
         foreach ($directors as $director) {
             try {
-                User::factory()->make($director);
+                User::factory()->asDirector()->create($director);
 
             } catch (\Exception $exception) {
                 throw new \Exception($exception->getMessage());

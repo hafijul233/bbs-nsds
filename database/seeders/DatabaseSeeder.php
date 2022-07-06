@@ -17,6 +17,8 @@ use Database\Seeders\Backend\Setting\PermissionSeeder;
 use Database\Seeders\Backend\Setting\RolePermissionSeeder;
 use Database\Seeders\Backend\Setting\RoleSeeder;
 use Database\Seeders\Backend\Setting\StateSeeder;
+use Database\Seeders\Backend\Setting\User\DirectorUserSeeder;
+use Database\Seeders\Backend\Setting\User\OtherDirectorUserSeeder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Seeder;
 
@@ -47,6 +49,8 @@ class DatabaseSeeder extends Seeder
         $this->call(SurveySeeder::class);
         $this->call(SARegisterSeeder::class);
         $this->call(AdminRegisterSeeder::class);
+        $this->call(DirectorUserSeeder::class);
+        $this->call(OtherDirectorUserSeeder::class);
         Model::reguard();
     }
 }
