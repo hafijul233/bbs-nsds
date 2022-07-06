@@ -25,7 +25,7 @@ return [
      * @reference \Modules\Admin\Supports\Constant::class
      * @var string [email, username, mobile, otp]
      */
-    'credential_field' => 'email',
+    'credential_field' => 'username',
 
     /*
      * --------------------------------------------------------------------
@@ -176,7 +176,7 @@ return [
      *
      * @var bool
      */
-    'allow_remembering' => true,
+    'allow_remembering' => false,
 
     /*
      * --------------------------------------------------------------------
