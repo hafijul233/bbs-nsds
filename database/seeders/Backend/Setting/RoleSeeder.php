@@ -44,7 +44,7 @@ class RoleSeeder extends Seeder
             ]
 
             , [
-                'name' => 'Field Project Officer',
+                'name' => 'Focal Point Officer',
                 'remarks' => 'Role which will have basic privileges and report generation.'
             ]
 
