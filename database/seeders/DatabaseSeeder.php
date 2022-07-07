@@ -35,7 +35,7 @@ class DatabaseSeeder extends Seeder
         Model::unguard();
         $this->call(CountrySeeder::class);
         $this->call(StateSeeder::class);
-        //$this->call(CitySeeder::class);
+        $this->call(CitySeeder::class);
         $this->call(PermissionSeeder::class);
         $this->call(RoleSeeder::class);
         $this->call(RolePermissionSeeder::class);
