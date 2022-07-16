@@ -98,7 +98,6 @@ Route::prefix('backend')->group(function () {
             ->name('password.reset');
 
         Route::post('/reset-password', [PasswordResetController::class, 'update'])
-            ->middleware('guest')
             ->name('password.update');
 
         Route::get('/verify-email', [EmailVerificationPromptController::class, '__invoke'])
