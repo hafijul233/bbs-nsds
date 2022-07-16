@@ -53,7 +53,7 @@ class AuthenticatedSessionController extends Controller
         if ($confirm['status'] === true) {
             Session::put('locale', 'bd');
             notify($confirm['message'], $confirm['level'], $confirm['title']);
-            return redirect()->route($confirm['landing_page']);
+            return redirect()->to($confirm['landing_page']);
         }
 
         notify($confirm['message'], $confirm['level'], $confirm['title']);

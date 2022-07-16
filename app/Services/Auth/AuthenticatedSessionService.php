@@ -214,7 +214,7 @@ class AuthenticatedSessionService
 
             } else {
                 //set the auth user redirect page
-                $confirmation['landing_page'] = (Auth::user()->home_page ?? Constant::DASHBOARD_ROUTE);
+                $confirmation['landing_page'] = route(Auth::user()->home_page ?? Constant::DASHBOARD_ROUTE);
             }
         }
 
