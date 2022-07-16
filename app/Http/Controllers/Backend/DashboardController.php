@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backend;
 use App\Services\Backend\Organization\EnumeratorService;
 use App\Services\Backend\Organization\SurveyService;
 use App\Services\Backend\Setting\UserService;
+use App\Supports\Constant;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -51,7 +52,7 @@ class DashboardController extends Controller
     {
 
         return view('backend.dashboard', [
-            'users' => $this->userService->getAllUsers(['role' => [2, 3, 4]])->count(),
+            'users' => $this->userService->getAllUsers(['role' => Constant::VISIBLE_ROLES])->count(),
             'enumerators' => $this->enumeratorService->getAllEnumerators()->count(),
             'surveys' => $this->surveyService->getAllSurveys()->count()
         ]);

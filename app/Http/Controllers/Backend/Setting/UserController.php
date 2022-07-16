@@ -8,6 +8,7 @@ use App\Services\Auth\AuthenticatedSessionService;
 use App\Services\Backend\Setting\CountryService;
 use App\Services\Backend\Setting\RoleService;
 use App\Services\Backend\Setting\UserService;
+use App\Supports\Constant;
 use App\Supports\Utility;
 use Exception;
 use Illuminate\Contracts\Foundation\Application;
@@ -62,7 +63,7 @@ class UserController extends Controller
     public function index(Request $request): View
     {
         $filters = $request->except('page');
-        $filters['role'] = [2, 3, 4, 5, 6, 7];
+        $filters['role'] = Constant::VISIBLE_ROLES;
 
         if (AuthenticatedSessionService::isSuperAdmin()) {
             $filters['role'][] = 1;

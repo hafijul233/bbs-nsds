@@ -13,6 +13,12 @@ class Constant
      * System Model Status
      */
     const ENABLED_OPTIONS = ['yes' => 'Yes', 'no' => 'No'];
+
+    /**
+     * System Model Status
+     */
+    const VISIBLE_ROLES = [2, 3, 4, 5, 6, 7];
+
     /**
      * System Model Status
      */
