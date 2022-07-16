@@ -26,7 +26,11 @@ class PermissionSeeder extends Seeder
 
         foreach ($routes as $route) {
             try {
-                Permission::create(['display_name' => Utility::permissionDisplay($route), 'name' => $route, 'guard_name' => 'web', 'enabled' => 'yes']);
+                Permission::create([
+                    'display_name' => Utility::permissionDisplay($route),
+                    'name' => $route,
+                    'guard_name' => 'web',
+                    'enabled' => 'yes']);
             } catch (\PDOException $exception) {
                 throw new \PDOException($exception->getMessage());
             }

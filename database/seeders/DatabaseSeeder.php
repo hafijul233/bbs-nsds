@@ -41,11 +41,11 @@ class DatabaseSeeder extends Seeder
         $this->call(RolePermissionSeeder::class);
         /*$this->call(UserSeeder::class);*/
         $this->call(GenderSeeder::class);
-        $this->call(BoardSeeder::class);
-        $this->call(ExamLevelSeeder::class);
-        $this->call(ExamTitleSeeder::class);
-        $this->call(ExamGroupSeeder::class);
-        $this->call(InstituteSeeder::class);
+        //$this->call(BoardSeeder::class);
+        //$this->call(ExamLevelSeeder::class);
+        //$this->call(ExamTitleSeeder::class);
+        //$this->call(ExamGroupSeeder::class);
+        //$this->call(InstituteSeeder::class);
         $this->call(SurveySeeder::class);
         $this->call(SARegisterSeeder::class);
         $this->call(AdminRegisterSeeder::class);

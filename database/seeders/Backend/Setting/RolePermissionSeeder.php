@@ -50,5 +50,7 @@ class RolePermissionSeeder extends Seeder
             }
 
         endforeach;
+        //Default permission for all other
+
     }
 }
