@@ -47,7 +47,7 @@ class BBSUserSeeder extends Seeder
                 'force_pass_reset' => false
             )
         );
-        if (!$this->attachUserRoles($PD_LFS)) {
+        if (!$this->attachUserRoles($PD_LFS, 'Project Director')) {
             throw new \RuntimeException("PD_LFS User Role Assignment Failed");
         }
         $PD_FSS=$this->userRepository->create(
@@ -62,7 +62,7 @@ class BBSUserSeeder extends Seeder
                 'force_pass_reset' => false
             )
         );
-        if (!$this->attachUserRoles($PD_FSS)) {
+        if (!$this->attachUserRoles($PD_FSS, 'Project Director')) {
             throw new \RuntimeException("PD_FSS User Role Assignment Failed");
         }
         $PD_LAS=$this->userRepository->create(
@@ -77,7 +77,7 @@ class BBSUserSeeder extends Seeder
                 'force_pass_reset' => false
             )
         );
-        if (!$this->attachUserRoles($PD_LAS)) {
+        if (!$this->attachUserRoles($PD_LAS, 'Project Director')) {
             throw new \RuntimeException("PD_LAS User Role Assignment Failed");
         }
         $PD_IGCRI=$this->userRepository->create(
@@ -92,7 +92,7 @@ class BBSUserSeeder extends Seeder
                 'force_pass_reset' => false
             )
         );
-        if (!$this->attachUserRoles($PD_IGCRI)) {
+        if (!$this->attachUserRoles($PD_IGCRI, 'Project Director')) {
             throw new \RuntimeException("PD_IGCRI User Role Assignment Failed");
         }
         $PD_ECDS=$this->userRepository->create(
@@ -107,7 +107,7 @@ class BBSUserSeeder extends Seeder
                 'force_pass_reset' => false
             )
         );
-        if (!$this->attachUserRoles($PD_ECDS)) {
+        if (!$this->attachUserRoles($PD_ECDS, 'Project Director')) {
             throw new \RuntimeException("PD_ECDS User Role Assignment Failed");
         }
         $PD_NSPD=$this->userRepository->create(
@@ -122,7 +122,7 @@ class BBSUserSeeder extends Seeder
                 'force_pass_reset' => false
             )
         );
-        if (!$this->attachUserRoles($PD_NSPD)) {
+        if (!$this->attachUserRoles($PD_NSPD, 'Project Director')) {
             throw new \RuntimeException("PD_NSPD User Role Assignment Failed");
         }
         $PD_HIES=$this->userRepository->create(
@@ -137,7 +137,7 @@ class BBSUserSeeder extends Seeder
                 'force_pass_reset' => false
             )
         );
-        if (!$this->attachUserRoles($PD_HIES)) {
+        if (!$this->attachUserRoles($PD_HIES, 'Project Director')) {
             throw new \RuntimeException("PD_HIES User Role Assignment Failed");
         }
         $PD_SCBBS=$this->userRepository->create(
@@ -152,7 +152,7 @@ class BBSUserSeeder extends Seeder
                 'force_pass_reset' => false
             )
         );
-        if (!$this->attachUserRoles($PD_SCBBS)) {
+        if (!$this->attachUserRoles($PD_SCBBS, 'Project Director')) {
             throw new \RuntimeException("PD_SCBBS User Role Assignment Failed");
         }
         $PD_NSDS=$this->userRepository->create(
@@ -167,7 +167,7 @@ class BBSUserSeeder extends Seeder
                 'force_pass_reset' => false
             )
         );
-        if (!$this->attachUserRoles($PD_NSDS)) {
+        if (!$this->attachUserRoles($PD_NSDS, 'Project Director')) {
             throw new \RuntimeException("PD_NSDS User Role Assignment Failed");
         }
         $PD_SVRS=$this->userRepository->create(
@@ -182,7 +182,7 @@ class BBSUserSeeder extends Seeder
                 'force_pass_reset' => false
             )
         );
-        if (!$this->attachUserRoles($PD_SVRS)) {
+        if (!$this->attachUserRoles($PD_SVRS, 'Project Director')) {
             throw new \RuntimeException("PD_SVRS User Role Assignment Failed");
         }
         $PD_ICTUS=$this->userRepository->create(
@@ -197,7 +197,7 @@ class BBSUserSeeder extends Seeder
                 'force_pass_reset' => false
             )
         );
-        if (!$this->attachUserRoles($PD_ICTUS)) {
+        if (!$this->attachUserRoles($PD_ICTUS, 'Project Director')) {
             throw new \RuntimeException("PD_ICTUS User Role Assignment Failed");
         }
 
@@ -214,7 +214,7 @@ class BBSUserSeeder extends Seeder
                 'force_pass_reset' => false
             )
         );
-        if (!$this->attachUserRoles($FPO_PSL)) {
+        if (!$this->attachUserRoles($FPO_PSL, 'Focal Point Officer')) {
             throw new \RuntimeException("FPO_PSL User Role Assignment Failed");
         }
         $FPO_BDSCM=$this->userRepository->create(
@@ -229,7 +229,7 @@ class BBSUserSeeder extends Seeder
                 'force_pass_reset' => false
             )
         );
-        if (!$this->attachUserRoles($FPO_BDSCM)) {
+        if (!$this->attachUserRoles($FPO_BDSCM, 'Focal Point Officer')) {
             throw new \RuntimeException("FPO_BDSCM User Role Assignment Failed");
         }
         $FPO_NCLS=$this->userRepository->create(
@@ -244,7 +244,7 @@ class BBSUserSeeder extends Seeder
                 'force_pass_reset' => false
             )
         );
-        if (!$this->attachUserRoles($FPO_NCLS)) {
+        if (!$this->attachUserRoles($FPO_NCLS, 'Focal Point Officer')) {
             throw new \RuntimeException("FPO_NCLS User Role Assignment Failed");
         }
         $FPO_SHP=$this->userRepository->create(
@@ -259,7 +259,7 @@ class BBSUserSeeder extends Seeder
                 'force_pass_reset' => false
             )
         );
-        if (!$this->attachUserRoles($FPO_SHP)) {
+        if (!$this->attachUserRoles($FPO_SHP, 'Focal Point Officer')) {
             throw new \RuntimeException("FPO_SHP User Role Assignment Failed");
         }
         $FPO_SADDD=$this->userRepository->create(
@@ -274,7 +274,7 @@ class BBSUserSeeder extends Seeder
                 'force_pass_reset' => false
             )
         );
-        if (!$this->attachUserRoles($FPO_SADDD)) {
+        if (!$this->attachUserRoles($FPO_SADDD, 'Focal Point Officer')) {
             throw new \RuntimeException("FPO_SADDD User Role Assignment Failed");
         }
     }
@@ -285,10 +285,10 @@ class BBSUserSeeder extends Seeder
      * @param User $user
      * @return bool
      */
-    protected function attachUserRoles(User $user): bool
+    protected function attachUserRoles(User $user, $role = ""): bool
     {
 
-        $adminRole = Role::findByName("Administrator");
+        $adminRole = Role::findByName($role);
         $this->userRepository->setModel($user);
         return $this->userRepository->manageRoles([$adminRole->id]);
     }

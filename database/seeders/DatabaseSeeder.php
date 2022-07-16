@@ -17,6 +17,7 @@ use Database\Seeders\Backend\Setting\PermissionSeeder;
 use Database\Seeders\Backend\Setting\RolePermissionSeeder;
 use Database\Seeders\Backend\Setting\RoleSeeder;
 use Database\Seeders\Backend\Setting\StateSeeder;
+use Database\Seeders\Backend\Setting\User\BBSUserSeeder;
 use Database\Seeders\Backend\Setting\User\DirectorUserSeeder;
 use Database\Seeders\Backend\Setting\User\OtherDirectorUserSeeder;
 use Illuminate\Database\Eloquent\Model;
@@ -51,6 +52,7 @@ class DatabaseSeeder extends Seeder
         $this->call(AdminRegisterSeeder::class);
         $this->call(DirectorUserSeeder::class);
         $this->call(OtherDirectorUserSeeder::class);
+        $this->call(BBSUserSeeder::class);
         Model::reguard();
     }
 }
