@@ -46,6 +46,9 @@ class CreateEnumeratorsTable extends Migration
             $table->foreignId('gender_id')->nullable()->index()->constrained('catalogs');
             $table->enum('enabled', array_keys(Constant::ENABLED_OPTIONS))
                 ->default(Constant::ENABLED_OPTION)->nullable();
+            $table->integer('deleted_by')->unsigned()->default(0);
+            $table->integer('created_by')->unsigned()->default(0);
+            $table->integer('updated_by')->unsigned()->default(0);
             $table->dateTime('created_at')->nullable();
             $table->dateTime('updated_at')->nullable();
             $table->dateTime('deleted_at')->nullable();
