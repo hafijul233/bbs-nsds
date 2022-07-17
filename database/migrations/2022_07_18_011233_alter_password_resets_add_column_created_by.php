@@ -13,7 +13,9 @@ class AlterPasswordResetsAddColumnCreatedBy extends Migration
      */
     public function up()
     {
-        //
+        Schema::table('password_resets', function (Blueprint $table) {
+            $table->string('created_by')->nullable()->after('created_at');
+        });
     }
 
     /**
@@ -23,6 +25,8 @@ class AlterPasswordResetsAddColumnCreatedBy extends Migration
      */
     public function down()
     {
-        //
+        Schema::table('password_resets', function (Blueprint $table) {
+            $table->dropColumn('created_by');
+        });
     }
 }
