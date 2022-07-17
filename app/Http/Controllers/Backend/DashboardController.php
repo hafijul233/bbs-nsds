@@ -51,9 +51,15 @@ class DashboardController extends Controller
     public function __invoke(Request $request)
     {
 
+        if(isset(auth()->user()->roles[0]) && in_array(auth()->user()->roles[0]->id, array(1,2))):
+            $request['created_by'] = '';
+        else:
+            $request['created_by'] = auth()->user()->id;
+        endif;
+
         return view('backend.dashboard', [
             'users' => $this->userService->getAllUsers(['role' => Constant::VISIBLE_ROLES])->count(),
-            'enumerators' => $this->enumeratorService->getAllEnumerators()->count(),
+            'enumerators' => $this->enumeratorService->getAllEnumerators($request->all())->count(),
             'surveys' => $this->surveyService->getAllSurveys()->count()
         ]);
     }
