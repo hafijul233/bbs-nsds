@@ -23,6 +23,7 @@ class OtherDirectorUserSeeder extends Seeder
                 if ($state->type == 'district') {
                     $director = [
                         'name' => "{$state->name} District",
+                        'state_id' => $state->id,
                         'username' => "DD_{$state->name}",
                         'email' => strtolower("deputy_director_{$state->name}@bbs.com"),
                         'remarks' => 'Deputy Director’s User ID'
@@ -33,6 +34,7 @@ class OtherDirectorUserSeeder extends Seeder
 
                     $director = [
                         'name' => "{$state->name} Division",
+                        'state_id' => $state->id,
                         'username' => "JD_{$state->name}",
                         'email' => strtolower("joint_director_{$state->name}@bbs.com"),
                         'remarks' => 'Joint Director’s User ID'
