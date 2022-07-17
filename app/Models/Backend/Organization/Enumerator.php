@@ -7,6 +7,7 @@ use App\Models\Backend\Organization\Enumerator\WorkQualification;
 use App\Models\Backend\Setting\Catalog;
 use App\Models\Backend\Setting\ExamLevel;
 use App\Models\Backend\Setting\State;
+use App\Traits\BlamableTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -20,7 +21,7 @@ use OwenIt\Auditing\Contracts\Auditable;
  */
 class Enumerator extends Model implements Auditable
 {
-    use AuditableTrait, HasFactory, SoftDeletes, Sortable;
+    use AuditableTrait, HasFactory, SoftDeletes, Sortable, BlamableTrait;
 
     /**
      * @var string $table
