@@ -16,6 +16,7 @@ yarn-error.log
 .gitmodules
 route.txt
 /Database/Seeders/Setting/mysql.php
+/app/Traits/BlamableTrait.php
 some.js
 some.sql
 some.json
