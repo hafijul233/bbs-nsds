@@ -73,6 +73,6 @@ return [
     'HSC or Equivalent' => 'এইচএসসি বা সমমান',
     'Graduate or Equivalent' => 'স্নাতক বা সমমান',
     'Post-Graduate or Equivalent' => 'স্নাতকোত্তর বা সমমান',
-
+    'Enumerators' => 'গণনাকারীদের তালিকা',
 
 ];

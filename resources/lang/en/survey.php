@@ -14,4 +14,5 @@ return [
     */
     'Add Survey' => 'Add Survey',
     'Edit Survey' => 'Edit Survey',
+    'Surveys' => 'List of Surveys'
 ];

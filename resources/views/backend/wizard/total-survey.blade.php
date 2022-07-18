@@ -5,7 +5,7 @@
         <div class="inner">
             <h3>{{ $surveys ?? 0 }}</h3>
 
-            <p>{!! __('menu-sidebar.Surveys') !!}</p>
+            <p>{!! __('survey.Surveys') !!}</p>
         </div>
         <div class="icon">
             <i class="fas fa-file-invoice"></i>

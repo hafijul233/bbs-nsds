@@ -5,7 +5,7 @@
         <div class="inner">
             <h3>{{ $users ?? 0 }}</h3>
 
-            <p>{!! __('menu-sidebar.Users') !!}</p>
+            <p>{!! __('common.Users') !!}</p>
         </div>
         <div class="icon">
             <i class="fas fa-users"></i>
