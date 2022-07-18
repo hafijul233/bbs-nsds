@@ -73,5 +73,5 @@ return [
     'HSC or Equivalent' => 'HSC or Equivalent',
     'Graduate or Equivalent' => 'Graduate or Equivalent',
     'Post-Graduate or Equivalent' => 'Post-Graduate or Equivalent',
-
+    'Enumerators' => 'List of Enumerators',
 ];
