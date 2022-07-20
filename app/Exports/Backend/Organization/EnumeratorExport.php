@@ -53,6 +53,7 @@ class EnumeratorExport extends FastExcelExport
             trans('Work in Future', [], 'en') => $this->stateArrayToString($row->futurePostings) ?? null,
             trans('Revenue staff of BBS', [], 'en') => ucfirst($row->is_employee) ?? null,
             trans('Designation', [], 'en') => (($row->is_employee == 'yes') ? $row->designation :   'N/A') ?? null,
+            trans('Company Name', [], 'en') => (($row->is_employee == 'yes') ? $row->company :   'N/A') ?? null,
             'Enabled' => ucfirst(($row->enabled ?? '')),
             'Created' => $row->created_at->format(config('backend.datetime'))
         ];
