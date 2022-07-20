@@ -49,6 +49,12 @@ class EnumeratorExport extends FastExcelExport
             trans('Email', [], 'en') => $row->email ?? null,
             trans('Whatsapp Number', [], 'en') => $row->whatsapp ?? null,
             trans('Facebook ID', [], 'en') => $row->facebook ?? null,
+            trans('Worked Earlier', [], 'en') => $this->stateArrayToString($row->previousPostings) ?? null,
+            trans('Work in Future', [], 'en') => $this->stateArrayToString($row->futurePostings) ?? null,
+            trans('Revenue staff of BBS', [], 'en') => ucfirst($row->is_employee) ?? null,
+            trans('Designation', [], 'en') => (($row->is_employee == 'yes') ? $row->designation :   'N/A') ?? null,
+            trans('Company Name', [], 'en') => (($row->is_employee == 'yes') ? $row->company :   'N/A') ?? null,
+            trans('Work Experience in BBS as Enumerator', [], 'en') => $this->surveys($row->surveys) ?? 'null',
             'Enabled' => ucfirst(($row->enabled ?? '')),
             'Created' => $row->created_at->format(config('backend.datetime'))
         ];
@@ -56,6 +62,42 @@ class EnumeratorExport extends FastExcelExport
         /*$this->getSupperAdminColumns($row);*/
 
         return $this->formatRow;
+    }
+
+    /**
+     * @param $data
+     * @return string
+     */
+    public function stateArrayToString($data): string
+    {
+        $stateArray = array();
+        $stateString = 'No District Available';
+        if(isset($data)){
+            foreach($data as $index=>$state){
+                $stateArray[] = ($index+1).". ".$state->name ?? null."\n";
+            }
+            $stateString = implode("\n", $stateArray);
+        }
+
+        return $stateString;
+    }
+
+    /**
+     * @param $data
+     * @return string
+     */
+    public function surveys($data): string
+    {
+        $stateArray = array();
+        $stateString = 'No Survey Available';
+        if(isset($data)){
+            foreach($data as $index => $survey){
+                $stateArray[] = ($index+1).". ".$survey->name ?? null."\n";
+            }
+            $stateString = implode("\n", $stateArray);
+        }
+
+        return $stateString;
     }
 }
 
