@@ -51,6 +51,7 @@ class EnumeratorExport extends FastExcelExport
             trans('Facebook ID', [], 'en') => $row->facebook ?? null,
             trans('Worked Earlier', [], 'en') => $this->stateArrayToString($row->previousPostings) ?? null,
             trans('Work in Future', [], 'en') => $this->stateArrayToString($row->futurePostings) ?? null,
+            trans('Revenue staff of BBS', [], 'en') => ucfirst($row->is_employee) ?? null,
             'Enabled' => ucfirst(($row->enabled ?? '')),
             'Created' => $row->created_at->format(config('backend.datetime'))
         ];
