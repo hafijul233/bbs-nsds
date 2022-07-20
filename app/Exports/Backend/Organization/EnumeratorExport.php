@@ -54,6 +54,7 @@ class EnumeratorExport extends FastExcelExport
             trans('Revenue staff of BBS', [], 'en') => ucfirst($row->is_employee) ?? null,
             trans('Designation', [], 'en') => (($row->is_employee == 'yes') ? $row->designation :   'N/A') ?? null,
             trans('Company Name', [], 'en') => (($row->is_employee == 'yes') ? $row->company :   'N/A') ?? null,
+            trans('Work Experience in BBS as Enumerator', [], 'en') => $this->surveys($row->surveys) ?? 'null',
             'Enabled' => ucfirst(($row->enabled ?? '')),
             'Created' => $row->created_at->format(config('backend.datetime'))
         ];
@@ -72,10 +73,28 @@ class EnumeratorExport extends FastExcelExport
         $stateArray = array();
         $stateString = 'No District Available';
         if(isset($data)){
-            foreach($data as $state){
-                $stateArray[] = $state->name;
+            foreach($data as $index=>$state){
+                $stateArray[] = ($index+1).". ".$state->name ?? null."\n";
             }
-            $stateString = implode(',', $stateArray);
+            $stateString = implode("\n", $stateArray);
+        }
+
+        return $stateString;
+    }
+
+    /**
+     * @param $data
+     * @return string
+     */
+    public function surveys($data): string
+    {
+        $stateArray = array();
+        $stateString = 'No Survey Available';
+        if(isset($data)){
+            foreach($data as $index => $survey){
+                $stateArray[] = ($index+1).". ".$survey->name ?? null."\n";
+            }
+            $stateString = implode("\n", $stateArray);
         }
 
         return $stateString;
