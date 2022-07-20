@@ -49,6 +49,7 @@ class EnumeratorExport extends FastExcelExport
             trans('Email', [], 'en') => $row->email ?? null,
             trans('Whatsapp Number', [], 'en') => $row->whatsapp ?? null,
             trans('Facebook ID', [], 'en') => $row->facebook ?? null,
+            trans('Worked Earlier', [], 'en') => $this->stateArrayToString($row->previousPostings) ?? null,
             'Enabled' => ucfirst(($row->enabled ?? '')),
             'Created' => $row->created_at->format(config('backend.datetime'))
         ];
@@ -56,6 +57,24 @@ class EnumeratorExport extends FastExcelExport
         /*$this->getSupperAdminColumns($row);*/
 
         return $this->formatRow;
+    }
+
+    /**
+     * @param $data
+     * @return string
+     */
+    public function stateArrayToString($data): string
+    {
+        $stateArray = array();
+        $stateString = 'No District Available';
+        if(isset($data)){
+            foreach($data as $state){
+                $stateArray[] = $state->name;
+            }
+            $stateString = implode(',', $stateArray);
+        }
+
+        return $stateString;
     }
 }
 
