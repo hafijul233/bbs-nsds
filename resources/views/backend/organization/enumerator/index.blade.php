@@ -15,7 +15,7 @@
 @endpush
 
 @push('plugin-style')
-
+    <link rel="stylesheet" href="{{ asset('plugins/select2/css/select2.min.css') }}" type="text/css">
 @endpush
 
 @push('page-style')
@@ -50,9 +50,15 @@
                     <div class="card-body">
                         <form method="GET" action="{{ route('backend.organization.enumerators.index') }}"
                               accept-charset="UTF-8">
-                            {!! \Form::hSelect('survey_id', __('enumerator.Survey'), $surveys, old('survey_id', isset($enumerator) ? $enumerator->surveys->pluck('id')->toArray() : []),true, 3) !!}
-                            {!! \Form::hSelect('prev_post_state_id', __('enumerator.Select the district(s) where you have worked earlier (it can be multiple)'),$states,
-old('prev_post_state_id', isset($enumerator) ? $enumerator->previousPostings->pluck('id')->toArray() : []), false, 3) !!}
+                            {!! \Form::hSelect('survey_id', __('survey.Surveys'),$surveys,
+old('survey_id', isset($request['survey_id']) ? request('survey_id') : ''), false, 3) !!}
+                            {!! \Form::hRadio('work_options', __('enumerator.Select the district(s) where you have worked earlier or want to work in future'), [1=>__('enumerator.Worked Earlier'), 2=>__('enumerator.Work in Future')], old('work_options', ($request['work_options'] ?? '')), false, 7) !!}
+                            {!! \Form::hSelect('division_id', __('enumerator.Division'),$divisions,
+old('division_id', isset($request['division_id']) ? request('division_id') : null), false, 3) !!}
+                            {!! \Form::hSelect('prev_post_state_id', __('enumerator.Worked Earlier'),$states,
+old('prev_post_state_id', isset($request['prev_post_state_id']) ? request('prev_post_state_id') : null), false, 3) !!}
+                            {!! \Form::hSelect('future_post_state_id', __('enumerator.Work in Future'),$states,
+old('future_post_state_id', isset($request['future_post_state_id']) ? request('future_post_state_id') : null), false, 3) !!}
                             <div class="input-group">
                                 <input class="form-control" placeholder="Search Enumerator Name etc." id="search"
                                        data-target-table="enumerator-table" name="search" type="search" value="{{ request('search') }}">
@@ -144,9 +150,55 @@ old('prev_post_state_id', isset($enumerator) ? $enumerator->previousPostings->pl
 
 
 @push('plugin-script')
-
+    <script type="text/javascript" src="{{ asset('plugins/select2/js/select2.min.js') }}"></script>
 @endpush
 
 @push('page-script')
+    <script>
 
+        $(document).ready(function () {
+            $("#division_id").prop("disabled", true);
+            $("#prev_post_state_id").prop("disabled", true);
+            $("#future_post_state_id").prop("disabled", true);
+            $('input:radio[name="work_options"]').change(function() {
+                if ($(this).val() == '1') {
+                    $("#division_id").prop("disabled", false);
+                    $("#prev_post_state_id").prop("disabled", false);
+                    $("#future_post_state_id").prop("disabled", true);
+                } else {
+                    $("#division_id").prop("disabled", false);
+                    $("#prev_post_state_id").prop("disabled", true);
+                    $("#future_post_state_id").prop("disabled", false);
+                }
+            });
+
+            $("#survey_id").select2({
+                width: "100%",
+                allowClear: true,
+                placeholder: "{{ __('enumerator.Select a Survey Option') }}",
+                minimumResultsForSearch: Infinity
+            });
+
+            $("#prev_post_state_id").select2({
+                width: "100%",
+                allowClear: true,
+                placeholder: "{{ __('enumerator.Select a Worked Earlier Option') }}",
+                minimumResultsForSearch: Infinity
+            });
+            $("#future_post_state_id").select2({
+                width: "100%",
+                allowClear: true,
+                placeholder: "{{ __('enumerator.Select a Work in Future Option') }}",
+                minimumResultsForSearch: Infinity
+            });
+            $("#division_id").select2({
+                width: "100%",
+                allowClear: true,
+                placeholder: "{{ __('enumerator.Select a Division Option') }}",
+                minimumResultsForSearch: Infinity
+            });
+
+
+        });
+    </script>
 @endpush
