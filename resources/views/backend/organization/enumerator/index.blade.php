@@ -51,14 +51,14 @@
                         <form method="GET" action="{{ route('backend.organization.enumerators.index') }}"
                               accept-charset="UTF-8">
                             {!! \Form::hSelect('survey_id', __('survey.Surveys'),$surveys,
-old('survey_id', isset($request['survey_id']) ? request('survey_id') : ''), false, 3) !!}
+old('survey_id', isset($request['survey_id']) ? request('survey_id') : ''), false, 3, ['placeholder' => __('enumerator.Select a Survey Option')]) !!}
                             {!! \Form::hRadio('work_options', __('enumerator.Select the district(s) where you have worked earlier or want to work in future'), [1=>__('enumerator.Worked Earlier'), 2=>__('enumerator.Work in Future')], old('work_options', ($request['work_options'] ?? '')), false, 7) !!}
                             {!! \Form::hSelect('division_id', __('enumerator.Division'),$divisions,
-old('division_id', isset($request['division_id']) ? request('division_id') : null), false, 3) !!}
+old('division_id', isset($request['division_id']) ? request('division_id') : null), false, 3, ['placeholder' => __('enumerator.Select a Division Option')]) !!}
                             {!! \Form::hSelect('prev_post_state_id', __('enumerator.Worked Earlier'),$states,
-old('prev_post_state_id', isset($request['prev_post_state_id']) ? request('prev_post_state_id') : null), false, 3) !!}
+old('prev_post_state_id', isset($request['prev_post_state_id']) ? request('prev_post_state_id') : null), false, 3, ['placeholder' => __('enumerator.Select a Worked Earlier Option')]) !!}
                             {!! \Form::hSelect('future_post_state_id', __('enumerator.Work in Future'),$states,
-old('future_post_state_id', isset($request['future_post_state_id']) ? request('future_post_state_id') : null), false, 3) !!}
+old('future_post_state_id', isset($request['future_post_state_id']) ? request('future_post_state_id') : null), false, 3, ['placeholder' => __('enumerator.Select a Work in Future Option')]) !!}
                             <div class="input-group">
                                 <input class="form-control" placeholder="Search Enumerator Name etc." id="search"
                                        data-target-table="enumerator-table" name="search" type="search" value="{{ request('search') }}">
