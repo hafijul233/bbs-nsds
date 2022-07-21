@@ -9,6 +9,7 @@ use Exception;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\DB;
 
 /**
  * @class EnumeratorRepository
@@ -37,6 +38,7 @@ class EnumeratorRepository extends EloquentRepository
     private function filterData(array $filters = [], bool $is_sortable = false): Builder
     {
         $query = $this->getQueryBuilder();
+        $query->leftJoin('users', 'users.id', '=', 'enumerators.created_by');
         if (!empty($filters['search'])) :
             $query->where('name', 'like', "%{$filters['search']}%")
                 ->orWhere('enabled', 'like', "%{$filters['search']}%")
@@ -72,6 +74,9 @@ class EnumeratorRepository extends EloquentRepository
             $query->withTrashed();
         endif;
 
+        $select[] = DB::raw('users.username as created_by_username');
+        $select[] = 'enumerators.*';
+        $query->select($select);
         return $query;
     }
 
