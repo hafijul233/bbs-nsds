@@ -74,4 +74,11 @@ return [
     'Graduate or Equivalent' => 'Graduate or Equivalent',
     'Post-Graduate or Equivalent' => 'Post-Graduate or Equivalent',
     'Enumerators' => 'List of Enumerators',
+    'Select a Worked Earlier Option' => 'Select a Worked Earlier Option',
+    'Worked Earlier' => 'Worked Earlier',
+    'Select a Work in Future Option' => 'Select a Work in Future Option',
+    'Work in Future' => 'Work in Future',
+    'Select a Division Option' => 'Select a Division Option',
+    'Division' => 'Division',
+    'Select the district(s) where you have worked earlier or want to work in future' => 'Select the district(s) where you have worked earlier or want to work in future',
 ];

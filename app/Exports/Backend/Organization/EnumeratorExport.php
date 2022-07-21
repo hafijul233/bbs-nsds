@@ -48,17 +48,35 @@ class EnumeratorExport extends FastExcelExport
             trans('Mobile 2', [], 'en') => $row->mobile_2 ?? null,
             trans('Email', [], 'en') => $row->email ?? null,
             trans('Whatsapp Number', [], 'en') => $row->whatsapp ?? null,
-            trans('Facebook ID', [], 'en') => $row->facebook ?? null,
-            trans('Worked Earlier', [], 'en') => $this->stateArrayToString($row->previousPostings) ?? null,
-            trans('Work in Future', [], 'en') => $this->stateArrayToString($row->futurePostings) ?? null,
-            trans('Revenue staff of BBS', [], 'en') => ucfirst($row->is_employee) ?? null,
+            trans('Facebook ID', [], 'en') => $row->facebook ?? null
+        ];
+        $this->formatRow = array_merge($this->formatRow, [
+            trans('Revenue staff of BBS', [], 'en') => ucfirst($row->is_employee) ?? null
+        ]);
+        if(is_null(request('prev_post_state_id'))){
+            $this->formatRow = array_merge($this->formatRow, [
+                trans('Worked Earlier', [], 'en') => $this->stateArrayToString($row->previousPostings) ?? null
+            ]);
+        }
+        if(is_null(request('future_post_state_id'))){
+            $this->formatRow = array_merge($this->formatRow, [
+                trans('Work in Future', [], 'en') => $this->stateArrayToString($row->futurePostings) ?? null
+            ]);
+        }
+        $this->formatRow = array_merge($this->formatRow, [
             trans('Designation', [], 'en') => (($row->is_employee == 'yes') ? $row->designation :   'N/A') ?? null,
-            trans('Company Name', [], 'en') => (($row->is_employee == 'yes') ? $row->company :   'N/A') ?? null,
-            trans('Work Experience in BBS as Enumerator', [], 'en') => $this->surveys($row->surveys) ?? 'null',
+            trans('Company Name', [], 'en') => (($row->is_employee == 'yes') ? $row->company :   'N/A') ?? null
+        ]);
+        if(is_null(request('survey_id'))){
+            $this->formatRow = array_merge($this->formatRow, [
+                trans('Work Experience in BBS as Enumerator', [], 'en') => $this->surveys($row->surveys) ?? null
+            ]);
+        }
+        $this->formatRow = array_merge($this->formatRow, [
             trans('Created By', [], 'en') => $row->created_by_username ?? 'null',
             'Enabled' => ucfirst(($row->enabled ?? '')),
             'Created' => $row->created_at->format(config('backend.datetime'))
-        ];
+        ]);
 
         /*$this->getSupperAdminColumns($row);*/
 

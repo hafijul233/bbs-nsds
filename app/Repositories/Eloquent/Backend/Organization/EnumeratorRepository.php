@@ -58,6 +58,43 @@ class EnumeratorRepository extends EloquentRepository
             $query->where('nid', '=', $filters['nid']);
         endif;
 
+        if (!empty($filters['survey_id'])) :
+            $query->leftJoin('enumerator_survey', 'enumerator_survey.enumerator_id', '=', 'enumerators.id');
+            $query->where('enumerator_survey.survey_id', '=', $filters['survey_id']);
+        endif;
+
+        if (!empty($filters['prev_post_state_id'])) :
+            $query->leftJoin('enumerator_previous_state', 'enumerator_previous_state.enumerator_id', '=', 'enumerators.id');
+            $query->where('enumerator_previous_state.state_id', '=', $filters['prev_post_state_id']);
+        endif;
+
+        if (!empty($filters['future_post_state_id'])) :
+            $query->leftJoin('enumerator_future_state', 'enumerator_future_state.enumerator_id', '=', 'enumerators.id');
+            $query->where('enumerator_future_state.state_id', '=', $filters['future_post_state_id']);
+        endif;
+
+        //TODO
+        if (!empty($filters['division_id'])) :
+            if(!empty($filters['work_options']) && $filters['work_options'] == 1 && empty($filters['prev_post_state_id'])){
+                $query->leftJoin('enumerator_previous_state', 'enumerator_previous_state.enumerator_id', '=', 'enumerators.id');
+                $query->leftJoin('states', 'states.id', '=', 'enumerator_previous_state.state_id');
+                $query->where('states.division_id', '=', $filters['division_id']);
+            }
+            if(!empty($filters['work_options']) && $filters['work_options'] == 1 && !empty($filters['prev_post_state_id'])){
+                $query->leftJoin('states', 'states.id', '=', 'enumerator_previous_state.state_id');
+                $query->where('states.division_id', '=', $filters['division_id']);
+            }
+            if(!empty($filters['work_options']) && $filters['work_options'] == 2 && !empty($filters['future_post_state_id'])){
+                $query->leftJoin('enumerator_future_state', 'enumerator_future_state.enumerator_id', '=', 'enumerators.id');
+                $query->leftJoin('states', 'states.id', '=', 'enumerator_future_state.state_id');
+                $query->where('states.division_id', '=', $filters['division_id']);
+            }
+            if(!empty($filters['work_options']) && $filters['work_options'] == 2 && !empty($filters['future_post_state_id'])){
+                $query->leftJoin('states', 'states.id', '=', 'enumerator_previous_state.state_id');
+                $query->where('states.division_id', '=', $filters['division_id']);
+            }
+        endif;
+
         if (!empty($filters['created_by'])) :
             $query->where('created_by', '=', $filters['created_by']);
         endif;

@@ -32,7 +32,7 @@ class State extends Model implements Auditable
      *
      * @var array
      */
-    protected $fillable = [ 'name', 'country_id', 'type', 'native', 'latitude', 'longitude', 'enabled'];
+    protected $fillable = [ 'name', 'country_id', 'type', 'native', 'latitude', 'longitude', 'enabled', 'division_id'];
 
     /**
      * The attributes that should be hidden for arrays.
