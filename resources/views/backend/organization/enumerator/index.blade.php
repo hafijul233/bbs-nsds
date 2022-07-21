@@ -50,6 +50,9 @@
                     <div class="card-body">
                         <form method="GET" action="{{ route('backend.organization.enumerators.index') }}"
                               accept-charset="UTF-8">
+                            {!! \Form::hSelect('survey_id', __('enumerator.Survey'), $surveys, old('survey_id', isset($enumerator) ? $enumerator->surveys->pluck('id')->toArray() : []),true, 3) !!}
+                            {!! \Form::hSelect('prev_post_state_id', __('enumerator.Select the district(s) where you have worked earlier (it can be multiple)'),$states,
+old('prev_post_state_id', isset($enumerator) ? $enumerator->previousPostings->pluck('id')->toArray() : []), false, 3) !!}
                             <div class="input-group">
                                 <input class="form-control" placeholder="Search Enumerator Name etc." id="search"
                                        data-target-table="enumerator-table" name="search" type="search" value="{{ request('search') }}">
