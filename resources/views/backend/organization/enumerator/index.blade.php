@@ -39,12 +39,15 @@
                     <div class="card-header border-transparent pb-0">
                         <h2 class="card-title">Filter Results</h2>
                         <div class="card-tools">
-                            <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                            <button type="button" class="btn btn-sm btn-warning" id="clearAll">
+                                <span>Clear All</span>
+                            </button>
+                            {{--<button type="button" class="btn btn-tool" data-card-widget="collapse">
                                 <i class="fas fa-minus"></i>
                             </button>
                             <button type="button" class="btn btn-tool" data-card-widget="remove">
                                 <i class="fas fa-times"></i>
-                            </button>
+                            </button>--}}
                         </div>
                     </div>
                     <div class="card-body">
@@ -52,9 +55,9 @@
                               accept-charset="UTF-8">
                             {!! \Form::hSelect('survey_id', __('survey.Surveys'),$surveys,
 old('survey_id', isset($request['survey_id']) ? request('survey_id') : ''), false, 3, ['placeholder' => __('enumerator.Select a Survey Option')]) !!}
-                            {!! \Form::hRadio('work_options', __('enumerator.Select the district(s) where you have worked earlier or want to work in future'), [1=>__('enumerator.Worked Earlier'), 2=>__('enumerator.Work in Future')], old('work_options', ($request['work_options'] ?? '')), false, 7) !!}
                             {!! \Form::hSelect('division_id', __('enumerator.Division'),$divisions,
 old('division_id', isset($request['division_id']) ? request('division_id') : null), false, 3, ['placeholder' => __('enumerator.Select a Division Option')]) !!}
+                            {!! \Form::hRadio('work_options', __('enumerator.Select the district(s) where you have worked earlier or want to work in future'), [1=>__('enumerator.Worked Earlier'), 2=>__('enumerator.Work in Future')], old('work_options', ($request['work_options'] ?? '')), false, 7) !!}
                             {!! \Form::hSelect('prev_post_state_id', __('enumerator.Worked Earlier'),$states,
 old('prev_post_state_id', isset($request['prev_post_state_id']) ? request('prev_post_state_id') : null), false, 3, ['placeholder' => __('enumerator.Select a Worked Earlier Option')]) !!}
                             {!! \Form::hSelect('future_post_state_id', __('enumerator.Work in Future'),$states,
@@ -156,20 +159,32 @@ old('future_post_state_id', isset($request['future_post_state_id']) ? request('f
 @push('page-script')
     <script>
 
+        var work_options = '{{request('work_options')}}';
+        var prev_post_state_id = '{{request('prev_post_state_id')}}';
+        var future_post_state_id = '{{request('future_post_state_id')}}';
         $(document).ready(function () {
-            $("#division_id").prop("disabled", true);
-            $("#prev_post_state_id").prop("disabled", true);
-            $("#future_post_state_id").prop("disabled", true);
+            if(work_options == 1){
+                $("#future_post_state_id").prop("disabled", true);
+                $("#prev_post_state_id").prop("disabled", false);
+            }else if(work_options == 2){
+                $("#prev_post_state_id").prop("disabled", true);
+                $("#future_post_state_id").prop("disabled", false);
+            }else{
+                $("#prev_post_state_id").prop("disabled", true);
+                $("#future_post_state_id").prop("disabled", true);
+            }
+
             $('input:radio[name="work_options"]').change(function() {
                 if ($(this).val() == '1') {
-                    $("#division_id").prop("disabled", false);
                     $("#prev_post_state_id").prop("disabled", false);
+                    $("#future_post_state_id").val('').trigger('change');
                     $("#future_post_state_id").prop("disabled", true);
                 } else {
-                    $("#division_id").prop("disabled", false);
                     $("#prev_post_state_id").prop("disabled", true);
                     $("#future_post_state_id").prop("disabled", false);
+                    $("#prev_post_state_id").val('').trigger('change');
                 }
+                $("#division_id").val('').trigger('change');
             });
 
             $("#survey_id").select2({
@@ -198,7 +213,14 @@ old('future_post_state_id', isset($request['future_post_state_id']) ? request('f
                 minimumResultsForSearch: Infinity
             });
 
-
+            $('#clearAll').click(function (){
+                $("#survey_id").val('').trigger('change');
+                $("#division_id").val('').trigger('change');
+                $("#prev_post_state_id").val('').trigger('change');
+                $("#future_post_state_id").val('').trigger('change');
+                $("#search").val('');
+                $('input:radio[name="work_options"]').prop('checked', false);
+            });
         });
     </script>
 @endpush
