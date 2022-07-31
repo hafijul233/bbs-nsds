@@ -15,7 +15,12 @@ class Constant
     const ENABLED_OPTIONS = ['yes' => 'Yes', 'no' => 'No'];
 
     /**
-     * System Model Status
+     * System Executive Roles
+     */
+    const EXECUTIVE_ROLES = [1, 2];
+
+    /**
+     * System Public Roles
      */
     const VISIBLE_ROLES = [2, 3, 4, 5, 6, 7];
 
@@ -157,5 +162,10 @@ class Constant
         5 => "GPA(Out of 5)",
         6 => "Others",
 
+    ];
+
+    const LOCALES = [
+        'en' => 'English',
+        'bd' => 'Bangla',
     ];
 }

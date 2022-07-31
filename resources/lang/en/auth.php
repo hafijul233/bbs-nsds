@@ -26,6 +26,10 @@ return [
         'success' => 'Credentials verified. Welcome !',
         'banned' => 'User account is disabled. Contact system administrator.',
         'forced' => 'Your password has been changed. Please reset password.'
+    ],
+    'logout' => [
+        'title' => 'Ready to Leave?',
+        'message' => 'Select "Logout" below if you are ready to end your current session.'
     ]
 ];
 

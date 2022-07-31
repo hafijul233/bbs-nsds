@@ -337,13 +337,13 @@
 @push('plugin-script')
 
     <!-- OPTIONAL SCRIPTS -->
-    <script src="{{ asset('plugins/daterangepicker/moment.min.js') }}"></script>
+{{--    <script src="{{ asset('plugins/daterangepicker/moment.min.js') }}"></script>
     <script src="{{ asset('plugins/chart.js/Chart.min.js') }}"></script>
-    <script src="{{ asset('plugins/daterangepicker/daterangepicker.js') }}"></script>
+    <script src="{{ asset('plugins/daterangepicker/daterangepicker.js') }}"></script>--}}
 @endpush
 
 @push('page-script')
-    <!-- AdminLTE for demo purposes -->
+{{--    <!-- AdminLTE for demo purposes -->
     <script src="{{ asset('assets/js/demo.js') }}"></script>
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
     <script src="{{ asset('assets/js/pages/dashboard3.js') }}"></script>
@@ -355,5 +355,5 @@
                 opens: 'left'
             });
         });
-    </script>
+    </script>--}}
 @endpush

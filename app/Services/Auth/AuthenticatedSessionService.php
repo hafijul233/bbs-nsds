@@ -9,6 +9,7 @@ use Illuminate\Auth\Events\Lockout;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\RateLimiter;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
 
 /**
@@ -52,6 +53,8 @@ class AuthenticatedSessionService
                 RateLimiter::clear($this->throttleKey($request));
                 //start Auth session
                 $request->session()->regenerate();
+                //set user locale to app locale
+                Session::put('locale', (Auth::user()->locale ?? 'en')); //default languages change
             }
         }
 

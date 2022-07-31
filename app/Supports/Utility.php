@@ -209,30 +209,4 @@ class Utility
 
         return $amount;
     }
-
-    /**
-     * @param string $code
-     * @return mixed
-     */
-    public static function getExamLevelByCode(string $code)
-    {
-        return ExamLevel::where('code', '=', $code)->first();
-    }
-
-    /**
-     *
-     * @param int $exam_level_id
-     * @return array
-     */
-    public static function getExamTitleById(int $exam_level_id)
-    {
-        $examTitleCollection = ExamTitle::where('exam_level_id', '=', $exam_level_id)->get();
-
-        $examTitleArray = [];
-        foreach ($examTitleCollection as $item):
-            $examTitleArray[$item->id] = $item->name;
-        endforeach;
-
-        return $examTitleArray;
-    }
 }

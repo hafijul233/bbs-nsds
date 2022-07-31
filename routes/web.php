@@ -175,6 +175,8 @@ Route::prefix('backend')->group(function () {
             Route::prefix('users')->name('users.')->group(function () {
                 Route::patch('{user}/restore', [UserController::class, 'restore'])->name('restore');
                 Route::get('export', [UserController::class, 'export'])->name('export');
+                Route::patch('{user}/setting', [UserController::class, 'setting'])->name('setting');
+
             });
             Route::resource('users', UserController::class)->where(['user' => '([0-9]+)']);
 

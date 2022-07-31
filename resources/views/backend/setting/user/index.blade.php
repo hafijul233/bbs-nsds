@@ -51,7 +51,7 @@
                                         </th>
                                         <th class="pl-0">@sortablelink('name', __('common.Name'))</th>
                                         <th class="text-center">@sortablelink('mobile', __('common.Mobile'))</th>
-                                        <th class="text-center">@sortablelink('roles.name', 'Role')</th>
+                                        <th class="text-center">@sortablelink('roles.name', __('setting.Role'))</th>
                                         <th class="text-center">@sortablelink('email', __('common.Email'))</th>
                                         <th class="text-center">@sortablelink('enabled', __('common.Enabled'))</th>
                                         <th class="text-center">@sortablelink('created_at', __('common.Created'))</th>

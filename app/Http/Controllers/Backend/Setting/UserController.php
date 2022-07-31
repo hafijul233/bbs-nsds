@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend\Setting;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Backend\Setting\UserRequest;
+use App\Http\Requests\Backend\Setting\UserSettingRequest;
 use App\Services\Auth\AuthenticatedSessionService;
 use App\Services\Backend\Setting\CountryService;
 use App\Services\Backend\Setting\RoleService;
@@ -57,8 +58,9 @@ class UserController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param Request $request
      * @return Application|Factory|View
-     * @throws \Exception
+     * @throws Exception
      */
     public function index(Request $request): View
     {
@@ -124,9 +126,18 @@ class UserController extends Controller
     public function show(int $id)
     {
         if ($user = $this->userService->getUserById($id)) {
+
+            $roles = $this->roleService->roleDropdown();
+
+            $user_roles = $user->roles->pluck('id')->toArray();
+
+            $user_roles = empty($user_roles) ? null : $user_roles;
+
             return view('backend.setting.user.show', [
                 'user' => $user,
-                'timeline' => Utility::modelAudits($user)
+                'roles' => $roles,
+                'user_roles' => $user_roles
+
             ]);
         }
 
@@ -182,6 +193,33 @@ class UserController extends Controller
         return redirect()->back()->withInput();
 
     }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param int $id
+     * @param UserSettingRequest $request
+     * @return RedirectResponse
+     * @throws Exception
+     */
+    public function setting(int $id, UserSettingRequest $request)
+    {
+        $inputs = $request->except(['_token', 'password_confirmation']);
+
+        $photo = $request->file('photo');
+
+        $confirm = $this->userService->updateUser($inputs, $id, $photo);
+
+        if ($confirm['status'] == true) {
+            notify($confirm['message'], $confirm['level'], $confirm['title']);
+            return redirect()->route('backend.settings.users.show', $id);
+        }
+
+        notify($confirm['message'], $confirm['level'], $confirm['title']);
+        return redirect()->back()->withInput();
+
+    }
+
 
     /**
      * Remove the specified resource from storage.

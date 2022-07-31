@@ -10,13 +10,13 @@
             {!! \Form::nText('name', __('common.Name'), old('name', $user->name ?? null), true) !!}
         </div>
         <div class="col-md-6">
-            {!! \Form::nText('username', 'Username', old('username', $user->username ?? null),
+            {!! \Form::nText('username', __('setting.Username'), old('username', $user->username ?? null),
                 (config('auth.credential_field') == \App\Supports\Constant::LOGIN_USERNAME)) !!}
         </div>
     </div>
     <div class="row">
         <div class="col-md-6">
-            {!! \Form::nEmail('email', 'Email Address', old('email', $user->email ?? null),
+            {!! \Form::nEmail('email', __('common.Email'), old('email', $user->email ?? null),
                 (config('auth.credential_field') == \App\Supports\Constant::LOGIN_EMAIL
                 || (config('auth.credential_field') == \App\Supports\Constant::LOGIN_OTP
                     && config('auth.credential_otp_field') == \App\Supports\Constant::OTP_EMAIL))) !!}
@@ -31,16 +31,16 @@
     @if(config('auth.credential_field') != \App\Supports\Constant::LOGIN_OTP)
         <div class="row">
             <div class="col-md-6">
-                {!! \Form::nPassword('password', 'Password', empty($user->password)) !!}
+                {!! \Form::nPassword('password', __('setting.Password'), empty($user->password)) !!}
             </div>
             <div class="col-md-6">
-                {!! \Form::nPassword('password_confirmation', 'Retype Password', empty($user->password)) !!}
+                {!! \Form::nPassword('password_confirmation', __('setting.Retype Password'), empty($user->password)) !!}
             </div>
         </div>
     @endif
     <div class="row">
         <div class="col-md-6">
-            {!! \Form::nSelectMulti('role_id', 'Role', $roles,
+            {!! \Form::nSelectMulti('role_id', __('setting.Role'), $roles,
     old('role_id.*', ($user_roles ?? [\App\Supports\Constant::GUEST_ROLE_ID])), true,
     ['class' => 'form-control custom-select select2']) !!}
 
@@ -48,7 +48,7 @@
 old('enabled', ($user->enabled ?? \App\Supports\Constant::ENABLED_OPTION))) !!}
         </div>
         <div class="col-md-6">
-            {!! \Form::nImage('photo', 'Photo', false,
+            {!! \Form::nImage('photo', __('setting.Photo'), false,
                 ['preview' => true, 'height' => '69',
                  'default' => (isset($user))
                  ? $user->getFirstMediaUrl('avatars')
