@@ -200,6 +200,6 @@ return [
      *
      * @var bool
      */
-    'allow_password_reset' => true,
+    'allow_password_reset' => false,
 
 ];

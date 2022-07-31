@@ -7,6 +7,7 @@ use App\Http\Requests\Backend\Setting\StateRequest;
 use App\Services\Auth\AuthenticatedSessionService;
 use App\Services\Backend\Setting\CountryService;
 use App\Services\Backend\Setting\StateService;
+use App\Supports\Constant;
 use App\Supports\Utility;
 use Exception;
 use Illuminate\Contracts\Foundation\Application;
@@ -69,7 +70,8 @@ class StateController extends Controller
      */
     public function create()
     {
-        return view('backend.setting.state.create');
+        $divisions = $this->stateService->getStateDropdown(['enabled' => Constant::ENABLED_OPTION, 'type' => 'division', 'sort' => ((session()->get('locale') == 'bd') ? 'native' : 'name'), 'direction' => 'asc'], (session()->get('locale') == 'bd'));
+        return view('backend.setting.state.create',['divisions' => $divisions]);
     }
 
     /**
@@ -119,9 +121,11 @@ class StateController extends Controller
      */
     public function edit($id)
     {
+        $divisions = $this->stateService->getStateDropdown(['enabled' => Constant::ENABLED_OPTION, 'type' => 'division', 'sort' => ((session()->get('locale') == 'bd') ? 'native' : 'name'), 'direction' => 'asc'], (session()->get('locale') == 'bd'));
         if ($state = $this->stateService->getStateById($id)) {
             return view('backend.setting.state.edit', [
-                'state' => $state
+                'state' => $state,
+                'divisions' => $divisions
             ]);
         }
 

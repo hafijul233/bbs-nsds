@@ -16,6 +16,10 @@
             ,old('type', $state->type ?? null), true) !!}
         </div>
         <div class="col-md-6">
+            {!! \Form::nSelect('division_id', __('enumerator.Division'),$divisions,
+old('division_id', $state->division_id ?? null), false, ['placeholder' => __('enumerator.Select a Division Option')]) !!}
+        </div>
+        <div class="col-md-6">
             {!! \Form::nNumber('latitude', 'Latitude', old('latitude', $state->latitude ?? null), false, ['step' => '0.000000001']) !!}
         </div>
         <div class="col-md-6">

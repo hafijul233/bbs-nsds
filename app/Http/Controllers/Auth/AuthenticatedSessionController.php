@@ -51,7 +51,7 @@ class AuthenticatedSessionController extends Controller
 
         \Log::info("Login Info Tapping", $confirm);
         if ($confirm['status'] === true) {
-            Session::put('locale', 'bd');
+            Session::put('locale', 'en'); //default languages change
             notify($confirm['message'], $confirm['level'], $confirm['title']);
             return redirect()->to($confirm['landing_page']);
         }

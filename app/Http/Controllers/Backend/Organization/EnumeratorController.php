@@ -101,10 +101,21 @@ class EnumeratorController extends Controller
     public function index(Request $request)
     {
         $filters = $request->except('page');
+        if(isset(auth()->user()->roles[0]) && in_array(auth()->user()->roles[0]->id, array(1,2))):
+            $filters['created_by'] = '';
+        else:
+            $filters['created_by'] = auth()->user()->id;
+        endif;
+        $states = $this->stateService->getStateDropdown(['enabled' => Constant::ENABLED_OPTION, 'type' => 'district', 'sort' => ((session()->get('locale') == 'bd') ? 'native' : 'name'), 'direction' => 'asc'], (session()->get('locale') == 'bd'));
+        $divisions = $this->stateService->getStateDropdown(['enabled' => Constant::ENABLED_OPTION, 'type' => 'division', 'sort' => ((session()->get('locale') == 'bd') ? 'native' : 'name'), 'direction' => 'asc'], (session()->get('locale') == 'bd'));
+        $surveys = $this->surveyService->getSurveyDropDown(['enabled' => Constant::ENABLED_OPTION]);
         $enumerators = $this->enumeratorService->enumeratorPaginate($filters);
-
         return view('backend.organization.enumerator.index', [
-            'enumerators' => $enumerators
+            'enumerators' => $enumerators,
+            'divisions' => $divisions,
+            'states' => $states,
+            'surveys' => $surveys,
+            'request' => $filters
         ]);
     }
 

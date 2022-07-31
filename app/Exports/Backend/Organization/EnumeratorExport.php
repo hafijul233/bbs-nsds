@@ -48,14 +48,75 @@ class EnumeratorExport extends FastExcelExport
             trans('Mobile 2', [], 'en') => $row->mobile_2 ?? null,
             trans('Email', [], 'en') => $row->email ?? null,
             trans('Whatsapp Number', [], 'en') => $row->whatsapp ?? null,
-            trans('Facebook ID', [], 'en') => $row->facebook ?? null,
+            trans('Facebook ID', [], 'en') => $row->facebook ?? null
+        ];
+        $this->formatRow = array_merge($this->formatRow, [
+            trans('Revenue staff of BBS', [], 'en') => ucfirst($row->is_employee) ?? null
+        ]);
+        if(is_null(request('prev_post_state_id'))){
+            $this->formatRow = array_merge($this->formatRow, [
+                trans('Worked Earlier', [], 'en') => $this->stateArrayToString($row->previousPostings) ?? null
+            ]);
+        }
+        if(is_null(request('future_post_state_id'))){
+            $this->formatRow = array_merge($this->formatRow, [
+                trans('Work in Future', [], 'en') => $this->stateArrayToString($row->futurePostings) ?? null
+            ]);
+        }
+        $this->formatRow = array_merge($this->formatRow, [
+            trans('Designation', [], 'en') => (($row->is_employee == 'yes') ? $row->designation :   'N/A') ?? null,
+            trans('Company Name', [], 'en') => (($row->is_employee == 'yes') ? $row->company :   'N/A') ?? null
+        ]);
+        if(is_null(request('survey_id'))){
+            $this->formatRow = array_merge($this->formatRow, [
+                trans('Work Experience in BBS as Enumerator', [], 'en') => $this->surveys($row->surveys) ?? null
+            ]);
+        }
+        $this->formatRow = array_merge($this->formatRow, [
+            trans('Created By', [], 'en') => $row->created_by_username ?? 'null',
             'Enabled' => ucfirst(($row->enabled ?? '')),
             'Created' => $row->created_at->format(config('backend.datetime'))
-        ];
+        ]);
 
         /*$this->getSupperAdminColumns($row);*/
 
         return $this->formatRow;
+    }
+
+    /**
+     * @param $data
+     * @return string
+     */
+    public function stateArrayToString($data): string
+    {
+        $stateArray = array();
+        $stateString = 'No District Available';
+        if(isset($data)){
+            foreach($data as $index=>$state){
+                $stateArray[] = ($index+1).". ".$state->name ?? null."\n";
+            }
+            $stateString = implode("\n", $stateArray);
+        }
+
+        return $stateString;
+    }
+
+    /**
+     * @param $data
+     * @return string
+     */
+    public function surveys($data): string
+    {
+        $stateArray = array();
+        $stateString = 'No Survey Available';
+        if(isset($data)){
+            foreach($data as $index => $survey){
+                $stateArray[] = ($index+1).". ".$survey->name ?? null."\n";
+            }
+            $stateString = implode("\n", $stateArray);
+        }
+
+        return $stateString;
     }
 }
 

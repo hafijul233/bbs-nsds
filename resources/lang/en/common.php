@@ -44,4 +44,5 @@ return [
     'More info' => 'More info',
     'Profile' => 'Profile',
     'Sign out' => 'Sign out',
+    'Users' => 'List of Users',
 ];

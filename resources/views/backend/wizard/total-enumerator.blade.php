@@ -4,7 +4,7 @@
         <div class="inner">
             <h3>{{ $enumerators ?? 0 }}</h3>
 
-            <p>{!! __('menu-sidebar.Enumerators') !!}</p>
+            <p>{!! __('enumerator.Enumerators') !!}</p>
         </div>
         <div class="icon">
             <i class="fas fa-user-check"></i>

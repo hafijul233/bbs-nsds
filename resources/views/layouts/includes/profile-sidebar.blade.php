@@ -54,6 +54,14 @@
                 </span>
             </a>
 
+            <a href="{{ route('backend.settings.users.edit', $user->id) }}"
+               class="rounded list-group-item list-group-item-action @if(\Route::is('backend.settings.users.edit')) active @endif">
+                <span class="@if(\Route::is('backend.settings.users.edit')) font-weight-bold @endif">
+                <i class="fa fa-key mr-2"></i>
+                    Password Reset
+                </span>
+            </a>
+
         </div>
     </div>
     <!-- /.card-body -->

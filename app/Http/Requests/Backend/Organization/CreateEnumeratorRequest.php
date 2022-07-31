@@ -48,7 +48,7 @@ class CreateEnumeratorRequest extends FormRequest
             ],
             "mobile_1" => ["required", "string", new PhoneNumber],
             "mobile_2" => ["nullable", "string", new PhoneNumber],
-            "email" => ["required", "string", "email:rfc,dns"],
+            "email" => ["nullable", "string", "email:rfc,dns"],
             "present_address" => ["required", "string", "min:2", "max:255"],
             "permanent_address" => ["required", "string", "min:2", "max:255"],
             "gender_id" => ["required", "integer"],
