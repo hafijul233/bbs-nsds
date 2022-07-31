@@ -13,9 +13,11 @@ class AddDivisionIdOnStatsTable extends Migration
      */
     public function up()
     {
-        Schema::table('states', function (Blueprint $table) {
-            $table->string('division_id')->nullable()->after('native');
-        });
+        if (!Schema::hasColumn('states', 'division_id')) {
+            Schema::table('states', function (Blueprint $table) {
+                $table->foreignId('division_id')->nullable()->default(null)->after('native');
+            });
+        }
     }
 
     /**
@@ -25,8 +27,10 @@ class AddDivisionIdOnStatsTable extends Migration
      */
     public function down()
     {
-        Schema::table('states', function (Blueprint $table) {
-            $table->dropColumn('division_id');
-        });
+        if (Schema::hasColumn('states', 'division_id')) {
+            Schema::table('states', function (Blueprint $table) {
+                $table->dropColumn('division_id');
+            });
+        }
     }
 }
