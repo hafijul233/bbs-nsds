@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend\Setting;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Backend\Setting\UserRequest;
+use App\Http\Requests\Backend\Setting\UserSettingRequest;
 use App\Services\Auth\AuthenticatedSessionService;
 use App\Services\Backend\Setting\CountryService;
 use App\Services\Backend\Setting\RoleService;
@@ -125,11 +126,19 @@ class UserController extends Controller
     public function show(int $id)
     {
         if ($user = $this->userService->getUserById($id)) {
+
             $roles = $this->roleService->roleDropdown();
+
+            $user_roles = $user->roles->pluck('id')->toArray();
+
+            $user_roles = empty($user_roles) ? null : $user_roles;
 
             return view('backend.setting.user.show', [
                 'user' => $user,
-                'roles' => $roles]);
+                'roles' => $roles,
+                'user_roles' => $user_roles
+
+            ]);
         }
 
         abort(404);
@@ -189,23 +198,25 @@ class UserController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param int $id
-     * @return Application|Factory|View
-     * @throws \Exception
+     * @param UserSettingRequest $request
+     * @return RedirectResponse
+     * @throws Exception
      */
-    public function setting(int $id)
+    public function setting(int $id, UserSettingRequest $request)
     {
-        if ($user = $this->userService->getUserById($id)) {
-            $roles = $this->roleService->roleDropdown();
-            $user_roles = $user->roles()->pluck('id')->toArray() ?? [];
+        $inputs = $request->except(['_token', 'password_confirmation']);
 
-            return view('backend.setting.user.edit', [
-                'user' => $user,
-                'roles' => $roles,
-                'user_roles' => $user_roles
-            ]);
+        $photo = $request->file('photo');
+
+        $confirm = $this->userService->updateUser($inputs, $id, $photo);
+
+        if ($confirm['status'] == true) {
+            notify($confirm['message'], $confirm['level'], $confirm['title']);
+            return redirect()->route('backend.settings.users.show', $id);
         }
 
-        abort(404);
+        notify($confirm['message'], $confirm['level'], $confirm['title']);
+        return redirect()->back()->withInput();
 
     }
 

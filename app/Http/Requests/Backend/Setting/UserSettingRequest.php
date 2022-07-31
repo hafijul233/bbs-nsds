@@ -2,12 +2,14 @@
 
 namespace App\Http\Requests\Backend\Setting;
 
+use App\Models\Backend\Setting\User;
 use App\Rules\PhoneNumber;
 use App\Rules\Username;
 use App\Supports\Constant;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
-class UserRequest extends FormRequest
+class UserSettingRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -27,17 +29,14 @@ class UserRequest extends FormRequest
     public function rules(): array
     {
         $rules = [
-            'name' => ['required', 'string', 'min:3', 'max:255'],
-            'photo' => ['nullable', 'image', 'max:10000'],
+            'id' => ['required', 'integer', 'min:1'],
             'enabled' => ['nullable', 'string', 'min:2', 'max:3'],
-            'role_id' => ['required', 'array', 'min:1', 'max:3'],
-            'role_id.*' => ['required', 'integer', 'min:1', 'max:255'],
-            'remarks' => ['nullable', 'string', 'min:3', 'max:255'],
             'username' => ['string', 'min:5', 'max:255', new Username, 'unique:users,username,' . $this->user],
             'email' => ['string', 'min:3', 'max:255', 'email', 'unique:users,email,' . $this->user],
             'mobile' => ['string', 'min:11', 'max:13', new PhoneNumber, 'unique:users,mobile,' . $this->user],
+            'role_id' => ['required', 'array', 'min:1', 'max:3'],
+            'role_id.*' => ['required', 'integer', 'min:1', 'max:255'],
         ];
-
 
         //Credential Field
         if (config('auth.credential_field') == Constant::LOGIN_EMAIL
@@ -62,6 +61,23 @@ class UserRequest extends FormRequest
             $rules['username'][] = 'nullable';
         endif;
 
-        return  $rules;
+        return $rules;
+    }
+
+
+    protected function prepareForValidation()
+    {
+
+        $targetUser = User::find($this->id);
+
+        /**
+         * @var User $requestUser
+         */
+        $requestUser = $this->user('web');
+
+        if ($requestUser->id == $targetUser->id) :
+            $roleIds = $requestUser->roles->pluck('id')->toArray();
+            $this->merge(['role_id' => $roleIds]);
+        endif;
     }
 }
