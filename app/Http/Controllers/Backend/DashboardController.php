@@ -11,6 +11,7 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
 {
@@ -50,12 +51,16 @@ class DashboardController extends Controller
      */
     public function __invoke(Request $request)
     {
+        $requestUser = Auth::user();
 
-        if(isset(auth()->user()->roles[0]) && in_array(auth()->user()->roles[0]->id, array(1,2))):
-            $request['created_by'] = '';
-        else:
-            $request['created_by'] = auth()->user()->id;
-        endif;
+        $request->created_by = empty(array_intersect(
+            $requestUser->roles
+                ->pluck('id')
+                ->toArray(),
+            Constant::EXECUTIVE_ROLES
+        ))
+            ? $requestUser->id
+            : null;
 
         return view('backend.dashboard', [
             'users' => $this->userService->getAllUsers(['role' => Constant::VISIBLE_ROLES])->count(),

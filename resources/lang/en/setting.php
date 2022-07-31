@@ -14,5 +14,10 @@ return [
     */
 
     'Male' => 'Male',
-    'Female' => 'Female'
+    'Female' => 'Female',
+    'Role' => 'Role',
+    'Photo' => 'Photo',
+    'Username' => 'Username',
+    'Password' => 'Password',
+    'Retype Password' => 'Retype Password',
 ];

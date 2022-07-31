@@ -1,63 +1,58 @@
+{!! \Form::open(['route' => ['backend.settings.users.setting', $user->id], 'id' => 'user-form', 'method' => 'patch']) !!}
 @push('plugin-style')
     <link rel="stylesheet" href="{{ asset('plugins/select2/css/select2.min.css') }}" type="text/css">
 @endpush
 
 <div class="card-body">
-    {!! \Form::hidden('home_page', \App\Supports\Constant::DASHBOARD_ROUTE) !!}
-    {!! \Form::hidden('locale', \App\Supports\Constant::LOCALE) !!}
     <div class="row">
         <div class="col-md-6">
-            {!! \Form::nText('name', __('common.Name'), old('name', $user->name ?? null), true) !!}
+            {!! \Form::nSelect('locale', 'Locale', \App\Supports\Constant::LOCALES,
+            old('locale', ($user->locale ?? \App\Supports\Constant::LOCALE)), true) !!}
         </div>
         <div class="col-md-6">
-            {!! \Form::nText('username', __('setting.Username'), old('username', $user->username ?? null),
-                (config('auth.credential_field') == \App\Supports\Constant::LOGIN_USERNAME)) !!}
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-6">
-            {!! \Form::nEmail('email', __('common.Email'), old('email', $user->email ?? null),
-                (config('auth.credential_field') == \App\Supports\Constant::LOGIN_EMAIL
-                || (config('auth.credential_field') == \App\Supports\Constant::LOGIN_OTP
-                    && config('auth.credential_otp_field') == \App\Supports\Constant::OTP_EMAIL))) !!}
-        </div>
-        <div class="col-md-6">
-            {!! \Form::nTel('mobile', __('common.Mobile'), old('mobile', $user->mobile ?? null),
+            @switch(config('auth.credential_field'))
+                @case(\App\Supports\Constant::LOGIN_USERNAME)
+                {!! \Form::nText('username', 'Username', old('username', $user->username ?? null),
+                    (config('auth.credential_field') == \App\Supports\Constant::LOGIN_USERNAME)) !!}
+                @break
+
+
+                @case(\App\Supports\Constant::LOGIN_MOBILE)
+                {!! \Form::nTel('mobile', __('common.Mobile'), old('mobile', $user->mobile ?? null),
                 (config('auth.credential_field') == \App\Supports\Constant::LOGIN_MOBILE
                 || (config('auth.credential_field') == \App\Supports\Constant::LOGIN_OTP
                     && config('auth.credential_otp_field') == \App\Supports\Constant::OTP_MOBILE))) !!}
+                @break
+
+                @default
+                {!! \Form::nEmail('email', 'Email Address', old('email', $user->email ?? null),
+                (config('auth.credential_field') == \App\Supports\Constant::LOGIN_EMAIL
+                || (config('auth.credential_field') == \App\Supports\Constant::LOGIN_OTP
+                    && config('auth.credential_otp_field') == \App\Supports\Constant::OTP_EMAIL))) !!}
+                @break
+            @endswitch
         </div>
     </div>
     @if(config('auth.credential_field') != \App\Supports\Constant::LOGIN_OTP)
         <div class="row">
             <div class="col-md-6">
-                {!! \Form::nPassword('password', __('setting.Password'), empty($user->password)) !!}
+                {!! \Form::nPassword('password', 'Password', empty($user->password), ['placeholder' => 'Enter Password']) !!}
             </div>
             <div class="col-md-6">
-                {!! \Form::nPassword('password_confirmation', __('setting.Retype Password'), empty($user->password)) !!}
+                {!! \Form::nPassword('password_confirmation', 'Retype Password', empty($user->password), ['placeholder' => 'Retype Password']) !!}
             </div>
         </div>
     @endif
     <div class="row">
         <div class="col-md-6">
-            {!! \Form::nSelectMulti('role_id', __('setting.Role'), $roles,
-    old('role_id.*', ($user_roles ?? [\App\Supports\Constant::GUEST_ROLE_ID])), true,
-    ['class' => 'form-control custom-select select2']) !!}
+            {!! \Form::nSelectMulti('role_id', 'Role', $roles,
+            old('role_id.*', ($user_roles ?? [\App\Supports\Constant::GUEST_ROLE_ID])), true,
+            ['class' => 'form-control custom-select select2', 'disabled' => ($user->id == auth()->user()->id)]) !!}
 
-            {!! \Form::nSelect('enabled', __('common.Enabled'), \App\Supports\Constant::ENABLED_OPTIONS,
-old('enabled', ($user->enabled ?? \App\Supports\Constant::ENABLED_OPTION))) !!}
         </div>
         <div class="col-md-6">
-            {!! \Form::nImage('photo', __('setting.Photo'), false,
-                ['preview' => true, 'height' => '69',
-                 'default' => (isset($user))
-                 ? $user->getFirstMediaUrl('avatars')
-                 : asset(\App\Supports\Constant::USER_PROFILE_IMAGE)]) !!}
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-12">
-            {!! \Form::nTextarea('remarks', __('common.Remarks'), old('remarks', $user->remarks ?? null)) !!}
+            {!! \Form::nSelect('enabled', __('common.Enabled'), \App\Supports\Constant::ENABLED_OPTIONS,
+            old('enabled', ($user->enabled ?? \App\Supports\Constant::ENABLED_OPTION))) !!}
         </div>
     </div>
     <div class="row mt-3">
@@ -124,3 +119,5 @@ old('enabled', ($user->enabled ?? \App\Supports\Constant::ENABLED_OPTION))) !!}
         });
     </script>
 @endpush
+
+{!! \Form::close() !!}

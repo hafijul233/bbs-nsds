@@ -57,8 +57,9 @@ class UserController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param Request $request
      * @return Application|Factory|View
-     * @throws \Exception
+     * @throws Exception
      */
     public function index(Request $request): View
     {
@@ -124,10 +125,11 @@ class UserController extends Controller
     public function show(int $id)
     {
         if ($user = $this->userService->getUserById($id)) {
+            $roles = $this->roleService->roleDropdown();
+
             return view('backend.setting.user.show', [
                 'user' => $user,
-                'timeline' => Utility::modelAudits($user)
-            ]);
+                'roles' => $roles]);
         }
 
         abort(404);
@@ -182,6 +184,31 @@ class UserController extends Controller
         return redirect()->back()->withInput();
 
     }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param int $id
+     * @return Application|Factory|View
+     * @throws \Exception
+     */
+    public function setting(int $id)
+    {
+        if ($user = $this->userService->getUserById($id)) {
+            $roles = $this->roleService->roleDropdown();
+            $user_roles = $user->roles()->pluck('id')->toArray() ?? [];
+
+            return view('backend.setting.user.edit', [
+                'user' => $user,
+                'roles' => $roles,
+                'user_roles' => $user_roles
+            ]);
+        }
+
+        abort(404);
+
+    }
+
 
     /**
      * Remove the specified resource from storage.
