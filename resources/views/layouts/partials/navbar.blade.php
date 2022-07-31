@@ -61,12 +61,12 @@
                 </button>
             </div>
             <div class="modal-body">
-                Select "Logout" below if you are ready to end your current session.
+                {{ __('auth.logout.message') }}
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ __('common.Cancel') }}</button>
                 {!! \Form::open(['route' => 'auth.logout']) !!}
-                <button type="submit" class="btn btn-primary">Logout</button>
+                <button type="submit" class="btn btn-primary">{{ __('common.Sign out') }}</button>
                 {!! \Form::close() !!}
             </div>
         </div>
