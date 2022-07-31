@@ -65,11 +65,15 @@ class UserSettingRequest extends FormRequest
     }
 
 
+    /**
+     * this function is used for so that any user can't change their role
+     * when a request attempt this method will overwrite request data with existing user roles
+     * @return void
+     */
     protected function prepareForValidation()
     {
 
         $targetUser = User::find($this->id);
-
         /**
          * @var User $requestUser
          */
