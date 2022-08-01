@@ -75,7 +75,7 @@ class EnumeratorExport extends FastExcelExport
         //}
         $this->formatRow = array_merge($this->formatRow, [
             trans('Created By', [], 'en') => $row->created_by_username ?? 'null',
-            'Enabled' => ucfirst(($row->enabled ?? '')),
+            //'Enabled' => ucfirst(($row->enabled ?? '')),
             'Created Date' => $row->created_at->format(config('backend.datetime'))
         ]);
 
