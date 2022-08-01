@@ -39,7 +39,7 @@ class EnumeratorExport extends FastExcelExport
             trans('Gender', [], 'en') => $row->gender->name ?? null,
             trans('Date of Birth', [], 'en') => isset($row) ? Carbon::parse($row->dob)->format('d/m/Y') : null,
             trans('Age', [], 'en') => isset($row) ? Carbon::parse($row->dob)->age . ' years' : null,
-            trans('Father Name', [], 'en') => $row->father ?? null,
+            trans('Father\'s Name', [], 'en') => $row->father ?? null,
             trans('Mother Name', [], 'en') => $row->mother ?? null,
             trans('NID Number', [], 'en') => $row->nid ?? null,
             trans('Present Address', [], 'en') => $row->present_address ?? null,
