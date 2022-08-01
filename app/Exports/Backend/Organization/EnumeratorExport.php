@@ -61,7 +61,7 @@ class EnumeratorExport extends FastExcelExport
         }
         if(is_null(request('future_post_state_id'))){
             $this->formatRow = array_merge($this->formatRow, [
-                trans('Work in Future', [], 'en') => $this->stateArrayToString($row->futurePostings) ?? null
+                trans('Want to work in future', [], 'en') => $this->stateArrayToString($row->futurePostings) ?? null
             ]);
         }
         $this->formatRow = array_merge($this->formatRow, [
