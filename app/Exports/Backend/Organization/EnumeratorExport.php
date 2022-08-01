@@ -63,11 +63,11 @@ class EnumeratorExport extends FastExcelExport
                 trans('Worked Earlier', [], 'en') => $this->stateArrayToString($row->previousPostings) ?? null
             ]);
         //}
-        if(is_null(request('future_post_state_id'))){
+        //if(is_null(request('future_post_state_id'))){
             $this->formatRow = array_merge($this->formatRow, [
                 trans('Want to work in future', [], 'en') => $this->stateArrayToString($row->futurePostings) ?? null
             ]);
-        }
+        //}
         if(is_null(request('survey_id'))){
             $this->formatRow = array_merge($this->formatRow, [
                 trans('Work Experience in BBS as Enumerator', [], 'en') => $this->surveys($row->surveys) ?? null
