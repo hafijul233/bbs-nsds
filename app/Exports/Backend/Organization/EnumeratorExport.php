@@ -54,6 +54,10 @@ class EnumeratorExport extends FastExcelExport
         $this->formatRow = array_merge($this->formatRow, [
             trans('Revenue staff of BBS', [], 'en') => ucfirst($row->is_employee) ?? null
         ]);
+        $this->formatRow = array_merge($this->formatRow, [
+            trans('Designation', [], 'en') => (($row->is_employee == 'yes') ? $row->designation :   'N/A') ?? null,
+            trans('Company Name', [], 'en') => (($row->is_employee == 'yes') ? $row->company :   'N/A') ?? null
+        ]);
         if(is_null(request('prev_post_state_id'))){
             $this->formatRow = array_merge($this->formatRow, [
                 trans('Worked Earlier', [], 'en') => $this->stateArrayToString($row->previousPostings) ?? null
@@ -64,10 +68,6 @@ class EnumeratorExport extends FastExcelExport
                 trans('Want to work in future', [], 'en') => $this->stateArrayToString($row->futurePostings) ?? null
             ]);
         }
-        $this->formatRow = array_merge($this->formatRow, [
-            trans('Designation', [], 'en') => (($row->is_employee == 'yes') ? $row->designation :   'N/A') ?? null,
-            trans('Company Name', [], 'en') => (($row->is_employee == 'yes') ? $row->company :   'N/A') ?? null
-        ]);
         if(is_null(request('survey_id'))){
             $this->formatRow = array_merge($this->formatRow, [
                 trans('Work Experience in BBS as Enumerator', [], 'en') => $this->surveys($row->surveys) ?? null
