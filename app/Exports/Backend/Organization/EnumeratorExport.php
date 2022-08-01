@@ -56,7 +56,7 @@ class EnumeratorExport extends FastExcelExport
         ]);
         $this->formatRow = array_merge($this->formatRow, [
             trans('Designation', [], 'en') => (($row->is_employee == 'yes') ? $row->designation :   'N/A') ?? null,
-            trans('Company Name', [], 'en') => (($row->is_employee == 'yes') ? $row->company :   'N/A') ?? null
+            trans('Office Name', [], 'en') => (($row->is_employee == 'yes') ? $row->company :   'N/A') ?? null
         ]);
         //if(is_null(request('prev_post_state_id'))){
             $this->formatRow = array_merge($this->formatRow, [
