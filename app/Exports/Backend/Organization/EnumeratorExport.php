@@ -33,7 +33,7 @@ class EnumeratorExport extends FastExcelExport
     public function map($row): array
     {
         $this->formatRow = [
-            '#' => $row->id,
+            trans('Sl. No.', [], 'en') => $row->id,
             trans('Name (in English)', [], 'en') => $row->name ?? null,
             trans('Name(Bangla)', [], 'en') => $row->name_bd ?? null,
             trans('Gender', [], 'en') => $row->gender->name ?? null,
