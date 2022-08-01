@@ -70,7 +70,7 @@ class EnumeratorExport extends FastExcelExport
         //}
         //if(is_null(request('survey_id'))){
             $this->formatRow = array_merge($this->formatRow, [
-                trans('Work Experience in BBS as Enumerator', [], 'en') => $this->surveys($row->surveys) ?? null
+                trans('Work Experience in BBS', [], 'en') => $this->surveys($row->surveys) ?? null
             ]);
         //}
         $this->formatRow = array_merge($this->formatRow, [
