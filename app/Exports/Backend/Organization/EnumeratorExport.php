@@ -34,7 +34,7 @@ class EnumeratorExport extends FastExcelExport
     {
         $this->formatRow = [
             trans('Sl. No.', [], 'en') => $row->id,
-            trans('Name (in English)', [], 'en') => $row->name ?? null,
+            trans('Name (English)', [], 'en') => $row->name ?? null,
             trans('Name(Bangla)', [], 'en') => $row->name_bd ?? null,
             trans('Gender', [], 'en') => $row->gender->name ?? null,
             trans('Date of Birth', [], 'en') => isset($row) ? Carbon::parse($row->dob)->format('d/m/Y') : null,
