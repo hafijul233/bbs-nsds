@@ -95,6 +95,17 @@ class EnumeratorRepository extends EloquentRepository
             }
         endif;
 
+        if (isset($filters['is_total_survey']) && $filters['is_total_survey']==true) {
+            $query->leftJoin(
+                DB::raw(
+                    '(SELECT enumerator_id, COUNT(survey_id) AS totalSurvey FROM enumerator_survey GROUP BY enumerator_id) AS ES'
+                ),
+                function ($join) {
+                    $join->on('ES.enumerator_id', '=', 'enumerators.id');
+                }
+            );
+        }
+
         if (!empty($filters['created_by'])) :
             $query->where('created_by', '=', $filters['created_by']);
         endif;
@@ -112,6 +123,9 @@ class EnumeratorRepository extends EloquentRepository
         endif;
 
         $select[] = DB::raw('users.username as created_by_username');
+        if (isset($filters['is_total_survey']) && $filters['is_total_survey']==true) {
+            $select[] = DB::raw('IFNULL(ES.totalSurvey,0) AS totalSurvey');
+        }
         $select[] = 'enumerators.*';
         $query->select($select);
         return $query;
