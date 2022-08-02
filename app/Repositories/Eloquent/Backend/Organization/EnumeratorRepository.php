@@ -5,6 +5,7 @@ namespace App\Repositories\Eloquent\Backend\Organization;
 use App\Abstracts\Repository\EloquentRepository;
 use App\Models\Backend\Organization\Enumerator;
 use App\Services\Auth\AuthenticatedSessionService;
+use App\Supports\Constant;
 use Exception;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Builder;
@@ -38,7 +39,9 @@ class EnumeratorRepository extends EloquentRepository
     private function filterData(array $filters = [], bool $is_sortable = false): Builder
     {
         $query = $this->getQueryBuilder();
+
         $query->leftJoin('users', 'users.id', '=', 'enumerators.created_by');
+
         if (!empty($filters['search'])) :
             $query->where('name', 'like', "%{$filters['search']}%")
                 ->orWhere('enabled', 'like', "%{$filters['search']}%")
@@ -47,13 +50,13 @@ class EnumeratorRepository extends EloquentRepository
                 ->orWhere('mobile_2', 'like', "%{$filters['search']}%")
                 ->orWhere('email', 'like', "%{$filters['search']}%")
                 ->orWhere('present_address', 'like', "%{$filters['search']}%")
-                ->orWhere('permanent_address', 'like', "%{$filters['search']}%")
-            ;
+                ->orWhere('permanent_address', 'like', "%{$filters['search']}%");
         endif;
 
         if (!empty($filters['enabled'])) :
             $query->where('enabled', '=', $filters['enabled']);
         endif;
+
         if (!empty($filters['nid'])) :
             $query->where('nid', '=', $filters['nid']);
         endif;
@@ -63,39 +66,41 @@ class EnumeratorRepository extends EloquentRepository
             $query->where('enumerator_survey.survey_id', '=', $filters['survey_id']);
         endif;
 
-        if (!empty($filters['prev_post_state_id'])) :
+        //TODO
+        if (isset($filters['division_id']) && !empty($filters['division_id'])) :
+            if (!empty($filters['work_options']) && $filters['work_options'] == Constant::WORKED_EARLIER) {
+                $query->leftJoin('enumerator_previous_state', 'enumerator_previous_state.enumerator_id', '=', 'enumerators.id');
+                $query->leftJoin('states', 'states.id', '=', 'enumerator_previous_state.state_id');
+                $query->where('states.division_id', '=', $filters['division_id']);
+
+                if (isset($filters['prev_post_state_id']) && !empty($filters['prev_post_state_id'])) {
+                    $query->where('states.id', '=', $filters['prev_post_state_id']);
+                    unset($filters['prev_post_state_id']);
+                }
+            } else if (!empty($filters['work_options']) && $filters['work_options'] == Constant::WORK_IN_FUTURE) {
+                $query->leftJoin('enumerator_future_state', 'enumerator_future_state.enumerator_id', '=', 'enumerators.id');
+                $query->leftJoin('states', 'states.id', '=', 'enumerator_future_state.state_id');
+                $query->where('states.division_id', '=', $filters['division_id']);
+
+                if (isset($filters['future_post_state_id']) && !empty($filters['future_post_state_id'])) {
+                    $query->where('states.id', '=', $filters['future_post_state_id']);
+                    unset($filters['future_post_state_id']);
+                }
+            }
+
+        endif;
+
+        if (isset($filters['prev_post_state_id']) && !empty($filters['prev_post_state_id'])) :
             $query->leftJoin('enumerator_previous_state', 'enumerator_previous_state.enumerator_id', '=', 'enumerators.id');
             $query->where('enumerator_previous_state.state_id', '=', $filters['prev_post_state_id']);
         endif;
 
-        if (!empty($filters['future_post_state_id'])) :
+        if (isset($filters['future_post_state_id']) && !empty($filters['future_post_state_id'])) :
             $query->leftJoin('enumerator_future_state', 'enumerator_future_state.enumerator_id', '=', 'enumerators.id');
             $query->where('enumerator_future_state.state_id', '=', $filters['future_post_state_id']);
         endif;
 
-        //TODO
-        if (!empty($filters['division_id'])) :
-            if(!empty($filters['work_options']) && $filters['work_options'] == 1 && empty($filters['prev_post_state_id'])){
-                $query->leftJoin('enumerator_previous_state', 'enumerator_previous_state.enumerator_id', '=', 'enumerators.id');
-                $query->leftJoin('states', 'states.id', '=', 'enumerator_previous_state.state_id');
-                $query->where('states.division_id', '=', $filters['division_id']);
-            }
-            if(!empty($filters['work_options']) && $filters['work_options'] == 1 && !empty($filters['prev_post_state_id'])){
-                $query->leftJoin('states', 'states.id', '=', 'enumerator_previous_state.state_id');
-                $query->where('states.division_id', '=', $filters['division_id']);
-            }
-            if(!empty($filters['work_options']) && $filters['work_options'] == 2 && !empty($filters['future_post_state_id'])){
-                $query->leftJoin('enumerator_future_state', 'enumerator_future_state.enumerator_id', '=', 'enumerators.id');
-                $query->leftJoin('states', 'states.id', '=', 'enumerator_future_state.state_id');
-                $query->where('states.division_id', '=', $filters['division_id']);
-            }
-            if(!empty($filters['work_options']) && $filters['work_options'] == 2 && !empty($filters['future_post_state_id'])){
-                $query->leftJoin('states', 'states.id', '=', 'enumerator_previous_state.state_id');
-                $query->where('states.division_id', '=', $filters['division_id']);
-            }
-        endif;
-
-        if (isset($filters['is_total_survey']) && $filters['is_total_survey']==true) {
+        if (isset($filters['is_total_survey']) && $filters['is_total_survey'] == true) {
             $query->leftJoin(
                 DB::raw(
                     '(SELECT enumerator_id, COUNT(survey_id) AS totalSurvey FROM enumerator_survey GROUP BY enumerator_id) AS ES'
@@ -123,7 +128,7 @@ class EnumeratorRepository extends EloquentRepository
         endif;
 
         $select[] = DB::raw('users.username as created_by_username');
-        if (isset($filters['is_total_survey']) && $filters['is_total_survey']==true) {
+        if (isset($filters['is_total_survey']) && $filters['is_total_survey'] == true) {
             $select[] = DB::raw('IFNULL(ES.totalSurvey,0) AS totalSurvey');
         }
         $select[] = 'enumerators.*';

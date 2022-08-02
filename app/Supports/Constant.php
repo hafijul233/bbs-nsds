@@ -168,4 +168,9 @@ class Constant
         'en' => 'English',
         'bd' => 'Bangla',
     ];
+
+
+    const WORKED_EARLIER = 1;
+    const WORK_IN_FUTURE = 2;
+
 }

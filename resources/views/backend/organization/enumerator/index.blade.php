@@ -55,16 +55,19 @@
                               accept-charset="UTF-8">
                             {!! \Form::hSelect('survey_id', __('survey.Surveys'),$surveys,
 old('survey_id', isset($request['survey_id']) ? request('survey_id') : ''), false, 3, ['placeholder' => __('enumerator.Select a Survey Option')]) !!}
-                            {!! \Form::hSelect('division_id', __('enumerator.Division'),$divisions,
-old('division_id', isset($request['division_id']) ? request('division_id') : null), false, 3, ['placeholder' => __('enumerator.Select a Division Option')]) !!}
                             {!! \Form::hRadio('work_options', __('enumerator.Select the district(s) where you have worked earlier or want to work in future'), [1=>__('enumerator.Worked Earlier'), 2=>__('enumerator.Work in Future')], old('work_options', ($request['work_options'] ?? '')), false, 7) !!}
-                            {!! \Form::hSelect('prev_post_state_id', __('enumerator.Worked Earlier'),$states,
-old('prev_post_state_id', isset($request['prev_post_state_id']) ? request('prev_post_state_id') : null), false, 3, ['placeholder' => __('enumerator.Select a Worked Earlier Option')]) !!}
-                            {!! \Form::hSelect('future_post_state_id', __('enumerator.Want to work in future'),$states,
-old('future_post_state_id', isset($request['future_post_state_id']) ? request('future_post_state_id') : null), false, 3, ['placeholder' => __('enumerator.Select a Want to work in future Option')]) !!}
+                            <div id="select-section">
+                                {!! \Form::hSelect('division_id', __('enumerator.Division'),$divisions,
+    old('division_id', isset($request['division_id']) ? request('division_id') : null), false, 3, ['placeholder' => __('enumerator.Select a Division Option')]) !!}
+                                {!! \Form::hSelect('prev_post_state_id', __('enumerator.Worked Earlier'),$states,
+    old('prev_post_state_id', isset($request['prev_post_state_id']) ? request('prev_post_state_id') : null), false, 3, ['placeholder' => __('enumerator.Select a Worked Earlier Option')]) !!}
+                                {!! \Form::hSelect('future_post_state_id', __('enumerator.Want to work in future'),$states,
+    old('future_post_state_id', isset($request['future_post_state_id']) ? request('future_post_state_id') : null), false, 3, ['placeholder' => __('enumerator.Select a Want to work in future Option')]) !!}
+                            </div>
                             <div class="input-group">
                                 <input class="form-control" placeholder="Search Enumerator Name etc." id="search"
-                                       data-target-table="enumerator-table" name="search" type="search" value="{{ request('search') }}">
+                                       data-target-table="enumerator-table" name="search" type="search"
+                                       value="{{ request('search') }}">
                                 <div class="input-group-append">
                                     <input class="btn btn-primary input-group-right-btn" type="submit" value="Search">
                                 </div>
@@ -162,58 +165,78 @@ old('future_post_state_id', isset($request['future_post_state_id']) ? request('f
         var work_options = '{{request('work_options')}}';
         var prev_post_state_id = '{{request('prev_post_state_id')}}';
         var future_post_state_id = '{{request('future_post_state_id')}}';
-        $(document).ready(function () {
-            if(work_options == 1){
-                $("#future_post_state_id").prop("disabled", true);
-                $("#prev_post_state_id").prop("disabled", false);
-            }else if(work_options == 2){
-                $("#prev_post_state_id").prop("disabled", true);
-                $("#future_post_state_id").prop("disabled", false);
-            }else{
-                $("#prev_post_state_id").prop("disabled", true);
-                $("#future_post_state_id").prop("disabled", true);
-            }
 
-            $('input:radio[name="work_options"]').change(function() {
-                if ($(this).val() == '1') {
-                    $("#prev_post_state_id").prop("disabled", false);
-                    $("#future_post_state_id").val('').trigger('change');
-                    $("#future_post_state_id").prop("disabled", true);
-                } else {
-                    $("#prev_post_state_id").prop("disabled", true);
-                    $("#future_post_state_id").prop("disabled", false);
-                    $("#prev_post_state_id").val('').trigger('change');
-                }
+        function toggleDropdowns(work_options) {
+            if (work_options == 1) {
+                $("#select-section").show();
+
+                $("#future_post_state_id").prop("disabled", true);
+                $("#future_post_state_id").parent().parent().hide();
+
+                $("#prev_post_state_id").prop("disabled", false);
+                $("#prev_post_state_id").parent().parent().show();
+
+                $("#division_id").prop("disabled", false);
+                $("#division_id").parent().parent().show();
+
+            } else if (work_options == 2) {
+                $("#select-section").show();
+                $("#prev_post_state_id").prop("disabled", true);
+                $("#prev_post_state_id").parent().parent().hide();
+
+                $("#future_post_state_id").prop("disabled", false);
+                $("#future_post_state_id").parent().parent().show();
+
+                $("#division_id").prop("disabled", false);
+                $("#division_id").parent().parent().show();
+
+            } else {
+                $("#select-section").hide();
+                $("#prev_post_state_id").prop("disabled", true);
+                $("#prev_post_state_id").parent().parent().hide();
+
+                $("#future_post_state_id").prop("disabled", true);
+                $("#future_post_state_id").parent().parent().hide();
+
+                $("#division_id").prop("disabled", true);
+                $("#division_id").parent().parent().hide();
+            }
+        }
+
+        $(document).ready(function () {
+            toggleDropdowns(work_options);
+
+
+            $('input:radio[name="work_options"]').change(function () {
+                $("#select-section").show();
+                var value = $(this).val();
+                toggleDropdowns(value);
                 $("#division_id").val('').trigger('change');
             });
 
             $("#survey_id").select2({
                 width: "100%",
                 allowClear: true,
-                placeholder: "{{ __('enumerator.Select a Survey Option') }}",
-                minimumResultsForSearch: Infinity
+                placeholder: "{{ __('enumerator.Select a Survey Option') }}"
             });
 
             $("#prev_post_state_id").select2({
                 width: "100%",
                 allowClear: true,
-                placeholder: "{{ __('enumerator.Select a Worked Earlier Option') }}",
-                minimumResultsForSearch: Infinity
+                placeholder: "{{ __('enumerator.Select a Worked Earlier Option') }}"
             });
             $("#future_post_state_id").select2({
                 width: "100%",
                 allowClear: true,
-                placeholder: "{{ __('enumerator.Select a Work in Future Option') }}",
-                minimumResultsForSearch: Infinity
+                placeholder: "{{ __('enumerator.Select a Work in Future Option') }}"
             });
             $("#division_id").select2({
                 width: "100%",
                 allowClear: true,
-                placeholder: "{{ __('enumerator.Select a Division Option') }}",
-                minimumResultsForSearch: Infinity
+                placeholder: "{{ __('enumerator.Select a Division Option') }}"
             });
 
-            $('#clearAll').click(function (){
+            $('#clearAll').click(function () {
                 $("#survey_id").val('').trigger('change');
                 $("#division_id").val('').trigger('change');
                 $("#prev_post_state_id").val('').trigger('change');
