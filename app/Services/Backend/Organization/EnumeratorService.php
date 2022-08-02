@@ -13,6 +13,7 @@ use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Throwable;
 
 /**
@@ -107,12 +108,15 @@ class EnumeratorService extends Service
                 return ['status' => true, 'message' => __('New Enumerator Created'),
                     'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!'];
             } else {
+                Log::error("Enumerator Create Rollback", [$newEnumeratorInfo]);
                 DB::rollBack();
                 return ['status' => false, 'message' => __('New Enumerator Creation Failed'),
                     'level' => Constant::MSG_TOASTR_ERROR, 'title' => 'Alert!'];
             }
         } catch (Exception $exception) {
             $this->enumeratorRepository->handleException($exception);
+            Log::error("Enumerator Create Exception");
+            Log::error($exception->getMessage());
             DB::rollBack();
             return ['status' => false, 'message' => $exception->getMessage(),
                 'level' => Constant::MSG_TOASTR_WARNING, 'title' => 'Error!'];
@@ -239,6 +243,7 @@ class EnumeratorService extends Service
                     return ['status' => true, 'message' => __('Enumerator Info Updated'),
                         'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!'];
                 } else {
+                    Log::error("Enumerator Update Rollback", [$enumerator]);
                     DB::rollBack();
                     return ['status' => false, 'message' => __('Enumerator Info Update Failed'),
                         'level' => Constant::MSG_TOASTR_ERROR, 'title' => 'Alert!'];
@@ -249,6 +254,8 @@ class EnumeratorService extends Service
             }
         } catch (Exception $exception) {
             $this->enumeratorRepository->handleException($exception);
+            Log::error("Enumerator Update Exception");
+            Log::error($exception->getMessage());
             DB::rollBack();
             return ['status' => false, 'message' => $exception->getMessage(),
                 'level' => Constant::MSG_TOASTR_WARNING, 'title' => 'Error!'];
