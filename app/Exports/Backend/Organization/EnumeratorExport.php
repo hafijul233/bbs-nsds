@@ -73,6 +73,11 @@ class EnumeratorExport extends FastExcelExport
                 trans('Work Experience in BBS', [], 'en') => $this->surveys($row->surveys) ?? null
             ]);
         //}
+        if(request('is_total_survey') == true){
+            $this->formatRow = array_merge($this->formatRow, [
+                trans('Total Survey', [], 'en') => $row->totalSurvey ?? null
+            ]);
+        }
         $this->formatRow = array_merge($this->formatRow, [
             trans('Created By', [], 'en') => $row->created_by_username ?? 'null',
             //'Enabled' => ucfirst(($row->enabled ?? '')),
