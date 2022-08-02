@@ -2,8 +2,8 @@
 
 namespace App\Interfaces;
 
-use Box\Spout\Writer\Common\Creator\Style\BorderBuilder;
-use Box\Spout\Writer\Common\Creator\Style\StyleBuilder;
+use OpenSpout\Writer\Common\Creator\Style\BorderBuilder;
+use OpenSpout\Writer\Common\Creator\Style\StyleBuilder;
 
 interface ExportInterface
 {

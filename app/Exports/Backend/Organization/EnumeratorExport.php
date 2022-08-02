@@ -4,7 +4,7 @@ namespace App\Exports\Backend\Organization;
 
 use App\Abstracts\Export\FastExcelExport;
 use App\Models\Backend\Organization\Enumerator;
-use Box\Spout\Common\Exception\InvalidArgumentException;
+use OpenSpout\Common\Exception\InvalidArgumentException;
 use Carbon\Carbon;
 
 /**

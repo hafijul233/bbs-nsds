@@ -14,10 +14,10 @@ use App\Services\Backend\Setting\InstituteService;
 use App\Services\Backend\Setting\StateService;
 use App\Supports\Constant;
 use App\Supports\Utility;
-use Box\Spout\Common\Exception\InvalidArgumentException;
-use Box\Spout\Common\Exception\IOException;
-use Box\Spout\Common\Exception\UnsupportedTypeException;
-use Box\Spout\Writer\Exception\WriterNotOpenedException;
+use OpenSpout\Common\Exception\InvalidArgumentException;
+use OpenSpout\Common\Exception\IOException;
+use OpenSpout\Common\Exception\UnsupportedTypeException;
+use OpenSpout\Writer\Exception\WriterNotOpenedException;
 use Exception;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -52,10 +52,6 @@ class EnumeratorController extends Controller
      * @var CatalogService
      */
     private $catalogService;
-    /**
-     * @var InstituteService
-     */
-    private $instituteService;
     /**
      * @var ExamLevelService
      */
@@ -218,7 +214,7 @@ class EnumeratorController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param CreateEnumeratorRequest $request
+     * @param UpdateEnumeratorRequest $request
      * @param  $id
      * @return RedirectResponse
      * @throws \Throwable

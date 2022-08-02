@@ -10,7 +10,7 @@ use App\Models\Backend\Setting\Role;
 use App\Repositories\Eloquent\Backend\Setting\RoleRepository;
 use App\Services\Auth\AuthenticatedSessionService;
 use App\Supports\Constant;
-use Box\Spout\Common\Exception\InvalidArgumentException;
+use OpenSpout\Common\Exception\InvalidArgumentException;
 use Exception;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;

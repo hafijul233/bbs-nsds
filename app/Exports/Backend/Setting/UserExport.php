@@ -4,7 +4,7 @@ namespace App\Exports\Backend\Setting;
 
 use App\Abstracts\Export\FastExcelExport;
 use App\Models\Backend\Setting\User;
-use Box\Spout\Common\Exception\InvalidArgumentException;
+use OpenSpout\Common\Exception\InvalidArgumentException;
 use Illuminate\Database\Eloquent\Collection;
 use function config;
 

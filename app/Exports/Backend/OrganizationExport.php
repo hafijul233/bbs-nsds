@@ -5,7 +5,7 @@ namespace App\Exports\Backend;
 use App\Abstracts\Export\FastExcelExport;
 use App\Models\Organization;
 use App\Models\Setting\Permission;
-use Box\Spout\Common\Exception\InvalidArgumentException;
+use OpenSpout\Common\Exception\InvalidArgumentException;
 use function config;
 
 /**

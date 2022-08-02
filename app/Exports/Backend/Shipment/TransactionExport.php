@@ -4,7 +4,7 @@ namespace App\Exports\Backend\Shipment;
 
 use App\Abstracts\Export\FastExcelExport;
 use App\Models\Backend\Shipment\Transaction;
-use Box\Spout\Common\Exception\InvalidArgumentException;
+use OpenSpout\Common\Exception\InvalidArgumentException;
 
 /**
  * @class TransactionExport
