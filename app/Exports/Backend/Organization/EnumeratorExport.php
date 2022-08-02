@@ -4,7 +4,7 @@ namespace App\Exports\Backend\Organization;
 
 use App\Abstracts\Export\FastExcelExport;
 use App\Models\Backend\Organization\Enumerator;
-use OpenSpout\Common\Exception\InvalidArgumentException;
+use Box\Spout\Common\Exception\InvalidArgumentException;
 use Carbon\Carbon;
 
 /**
@@ -33,7 +33,7 @@ class EnumeratorExport extends FastExcelExport
     public function map($row): array
     {
         $this->formatRow = [
-            trans('Sl. No.', [], 'en') => $row->id,
+            trans('Sl. No.', [], 'en') => $row->counter ?? $row->id,
             trans('Name (English)', [], 'en') => $row->name ?? null,
             trans('Name(Bangla)', [], 'en') => $row->name_bd ?? null,
             trans('Gender', [], 'en') => $row->gender->name ?? null,

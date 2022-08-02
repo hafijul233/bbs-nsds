@@ -294,13 +294,17 @@ class EnumeratorController extends Controller
      */
     public function export(Request $request)
     {
+        dd($request->all());
         //$request['is_total_survey'] = true;
         //$request['sort'] = 'totalSurvey';
         //$request['direction'] = 'DESC';
         $filters = $request->except('page');
         $enumeratorExport = $this->enumeratorService->exportEnumerator($filters);
         $filename = 'Enumerator-' . date('Ymd-His') . '.' . ($filters['format'] ?? 'xlsx');
-        return $enumeratorExport->download($filename, function ($enumerator) use ($enumeratorExport) {
+        $counter = 1;
+        return $enumeratorExport->download($filename, function ($enumerator) use ($enumeratorExport, &$counter) {
+            $enumerator->counter = $counter;
+            $counter++;
             return $enumeratorExport->map($enumerator);
         });
     }

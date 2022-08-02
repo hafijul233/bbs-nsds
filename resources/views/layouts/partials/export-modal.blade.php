@@ -10,6 +10,11 @@
             </div>
             <form method="get" id="exportOptionForm">
             <div class="modal-body">
+                @if(\Route::is('backend.organization.enumerators.index'))
+                {!! \Form::nSelect('filter', 'Report By', [ 'enumerator' => 'Enumerator Wise', 'survey' => 'Survey Wise'],
+                     'enumerator', true) !!}
+                @endif
+
                 {!! \Form::nSelect('format', 'Export Format', \App\Supports\Constant::EXPORT_OPTIONS,
                      \App\Supports\Constant::EXPORT_DEFAULT, true) !!}
 
