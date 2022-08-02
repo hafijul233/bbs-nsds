@@ -60,8 +60,8 @@ old('division_id', isset($request['division_id']) ? request('division_id') : nul
                             {!! \Form::hRadio('work_options', __('enumerator.Select the district(s) where you have worked earlier or want to work in future'), [1=>__('enumerator.Worked Earlier'), 2=>__('enumerator.Work in Future')], old('work_options', ($request['work_options'] ?? '')), false, 7) !!}
                             {!! \Form::hSelect('prev_post_state_id', __('enumerator.Worked Earlier'),$states,
 old('prev_post_state_id', isset($request['prev_post_state_id']) ? request('prev_post_state_id') : null), false, 3, ['placeholder' => __('enumerator.Select a Worked Earlier Option')]) !!}
-                            {!! \Form::hSelect('future_post_state_id', __('enumerator.Work in Future'),$states,
-old('future_post_state_id', isset($request['future_post_state_id']) ? request('future_post_state_id') : null), false, 3, ['placeholder' => __('enumerator.Select a Work in Future Option')]) !!}
+                            {!! \Form::hSelect('future_post_state_id', __('enumerator.Want to work in future'),$states,
+old('future_post_state_id', isset($request['future_post_state_id']) ? request('future_post_state_id') : null), false, 3, ['placeholder' => __('enumerator.Select a Want to work in future Option')]) !!}
                             <div class="input-group">
                                 <input class="form-control" placeholder="Search Enumerator Name etc." id="search"
                                        data-target-table="enumerator-table" name="search" type="search" value="{{ request('search') }}">
