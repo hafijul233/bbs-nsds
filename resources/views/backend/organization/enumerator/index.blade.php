@@ -176,6 +176,9 @@ old('survey_id', isset($request['survey_id']) ? request('survey_id') : ''), fals
                 $("#prev_post_state_id").prop("disabled", false);
                 $("#prev_post_state_id").parent().parent().show();
 
+                $("#division_id").prop("disabled", false);
+                $("#division_id").parent().parent().show();
+
             } else if (work_options == 2) {
                 $("#select-section").show();
                 $("#prev_post_state_id").prop("disabled", true);
@@ -183,6 +186,10 @@ old('survey_id', isset($request['survey_id']) ? request('survey_id') : ''), fals
 
                 $("#future_post_state_id").prop("disabled", false);
                 $("#future_post_state_id").parent().parent().show();
+
+                $("#division_id").prop("disabled", false);
+                $("#division_id").parent().parent().show();
+
             } else {
                 $("#select-section").hide();
                 $("#prev_post_state_id").prop("disabled", true);
@@ -190,6 +197,9 @@ old('survey_id', isset($request['survey_id']) ? request('survey_id') : ''), fals
 
                 $("#future_post_state_id").prop("disabled", true);
                 $("#future_post_state_id").parent().parent().hide();
+
+                $("#division_id").prop("disabled", true);
+                $("#division_id").parent().parent().hide();
             }
         }
 
