@@ -298,9 +298,9 @@ class EnumeratorController extends Controller
      */
     public function export(Request $request)
     {
-        $request['is_total_survey'] = true;
-        $request['sort'] = 'totalSurvey';
-        $request['direction'] = 'DESC';
+        //$request['is_total_survey'] = true;
+        //$request['sort'] = 'totalSurvey';
+        //$request['direction'] = 'DESC';
         $filters = $request->except('page');
         $enumeratorExport = $this->enumeratorService->exportEnumerator($filters);
         $filename = 'Enumerator-' . date('Ymd-His') . '.' . ($filters['format'] ?? 'xlsx');
