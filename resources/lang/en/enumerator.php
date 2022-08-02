@@ -78,6 +78,8 @@ return [
     'Worked Earlier' => 'Worked Earlier',
     'Select a Work in Future Option' => 'Select a Work in Future Option',
     'Work in Future' => 'Work in Future',
+    'Select a Want to work in future Option' => 'Select a Want to work in future Option',
+    'Want to work in future' => 'Want to work in future',
     'Select a Division Option' => 'Select a Division Option',
     'Division' => 'Division',
     'Select the district(s) where you have worked earlier or want to work in future' => 'Select the district(s) where you have worked earlier or want to work in future',

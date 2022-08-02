@@ -74,5 +74,13 @@ return [
     'Graduate or Equivalent' => 'স্নাতক বা সমমান',
     'Post-Graduate or Equivalent' => 'স্নাতকোত্তর বা সমমান',
     'Enumerators' => 'গণনাকারীদের তালিকা',
-
+    'Select a Worked Earlier Option' => 'আগে কাজ করা একটি নির্বাচন করুন',
+    'Worked Earlier' => 'আগে কাজ করেছেন',
+    'Select a Work in Future Option' => 'ভবিষ্যতের জন্য একটি কাজ নির্বাচন করুন',
+    'Work in Future' => 'ভবিষ্যতে কাজ করুন',
+    'Select a Want to work in future Option' => 'ভবিষ্যতে কাজ করতে চান এমন একটি নির্বাচন করুন',
+    'Want to work in future' => 'ভবিষ্যতে কাজ করার ইচ্ছা আছে',
+    'Select a Division Option' => 'একটি বিভাগ নির্বাচন করুন',
+    'Division' => 'বিভাগ',
+    'Select the district(s) where you have worked earlier or want to work in future' => 'আপনি আগে যেখানে কাজ করেছেন বা ভবিষ্যতে কাজ করতে চান সেই জেলা(গুলি) নির্বাচন করুন',
 ];
