@@ -38,8 +38,6 @@ class EnumeratorRepository extends EloquentRepository
      */
     private function filterData(array $filters = [], bool $is_sortable = false): Builder
     {
-        //dd($filters);
-
         $query = $this->getQueryBuilder();
 
         $query->leftJoin('users', 'users.id', '=', 'enumerators.created_by');
