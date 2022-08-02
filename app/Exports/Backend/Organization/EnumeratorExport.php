@@ -4,7 +4,7 @@ namespace App\Exports\Backend\Organization;
 
 use App\Abstracts\Export\FastExcelExport;
 use App\Models\Backend\Organization\Enumerator;
-use Box\Spout\Common\Exception\InvalidArgumentException;
+use OpenSpout\Common\Exception\InvalidArgumentException;
 use Carbon\Carbon;
 
 /**
@@ -51,13 +51,11 @@ class EnumeratorExport extends FastExcelExport
             trans('Whatsapp Number', [], 'en') => $row->whatsapp ?? null,
             trans('Facebook ID', [], 'en') => $row->facebook ?? null
         ];
-        $this->formatRow = array_merge($this->formatRow, [
-            trans('Revenue staff of BBS', [], 'en') => ucfirst($row->is_employee) ?? null
-        ]);
-        $this->formatRow = array_merge($this->formatRow, [
-            trans('Designation', [], 'en') => (($row->is_employee == 'yes') ? $row->designation :   'N/A') ?? null,
-            trans('Office Name', [], 'en') => (($row->is_employee == 'yes') ? $row->company :   'N/A') ?? null
-        ]);
+
+        $this->formatRow[trans('Revenue staff of BBS', [], 'en')] =  ucfirst($row->is_employee) ?? null;
+        $this->formatRow[trans('Designation', [], 'en')] =  (($row->is_employee == 'yes') ? $row->designation :   'N/A') ?? null;
+        $this->formatRow[trans('Office Name', [], 'en')] =  (($row->is_employee == 'yes') ? $row->company :   'N/A') ?? null;
+
         //if(is_null(request('prev_post_state_id'))){
             $this->formatRow = array_merge($this->formatRow, [
                 trans('Worked Earlier', [], 'en') => $this->stateArrayToString($row->previousPostings) ?? null
@@ -85,6 +83,22 @@ class EnumeratorExport extends FastExcelExport
         ]);
 
         /*$this->getSupperAdminColumns($row);*/
+
+        if (request('filter') == 'survey') {
+            unset($this->formatRow[trans('Father\'s Name', [], 'en')]);
+            unset($this->formatRow[trans('Mother\' Name', [], 'en')]);
+            unset($this->formatRow[trans('Permanent Address', [], 'en')]);
+            unset($this->formatRow[trans('Education', [], 'en')]);
+            unset($this->formatRow[trans('Mobile 2', [], 'en')]);
+            unset($this->formatRow[trans('Revenue staff of BBS', [], 'en')]);
+            unset($this->formatRow[trans('Designation', [], 'en')]);
+            unset($this->formatRow[trans('Office Name', [], 'en')]);
+            unset($this->formatRow[trans('Want to work in future', [], 'en')]);
+            unset($this->formatRow[trans('Worked Earlier', [], 'en')]);
+            unset($this->formatRow[trans('Created By', [], 'en')]);
+            unset($this->formatRow['Created Date']);
+
+        }
 
         return $this->formatRow;
     }

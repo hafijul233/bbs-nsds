@@ -10,14 +10,9 @@ use App\Services\Backend\Organization\EnumeratorService;
 use App\Services\Backend\Organization\SurveyService;
 use App\Services\Backend\Setting\CatalogService;
 use App\Services\Backend\Setting\ExamLevelService;
-use App\Services\Backend\Setting\InstituteService;
 use App\Services\Backend\Setting\StateService;
 use App\Supports\Constant;
 use App\Supports\Utility;
-use OpenSpout\Common\Exception\InvalidArgumentException;
-use OpenSpout\Common\Exception\IOException;
-use OpenSpout\Common\Exception\UnsupportedTypeException;
-use OpenSpout\Writer\Exception\WriterNotOpenedException;
 use Exception;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -25,6 +20,10 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use OpenSpout\Common\Exception\InvalidArgumentException;
+use OpenSpout\Common\Exception\IOException;
+use OpenSpout\Common\Exception\UnsupportedTypeException;
+use OpenSpout\Writer\Exception\WriterNotOpenedException;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\NotFoundExceptionInterface;
 use Symfony\Component\HttpFoundation\StreamedResponse;
@@ -294,13 +293,15 @@ class EnumeratorController extends Controller
      */
     public function export(Request $request)
     {
-        dd($request->all());
-        //$request['is_total_survey'] = true;
-        //$request['sort'] = 'totalSurvey';
-        //$request['direction'] = 'DESC';
+        if ($request->get('filter') == 'survey') :
+            $request['is_total_survey'] = true;
+            $request['sort'] = 'totalSurvey';
+            $request['direction'] = 'DESC';
+        endif;
+
         $filters = $request->except('page');
         $enumeratorExport = $this->enumeratorService->exportEnumerator($filters);
-        $filename = 'Enumerator-' . date('Ymd-His') . '.' . ($filters['format'] ?? 'xlsx');
+        $filename = 'Enumerator-' . date('Ymd-His') . '-' .$request->get('filter') .'.' . ($filters['format'] ?? 'xlsx');
         $counter = 1;
         return $enumeratorExport->download($filename, function ($enumerator) use ($enumeratorExport, &$counter) {
             $enumerator->counter = $counter;
