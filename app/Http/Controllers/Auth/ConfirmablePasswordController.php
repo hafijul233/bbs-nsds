@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Auth;;
+namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
@@ -23,8 +23,9 @@ class ConfirmablePasswordController extends Controller
     /**
      * Confirm the user's password.
      *
-     * @param Request $request
+     * @param  Request  $request
      * @return mixed
+     *
      * @throws ValidationException
      */
     public function store(Request $request)

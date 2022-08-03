@@ -8,14 +8,14 @@ use OpenSpout\Common\Exception\InvalidArgumentException;
 
 /**
  * @class CheckPointExport
- * @package App\Exports\Backend\Transport
  */
 class CheckPointExport extends FastExcelExport
 {
     /**
      * CheckPointExport constructor.
      *
-     * @param null $data
+     * @param  null  $data
+     *
      * @throws InvalidArgumentException
      */
     public function __construct($data = null)
@@ -26,7 +26,7 @@ class CheckPointExport extends FastExcelExport
     }
 
     /**
-     * @param CheckPoint $row
+     * @param  CheckPoint  $row
      * @return array
      */
     public function map($row): array
@@ -37,7 +37,7 @@ class CheckPointExport extends FastExcelExport
             'Remarks' => $row->remarks,
             'Enabled' => ucfirst($row->enabled),
             'Created' => $row->created_at->format(config('app.datetime')),
-            'Updated' => $row->updated_at->format(config('app.datetime'))
+            'Updated' => $row->updated_at->format(config('app.datetime')),
         ];
 
         $this->getSupperAdminColumns($row);
@@ -45,4 +45,3 @@ class CheckPointExport extends FastExcelExport
         return $this->formatRow;
     }
 }
-

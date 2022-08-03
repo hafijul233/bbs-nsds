@@ -9,7 +9,6 @@ use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 use Illuminate\Support\Facades\Auth;
 
-
 class PermissionCreatedNotification extends Notification
 {
     use Queueable;
@@ -27,7 +26,7 @@ class PermissionCreatedNotification extends Notification
     /**
      * Create a new notification instance.
      *
-     * @param Permission $permission
+     * @param  Permission  $permission
      */
     public function __construct(Permission $permission)
     {
@@ -38,7 +37,7 @@ class PermissionCreatedNotification extends Notification
     /**
      * Get the notification's delivery channels.
      *
-     * @param mixed $notifiable
+     * @param  mixed  $notifiable
      * @return array
      */
     public function via($notifiable)
@@ -49,7 +48,7 @@ class PermissionCreatedNotification extends Notification
     /**
      * Get the array representation of the notification.
      *
-     * @param mixed $notifiable
+     * @param  mixed  $notifiable
      * @return array
      */
     public function toArray($notifiable)
@@ -62,7 +61,7 @@ class PermissionCreatedNotification extends Notification
     /**
      * Get the database representation of the notification.
      *
-     * @param mixed $notifiable
+     * @param  mixed  $notifiable
      * @return array
      */
     public function toDatabase($notifiable): array
@@ -74,16 +73,16 @@ class PermissionCreatedNotification extends Notification
             'icon_class' => 'mdi mdi-card-account-details-star-outline text-white',
             'icon_background' => 'bg-success',
             'description' => 'New permission named '
-                . link_to(route('backend.settings.permissions.show', $this->permission->id), $this->permission->name ?? '') . ' created by '
-                . link_to(route('admin.users.show', $this->user->id), $this->user->name ?? '') . '.',
-            'url' => route('backend.settings.permissions.show', $this->permission->id)
+                .link_to(route('backend.settings.permissions.show', $this->permission->id), $this->permission->name ?? '').' created by '
+                .link_to(route('admin.users.show', $this->user->id), $this->user->name ?? '').'.',
+            'url' => route('backend.settings.permissions.show', $this->permission->id),
         ];
     }
 
     /**
      * Get the mail representation of the notification.
      *
-     * @param mixed $notifiable
+     * @param  mixed  $notifiable
      * @return MailMessage
      */
     public function toMail($notifiable)
@@ -93,5 +92,4 @@ class PermissionCreatedNotification extends Notification
             ->action('Notification Action', url('/'))
             ->line('Thank you for using our application!');
     }
-
 }

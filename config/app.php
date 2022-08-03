@@ -1,4 +1,5 @@
 <?php
+
 ini_set('memory_limit', '-1');
 set_time_limit(2100);
 
@@ -41,7 +42,7 @@ return [
     |
     */
 
-    'debug' => (bool)env('APP_DEBUG', false),
+    'debug' => (bool) env('APP_DEBUG', false),
 
     /*
     |--------------------------------------------------------------------------
@@ -191,7 +192,7 @@ return [
         App\Providers\HtmlServiceProvider::class,
         App\Providers\ObserverServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-        App\Providers\ViewServiceProvider::class
+        App\Providers\ViewServiceProvider::class,
     ],
 
     /*
@@ -251,7 +252,7 @@ return [
         'Html' => Collective\Html\HtmlFacade::class,
         'PDF' => Barryvdh\DomPDF\Facade::class,
         'FastExcel' => Rap2hpoutre\FastExcel\Facades\FastExcel::class,
-        'Module' => Nwidart\Modules\Facades\Module::class
+        'Module' => Nwidart\Modules\Facades\Module::class,
     ],
 
 ];

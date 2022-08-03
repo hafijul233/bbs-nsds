@@ -15,7 +15,6 @@ use Throwable;
 
 /**
  * @class ExamTitleService
- * @package App\Services\Backend\Setting
  */
 class ExamTitleService extends Service
 {
@@ -26,7 +25,8 @@ class ExamTitleService extends Service
 
     /**
      * ExamTitleService constructor.
-     * @param ExamTitleRepository $examTitleRepository
+     *
+     * @param  ExamTitleRepository  $examTitleRepository
      */
     public function __construct(ExamTitleRepository $examTitleRepository)
     {
@@ -37,9 +37,10 @@ class ExamTitleService extends Service
     /**
      * Get All Institute models as collection
      *
-     * @param array $filters
-     * @param array $eagerRelations
+     * @param  array  $filters
+     * @param  array  $eagerRelations
      * @return Builder[]|Collection
+     *
      * @throws Exception
      */
     public function getAllExamTitles(array $filters = [], array $eagerRelations = [])
@@ -50,9 +51,10 @@ class ExamTitleService extends Service
     /**
      * Create Institute Model Pagination
      *
-     * @param array $filters
-     * @param array $eagerRelations
+     * @param  array  $filters
+     * @param  array  $eagerRelations
      * @return LengthAwarePaginator
+     *
      * @throws Exception
      */
     public function examTitlePaginate(array $filters = [], array $eagerRelations = []): LengthAwarePaginator
@@ -63,9 +65,10 @@ class ExamTitleService extends Service
     /**
      * Show Institute Model
      *
-     * @param int $id
-     * @param bool $purge
+     * @param  int  $id
+     * @param  bool  $purge
      * @return mixed
+     *
      * @throws Exception
      */
     public function getExamTitleById($id, bool $purge = false)
@@ -76,8 +79,9 @@ class ExamTitleService extends Service
     /**
      * Save Institute Model
      *
-     * @param array $inputs
+     * @param  array  $inputs
      * @return array
+     *
      * @throws Exception
      * @throws Throwable
      */
@@ -88,27 +92,31 @@ class ExamTitleService extends Service
             $newExamTitle = $this->examTitleRepository->create($inputs);
             if ($newExamTitle instanceof Institute) {
                 DB::commit();
+
                 return ['status' => true, 'message' => __('New Institute Created'),
-                    'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!'];
+                    'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!', ];
             } else {
                 DB::rollBack();
+
                 return ['status' => false, 'message' => __('New Institute Creation Failed'),
-                    'level' => Constant::MSG_TOASTR_ERROR, 'title' => 'Alert!'];
+                    'level' => Constant::MSG_TOASTR_ERROR, 'title' => 'Alert!', ];
             }
         } catch (Exception $exception) {
             $this->examTitleRepository->handleException($exception);
             DB::rollBack();
+
             return ['status' => false, 'message' => $exception->getMessage(),
-                'level' => Constant::MSG_TOASTR_WARNING, 'title' => 'Error!'];
+                'level' => Constant::MSG_TOASTR_WARNING, 'title' => 'Error!', ];
         }
     }
 
     /**
      * Update Institute Model
      *
-     * @param array $inputs
+     * @param  array  $inputs
      * @param $id
      * @return array
+     *
      * @throws Throwable
      */
     public function updateExamTitle(array $inputs, $id): array
@@ -119,22 +127,25 @@ class ExamTitleService extends Service
             if ($examTitle instanceof Institute) {
                 if ($this->examTitleRepository->update($inputs, $id)) {
                     DB::commit();
+
                     return ['status' => true, 'message' => __('Institute Info Updated'),
-                        'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!'];
+                        'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!', ];
                 } else {
                     DB::rollBack();
+
                     return ['status' => false, 'message' => __('Institute Info Update Failed'),
-                        'level' => Constant::MSG_TOASTR_ERROR, 'title' => 'Alert!'];
+                        'level' => Constant::MSG_TOASTR_ERROR, 'title' => 'Alert!', ];
                 }
             } else {
                 return ['status' => false, 'message' => __('Institute Model Not Found'),
-                    'level' => Constant::MSG_TOASTR_WARNING, 'title' => 'Alert!'];
+                    'level' => Constant::MSG_TOASTR_WARNING, 'title' => 'Alert!', ];
             }
         } catch (Exception $exception) {
             $this->examTitleRepository->handleException($exception);
             DB::rollBack();
+
             return ['status' => false, 'message' => $exception->getMessage(),
-                'level' => Constant::MSG_TOASTR_WARNING, 'title' => 'Error!'];
+                'level' => Constant::MSG_TOASTR_WARNING, 'title' => 'Error!', ];
         }
     }
 
@@ -143,6 +154,7 @@ class ExamTitleService extends Service
      *
      * @param $id
      * @return array
+     *
      * @throws Throwable
      */
     public function destroyExamTitle($id): array
@@ -151,19 +163,21 @@ class ExamTitleService extends Service
         try {
             if ($this->examTitleRepository->delete($id)) {
                 DB::commit();
-                return ['status' => true, 'message' => __('Institute is Trashed'),
-                    'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!'];
 
+                return ['status' => true, 'message' => __('Institute is Trashed'),
+                    'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!', ];
             } else {
                 DB::rollBack();
+
                 return ['status' => false, 'message' => __('Institute is Delete Failed'),
-                    'level' => Constant::MSG_TOASTR_ERROR, 'title' => 'Alert!'];
+                    'level' => Constant::MSG_TOASTR_ERROR, 'title' => 'Alert!', ];
             }
         } catch (Exception $exception) {
             $this->examTitleRepository->handleException($exception);
             DB::rollBack();
+
             return ['status' => false, 'message' => $exception->getMessage(),
-                'level' => Constant::MSG_TOASTR_WARNING, 'title' => 'Error!'];
+                'level' => Constant::MSG_TOASTR_WARNING, 'title' => 'Error!', ];
         }
     }
 
@@ -172,6 +186,7 @@ class ExamTitleService extends Service
      *
      * @param $id
      * @return array
+     *
      * @throws Throwable
      */
     public function restoreExamTitle($id): array
@@ -180,37 +195,41 @@ class ExamTitleService extends Service
         try {
             if ($this->examTitleRepository->restore($id)) {
                 DB::commit();
-                return ['status' => true, 'message' => __('Institute is Restored'),
-                    'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!'];
 
+                return ['status' => true, 'message' => __('Institute is Restored'),
+                    'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!', ];
             } else {
                 DB::rollBack();
+
                 return ['status' => false, 'message' => __('Institute is Restoration Failed'),
-                    'level' => Constant::MSG_TOASTR_ERROR, 'title' => 'Alert!'];
+                    'level' => Constant::MSG_TOASTR_ERROR, 'title' => 'Alert!', ];
             }
         } catch (Exception $exception) {
             $this->examTitleRepository->handleException($exception);
             DB::rollBack();
+
             return ['status' => false, 'message' => $exception->getMessage(),
-                'level' => Constant::MSG_TOASTR_WARNING, 'title' => 'Error!'];
+                'level' => Constant::MSG_TOASTR_WARNING, 'title' => 'Error!', ];
         }
     }
 
     /**
      * Export Object for Export Download
      *
-     * @param array $filters
+     * @param  array  $filters
      * @return ExamTitleExport
+     *
      * @throws Exception
      */
     public function exportExamTitle(array $filters = []): ExamTitleExport
     {
-        return (new ExamTitleExport($this->examTitleRepository->getWith($filters)));
+        return new ExamTitleExport($this->examTitleRepository->getWith($filters));
     }
 
     /**
-     * @param array $filters
+     * @param  array  $filters
      * @return array
+     *
      * @throws Exception
      */
     public function getExamTitleDropDown(array $filters = []): array
@@ -218,9 +237,9 @@ class ExamTitleService extends Service
         $titles = $this->getAllExamTitles($filters);
         $titleArray = [];
 
-        foreach ($titles as $title):
+        foreach ($titles as $title) {
             $titleArray[$title->id] = $title->name;
-        endforeach;
+        }
 
         return $titleArray;
     }

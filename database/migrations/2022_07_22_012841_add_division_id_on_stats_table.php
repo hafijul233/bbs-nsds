@@ -13,7 +13,7 @@ class AddDivisionIdOnStatsTable extends Migration
      */
     public function up()
     {
-        if (!Schema::hasColumn('states', 'division_id')) {
+        if (! Schema::hasColumn('states', 'division_id')) {
             Schema::table('states', function (Blueprint $table) {
                 $table->foreignId('division_id')->nullable()->default(null)->after('native');
             });

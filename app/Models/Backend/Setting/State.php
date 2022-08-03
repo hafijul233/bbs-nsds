@@ -16,12 +16,12 @@ class State extends Model implements Auditable
     use AuditableTrait, HasFactory, SoftDeletes, Sortable;
 
     /**
-     * @var string $table
+     * @var string
      */
     protected $table = 'states';
 
     /**
-     * @var string $primaryKey
+     * @var string
      */
     protected $primaryKey = 'id';
 
@@ -32,7 +32,7 @@ class State extends Model implements Auditable
      *
      * @var array
      */
-    protected $fillable = [ 'name', 'country_id', 'type', 'native', 'latitude', 'longitude', 'enabled', 'division_id'];
+    protected $fillable = ['name', 'country_id', 'type', 'native', 'latitude', 'longitude', 'enabled', 'division_id'];
 
     /**
      * The attributes that should be hidden for arrays.
@@ -54,9 +54,8 @@ class State extends Model implements Auditable
      * @var array
      */
     protected $attributes = [
-        'enabled' => 'yes'
+        'enabled' => 'yes',
     ];
-
 
     /************************ Audit Relations ************************/
 

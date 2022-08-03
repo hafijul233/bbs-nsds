@@ -21,25 +21,27 @@ class SARegisterSeeder extends Seeder
      * @var UserRepository
      */
     private $userRepository;
+
     /**
      * @var FileUploadService
      */
     private $fileUploadService;
+
     /**
      * @var AddressBookRepository
      */
     private $addressBookRepository;
 
-
     /**
      * UserSeeder constructor.
-     * @param UserRepository $userRepository
-     * @param FileUploadService $fileUploadService
-     * @param AddressBookRepository $addressBookRepository
+     *
+     * @param  UserRepository  $userRepository
+     * @param  FileUploadService  $fileUploadService
+     * @param  AddressBookRepository  $addressBookRepository
      */
     public function __construct(UserRepository $userRepository,
-                                FileUploadService $fileUploadService,
-                                AddressBookRepository $addressBookRepository)
+        FileUploadService $fileUploadService,
+        AddressBookRepository $addressBookRepository)
     {
         $this->userRepository = $userRepository;
         $this->fileUploadService = $fileUploadService;
@@ -50,6 +52,7 @@ class SARegisterSeeder extends Seeder
      * Run the database seeds.
      *
      * @return void
+     *
      * @throws Exception|Throwable
      */
     public function run()
@@ -70,21 +73,20 @@ class SARegisterSeeder extends Seeder
                 'mobile' => '01710534092',
                 'remarks' => 'Database Seeder',
                 'enabled' => Constant::ENABLED_OPTION,
-                'force_pass_reset' => false
+                'force_pass_reset' => false,
             ];
 
             $newUser = $this->userRepository->create($newUser);
             if ($newUser instanceof User) {
-                if (!$this->attachProfilePicture($newUser)) {
+                if (! $this->attachProfilePicture($newUser)) {
                     //throw new \RuntimeException("User Photo Create Failed");
                 }
 
-                if (!$this->attachUserRoles($newUser)) {
-                    throw new \RuntimeException("User Role Assignment Failed");
+                if (! $this->attachUserRoles($newUser)) {
+                    throw new \RuntimeException('User Role Assignment Failed');
                 }
-
             } else {
-                throw new \RuntimeException("Failed to Create  User Model");
+                throw new \RuntimeException('Failed to Create  User Model');
             }
         } catch (Exception $exception) {
             $this->userRepository->handleException($exception);
@@ -97,8 +99,9 @@ class SARegisterSeeder extends Seeder
     /**
      * Attach Profile Image to User Model
      *
-     * @param User $user
+     * @param  User  $user
      * @return bool
+     *
      * @throws FileDoesNotExist
      * @throws FileIsTooBig
      * @throws Exception
@@ -110,21 +113,21 @@ class SARegisterSeeder extends Seeder
         if (is_string($profileImagePath)) {
             return $user->addMedia($profileImagePath)->toMediaCollection('avatars')->save();
         }
+
         return false;
     }
 
     /**
      * Attach Role to user Model
      *
-     * @param User $user
+     * @param  User  $user
      * @return bool
      */
     protected function attachUserRoles(User $user): bool
     {
-
         $adminRole = Role::findByName(Constant::SUPER_ADMIN_ROLE);
         $this->userRepository->setModel($user);
+
         return $this->userRepository->manageRoles([$adminRole->id]);
     }
-
 }

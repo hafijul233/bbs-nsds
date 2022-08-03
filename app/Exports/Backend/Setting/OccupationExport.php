@@ -4,20 +4,19 @@ namespace App\Exports\Backend\Setting;
 
 use App\Abstracts\Export\FastExcelExport;
 use App\Models\Setting\Occupation;
-use App\Models\Setting\Permission;
-use OpenSpout\Common\Exception\InvalidArgumentException;
 use function config;
+use OpenSpout\Common\Exception\InvalidArgumentException;
 
 /**
  * @class OccupationExport
- * @package App\Exports\Setting
  */
 class OccupationExport extends FastExcelExport
 {
     /**
      * OccupationExport constructor.
      *
-     * @param null $data
+     * @param  null  $data
+     *
      * @throws InvalidArgumentException
      */
     public function __construct($data = null)
@@ -28,7 +27,7 @@ class OccupationExport extends FastExcelExport
     }
 
     /**
-     * @param Occupation $row
+     * @param  Occupation  $row
      * @return array
      */
     public function map($row): array
@@ -40,7 +39,7 @@ class OccupationExport extends FastExcelExport
             'Additional Info' => json_encode($row->additional_info),
             'Enabled' => ucfirst($row->enabled),
             'Created' => $row->created_at->format(config('backend.datetime')),
-            'Updated' => $row->updated_at->format(config('backend.datetime'))
+            'Updated' => $row->updated_at->format(config('backend.datetime')),
         ];
 
         $this->getSupperAdminColumns($row);
@@ -48,4 +47,3 @@ class OccupationExport extends FastExcelExport
         return $this->formatRow;
     }
 }
-

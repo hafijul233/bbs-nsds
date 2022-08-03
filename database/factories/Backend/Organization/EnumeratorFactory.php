@@ -33,7 +33,7 @@ class EnumeratorFactory extends Factory
             'permanent_address' => $this->faker->address,
             'permanent_address_bd' => '১১  নং  কাতাসুর  মহহামদপুর  ঢাকা,১২০৭।',
             'gender_id' => Catalog::where(['type' => 'GEN'])->get()->random()->id,
-            'enabled' => Constant::ENABLED_OPTION
+            'enabled' => Constant::ENABLED_OPTION,
         ];
     }
 }

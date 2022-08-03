@@ -35,8 +35,7 @@ use Illuminate\Support\Facades\Route;
 | routes are loaded by the RouteServiceProvider within a group which
 | contains the "web" middleware group. Now create something great!
 |
-*/
-
+ */
 Route::get('/', function () {
     return redirect()->to('backend/login');
 })->name('home');
@@ -58,13 +57,11 @@ Route::get('cache-clear', function () {
     });
 });*/
 
-
 Route::prefix('backend')->group(function () {
     /**
      * Authentication Route
      */
     Route::name('auth.')->group(function () {
-
         Route::view('/privacy-terms', 'auth::terms')->name('terms');
 
         Route::get('/login', [AuthenticatedSessionController::class, 'create'])
@@ -74,20 +71,20 @@ Route::prefix('backend')->group(function () {
         Route::post('/login', [AuthenticatedSessionController::class, 'store'])
             ->middleware('guest');
 
-        if (config('auth.allow_register')):
+        if (config('auth.allow_register')) {
             Route::get('/register', [RegisteredUserController::class, 'create'])
                 ->middleware('guest')
                 ->name('register');
 
             Route::post('/register', [RegisteredUserController::class, 'store'])
                 ->middleware('guest');
-        endif;
+        }
 
-        if (config('auth.allow_password_reset')):
+        if (config('auth.allow_password_reset')) {
             Route::get('/forgot-password', [PasswordResetController::class, 'create'])
                 ->middleware('guest')
                 ->name('password.request');
-        endif;
+        }
 
         Route::post('/forgot-password', [PasswordResetController::class, 'store'])
             ->middleware('guest')
@@ -132,7 +129,6 @@ Route::prefix('backend')->group(function () {
     })->name('backend');
 
     Route::middleware(['auth'])->name('backend.')->group(function () {
-
         Route::get('/dashboard', DashboardController::class)
             ->name('dashboard');
         Route::get('applicant-registration', [ApplicantController::class, 'create'])
@@ -157,7 +153,6 @@ Route::prefix('backend')->group(function () {
             });
             Route::resource('surveys', SurveyController::class)->where(['survey' => '([0-9]+)']);
 
-
             //Enumerator
             Route::prefix('enumerators')->name('enumerators.')->group(function () {
                 Route::patch('{survey}/restore', [EnumeratorController::class, 'restore'])->name('restore');
@@ -165,7 +160,6 @@ Route::prefix('backend')->group(function () {
                 Route::get('ajax', [EnumeratorController::class, 'ajax'])->name('ajax')->middleware('ajax');
             });
             Route::resource('enumerators', EnumeratorController::class)->where(['enumerator' => '([0-9]+)']);
-
         });
 
         //Setting
@@ -176,7 +170,6 @@ Route::prefix('backend')->group(function () {
                 Route::patch('{user}/restore', [UserController::class, 'restore'])->name('restore');
                 Route::get('export', [UserController::class, 'export'])->name('export');
                 Route::patch('{user}/setting', [UserController::class, 'setting'])->name('setting');
-
             });
             Route::resource('users', UserController::class)->where(['user' => '([0-9]+)']);
 
@@ -218,8 +211,6 @@ Route::prefix('backend')->group(function () {
                 Route::get('ajax', [ExamGroupController::class, 'ajax'])->name('ajax')->middleware('ajax')->withoutMiddleware('auth');
             });
             Route::resource('exam-groups', ExamGroupController::class)->where(['exam-group' => '([0-9]+)']);
-
         });
     });
-
 });

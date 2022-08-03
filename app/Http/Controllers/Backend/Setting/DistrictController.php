@@ -23,23 +23,24 @@ class DistrictController extends Controller
      * @var AuthenticatedSessionService
      */
     private $authenticatedSessionService;
+
     /**
      * @var DistrictService
      */
     private $districtService;
+
     /**
      * @var CountryService
      */
     private $stateService;
 
     /**
-     * @param AuthenticatedSessionService $authenticatedSessionService
-     * @param DistrictService $districtService
+     * @param  AuthenticatedSessionService  $authenticatedSessionService
+     * @param  DistrictService  $districtService
      */
     public function __construct(AuthenticatedSessionService $authenticatedSessionService,
-                                DistrictService $districtService)
+        DistrictService $districtService)
     {
-
         $this->authenticatedSessionService = $authenticatedSessionService;
         $this->districtService = $districtService;
     }
@@ -47,8 +48,9 @@ class DistrictController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @param Request $request
+     * @param  Request  $request
      * @return Application|Factory|View
+     *
      * @throws Exception
      */
     public function index(Request $request)
@@ -57,7 +59,7 @@ class DistrictController extends Controller
         $districts = $this->districtService->districtPaginate($filters);
 
         return view('backend.setting.district.index', [
-            'districts' => $districts
+            'districts' => $districts,
         ]);
     }
 
@@ -65,6 +67,7 @@ class DistrictController extends Controller
      * Show the form for creating a new resource.
      *
      * @return Application|Factory|View
+     *
      * @throws Exception
      */
     public function create()
@@ -75,8 +78,9 @@ class DistrictController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param DistrictRequest $request
+     * @param  DistrictRequest  $request
      * @return RedirectResponse
+     *
      * @throws Exception|\Throwable
      */
     public function store(DistrictRequest $request): RedirectResponse
@@ -84,18 +88,21 @@ class DistrictController extends Controller
         $confirm = $this->districtService->storeDistrict($request->except('_token'));
         if ($confirm['status'] == true) {
             notify($confirm['message'], $confirm['level'], $confirm['title']);
+
             return redirect()->route('backend.settings.districts.index');
         }
 
         notify($confirm['message'], $confirm['level'], $confirm['title']);
+
         return redirect()->back()->withInput();
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  $id
+     * @param    $id
      * @return Application|Factory|View
+     *
      * @throws Exception
      */
     public function show($id)
@@ -103,7 +110,7 @@ class DistrictController extends Controller
         if ($district = $this->districtService->getDistrictById($id)) {
             return view('backend.setting.district.show', [
                 'district' => $district,
-                'timeline' => Utility::modelAudits($district)
+                'timeline' => Utility::modelAudits($district),
             ]);
         }
 
@@ -115,13 +122,14 @@ class DistrictController extends Controller
      *
      * @param $id
      * @return Application|Factory|View
+     *
      * @throws Exception
      */
     public function edit($id)
     {
         if ($district = $this->districtService->getDistrictById($id)) {
             return view('backend.setting.district.edit', [
-                'district' => $district
+                'district' => $district,
             ]);
         }
 
@@ -131,9 +139,10 @@ class DistrictController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param DistrictRequest $request
-     * @param  $id
+     * @param  DistrictRequest  $request
+     * @param    $id
      * @return RedirectResponse
+     *
      * @throws \Throwable
      */
     public function update(DistrictRequest $request, $id): RedirectResponse
@@ -142,10 +151,12 @@ class DistrictController extends Controller
 
         if ($confirm['status'] == true) {
             notify($confirm['message'], $confirm['level'], $confirm['title']);
+
             return redirect()->route('backend.settings.districts.index');
         }
 
         notify($confirm['message'], $confirm['level'], $confirm['title']);
+
         return redirect()->back()->withInput();
     }
 
@@ -153,14 +164,14 @@ class DistrictController extends Controller
      * Remove the specified resource from storage.
      *
      * @param $id
-     * @param Request $request
+     * @param  Request  $request
      * @return RedirectResponse
+     *
      * @throws \Throwable
      */
     public function destroy($id, Request $request)
     {
         if ($this->authenticatedSessionService->validate($request)) {
-
             $confirm = $this->districtService->destroyDistrict($id);
 
             if ($confirm['status'] == true) {
@@ -168,6 +179,7 @@ class DistrictController extends Controller
             } else {
                 notify($confirm['message'], $confirm['level'], $confirm['title']);
             }
+
             return redirect()->route('backend.settings.districts.index');
         }
         abort(403, 'Wrong user credentials');
@@ -177,14 +189,14 @@ class DistrictController extends Controller
      * Restore a Soft Deleted Resource
      *
      * @param $id
-     * @param Request $request
+     * @param  Request  $request
      * @return RedirectResponse|void
+     *
      * @throws \Throwable
      */
     public function restore($id, Request $request)
     {
         if ($this->authenticatedSessionService->validate($request)) {
-
             $confirm = $this->districtService->restoreDistrict($id);
 
             if ($confirm['status'] == true) {
@@ -192,6 +204,7 @@ class DistrictController extends Controller
             } else {
                 notify($confirm['message'], $confirm['level'], $confirm['title']);
             }
+
             return redirect()->route('backend.settings.districts.index');
         }
         abort(403, 'Wrong user credentials');
@@ -201,6 +214,7 @@ class DistrictController extends Controller
      * Display a listing of the resource.
      *
      * @return string|StreamedResponse
+     *
      * @throws Exception
      */
     public function export(Request $request)
@@ -209,12 +223,11 @@ class DistrictController extends Controller
 
         $districtExport = $this->districtService->exportDistrict($filters);
 
-        $filename = 'District-' . date('Ymd-His') . '.' . ($filters['format'] ?? 'xlsx');
+        $filename = 'District-'.date('Ymd-His').'.'.($filters['format'] ?? 'xlsx');
 
         return $districtExport->download($filename, function ($district) use ($districtExport) {
             return $districtExport->map($district);
         });
-
     }
 
     /**
@@ -231,6 +244,7 @@ class DistrictController extends Controller
      * Display a listing of the resource.
      *
      * @return Application|Factory|View
+     *
      * @throws Exception
      */
     public function importBulk(Request $request)
@@ -239,7 +253,7 @@ class DistrictController extends Controller
         $districts = $this->districtService->getAllDistricts($filters);
 
         return view('backend.setting.district.index', [
-            'districts' => $districts
+            'districts' => $districts,
         ]);
     }
 
@@ -247,6 +261,7 @@ class DistrictController extends Controller
      * Display a detail of the resource.
      *
      * @return StreamedResponse|string
+     *
      * @throws Exception
      */
     public function print(Request $request)
@@ -255,7 +270,7 @@ class DistrictController extends Controller
 
         $districtExport = $this->districtService->exportDistrict($filters);
 
-        $filename = 'District-' . date('Ymd-His') . '.' . ($filters['format'] ?? 'xlsx');
+        $filename = 'District-'.date('Ymd-His').'.'.($filters['format'] ?? 'xlsx');
 
         return $districtExport->download($filename, function ($district) use ($districtExport) {
             return $districtExport->map($district);
@@ -265,8 +280,9 @@ class DistrictController extends Controller
     /**
      * Display a detail of the resource.
      *
-     * @param Request $request
+     * @param  Request  $request
      * @return JsonResponse
+     *
      * @throws Exception
      */
     public function ajax(Request $request): JsonResponse
@@ -275,11 +291,11 @@ class DistrictController extends Controller
 
         $districts = $this->districtService->getAllDistricts($filters)->toArray();
 
-        if (count($districts) > 0):
+        if (count($districts) > 0) {
             $jsonReturn = ['status' => true, 'data' => $districts];
-        else :
+        } else {
             $jsonReturn = ['status' => false, 'data' => []];
-        endif;
+        }
 
         return response()->json($jsonReturn, 200);
     }

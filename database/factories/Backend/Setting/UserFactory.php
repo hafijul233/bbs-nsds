@@ -11,9 +11,8 @@ use Illuminate\Support\Str;
 
 class UserFactory extends Factory
 {
-
     /**
-     * @var User $model
+     * @var User
      */
     protected $model = User::class;
 
@@ -35,7 +34,7 @@ class UserFactory extends Factory
             'email_verified_at' => now(),
             'locale' => Constant::LOCALE,
             'home_page' => Constant::DASHBOARD_ROUTE,
-            'password' => '$2a$10$wy9WyJ0SBfoduBu/5mNUgeX0kggxVeVlvDaqaFyITJSS55ZiHH7TG',//12345678
+            'password' => '$2a$10$wy9WyJ0SBfoduBu/5mNUgeX0kggxVeVlvDaqaFyITJSS55ZiHH7TG', //12345678
             'remember_token' => Str::random(10),
         ];
     }
@@ -68,8 +67,8 @@ class UserFactory extends Factory
             //attach role
             $user->roles()->attach(mt_rand(2, 5));
         });
-
     }
+
     /**
      * @return UserFactory
      * Admins, Manager, Operator, Accountant ...
@@ -81,7 +80,6 @@ class UserFactory extends Factory
             $role = Role::where(['name' => 'Director'])->first();
             $user->roles()->attach($role->id);
         });
-
     }
 
     /**
@@ -95,7 +93,6 @@ class UserFactory extends Factory
             $role = Role::where(['name' => 'Joint Director'])->first();
             $user->roles()->attach($role->id);
         });
-
     }
 
     /**
@@ -109,6 +106,5 @@ class UserFactory extends Factory
             $role = Role::where(['name' => 'Deputy Director'])->first();
             $user->roles()->attach($role->id);
         });
-
     }
 }

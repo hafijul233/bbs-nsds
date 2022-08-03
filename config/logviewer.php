@@ -10,6 +10,6 @@ return [
     |
     */
     'max_file_size' => 31457280, // size in Byte
-    'pattern'       => env('LOGVIEWER_PATTERN', '*.log'),
-    'storage_path'  => env('LOGVIEWER_STORAGE_PATH', storage_path('logs')),
+    'pattern' => env('LOGVIEWER_PATTERN', '*.log'),
+    'storage_path' => env('LOGVIEWER_STORAGE_PATH', storage_path('logs')),
 ];

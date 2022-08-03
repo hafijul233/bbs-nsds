@@ -12,19 +12,18 @@ use OwenIt\Auditing\Contracts\Auditable;
 
 /**
  * @class ExamTitle
- * @package App\Models\Backend\Setting
  */
 class ExamTitle extends Model implements Auditable
 {
     use AuditableTrait, HasFactory, SoftDeletes, Sortable;
 
     /**
-     * @var string $table
+     * @var string
      */
     protected $table = 'exam_titles';
 
     /**
-     * @var string $primaryKey
+     * @var string
      */
     protected $primaryKey = 'id';
 
@@ -57,7 +56,7 @@ class ExamTitle extends Model implements Auditable
      * @var array
      */
     protected $attributes = [
-        'enabled' => 'yes'
+        'enabled' => 'yes',
     ];
 
     /**

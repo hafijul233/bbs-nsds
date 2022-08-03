@@ -26,5 +26,5 @@ return [
     'States' => 'States',
     'Cities' => 'Cities',
     'Settings' => 'Settings',
-    'Surveys' => 'Surveys'
+    'Surveys' => 'Surveys',
 ];

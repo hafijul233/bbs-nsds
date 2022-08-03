@@ -19,10 +19,12 @@ class DashboardController extends Controller
      * @var UserService
      */
     private $userService;
+
     /**
      * @var EnumeratorService
      */
     private $enumeratorService;
+
     /**
      * @var SurveyService
      */
@@ -30,23 +32,24 @@ class DashboardController extends Controller
 
     /**
      * DashboardController constructor.
-     * @param UserService $userService
-     * @param EnumeratorService $enumeratorService
-     * @param SurveyService $surveyService
+     *
+     * @param  UserService  $userService
+     * @param  EnumeratorService  $enumeratorService
+     * @param  SurveyService  $surveyService
      */
     public function __construct(UserService $userService,
-                                EnumeratorService $enumeratorService,
-                                SurveyService $surveyService)
+        EnumeratorService $enumeratorService,
+        SurveyService $surveyService)
     {
-
         $this->userService = $userService;
         $this->enumeratorService = $enumeratorService;
         $this->surveyService = $surveyService;
     }
 
     /**
-     * @param Request $request
+     * @param  Request  $request
      * @return array|Application|Factory|View|mixed
+     *
      * @throws \Exception
      */
     public function __invoke(Request $request)
@@ -65,8 +68,7 @@ class DashboardController extends Controller
         return view('backend.dashboard', [
             'users' => $this->userService->getAllUsers(['role' => Constant::VISIBLE_ROLES])->count(),
             'enumerators' => $this->enumeratorService->getAllEnumerators($request->all())->count(),
-            'surveys' => $this->surveyService->getAllSurveys()->count()
+            'surveys' => $this->surveyService->getAllSurveys()->count(),
         ]);
     }
-
 }

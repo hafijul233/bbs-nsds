@@ -22,19 +22,19 @@ class CityController extends Controller
      * @var AuthenticatedSessionService
      */
     private $authenticatedSessionService;
+
     /**
      * @var CityService
      */
     private $cityService;
 
     /**
-     * @param AuthenticatedSessionService $authenticatedSessionService
-     * @param CityService $cityService
+     * @param  AuthenticatedSessionService  $authenticatedSessionService
+     * @param  CityService  $cityService
      */
     public function __construct(AuthenticatedSessionService $authenticatedSessionService,
-                                CityService              $cityService)
+        CityService $cityService)
     {
-
         $this->authenticatedSessionService = $authenticatedSessionService;
         $this->cityService = $cityService;
     }
@@ -43,6 +43,7 @@ class CityController extends Controller
      * Display a listing of the resource.
      *
      * @return Application|Factory|View
+     *
      * @throws Exception
      */
     public function index(Request $request)
@@ -51,7 +52,7 @@ class CityController extends Controller
         $citys = $this->cityService->cityPaginate($filters);
 
         return view('setting.city.index', [
-            'citys' => $citys
+            'citys' => $citys,
         ]);
     }
 
@@ -68,8 +69,9 @@ class CityController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param CityRequest $request
+     * @param  CityRequest  $request
      * @return RedirectResponse
+     *
      * @throws Exception|\Throwable
      */
     public function store(CityRequest $request): RedirectResponse
@@ -77,18 +79,21 @@ class CityController extends Controller
         $confirm = $this->cityService->storeCity($request->except('_token'));
         if ($confirm['status'] == true) {
             notify($confirm['message'], $confirm['level'], $confirm['title']);
+
             return redirect()->route('contact.settings.citys.index');
         }
 
         notify($confirm['message'], $confirm['level'], $confirm['title']);
+
         return redirect()->back()->withInput();
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  $id
+     * @param    $id
      * @return Application|Factory|View
+     *
      * @throws Exception
      */
     public function show($id)
@@ -96,7 +101,7 @@ class CityController extends Controller
         if ($city = $this->cityService->getCityById($id)) {
             return view('setting.city.show', [
                 'city' => $city,
-                'timeline' => Utility::modelAudits($city)
+                'timeline' => Utility::modelAudits($city),
             ]);
         }
 
@@ -108,13 +113,14 @@ class CityController extends Controller
      *
      * @param $id
      * @return Application|Factory|View
+     *
      * @throws Exception
      */
     public function edit($id)
     {
         if ($city = $this->cityService->getCityById($id)) {
             return view('setting.city.edit', [
-                'city' => $city
+                'city' => $city,
             ]);
         }
 
@@ -124,9 +130,10 @@ class CityController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param CityRequest $request
-     * @param  $id
+     * @param  CityRequest  $request
+     * @param    $id
      * @return RedirectResponse
+     *
      * @throws \Throwable
      */
     public function update(CityRequest $request, $id): RedirectResponse
@@ -135,10 +142,12 @@ class CityController extends Controller
 
         if ($confirm['status'] == true) {
             notify($confirm['message'], $confirm['level'], $confirm['title']);
+
             return redirect()->route('contact.settings.citys.index');
         }
 
         notify($confirm['message'], $confirm['level'], $confirm['title']);
+
         return redirect()->back()->withInput();
     }
 
@@ -146,14 +155,14 @@ class CityController extends Controller
      * Remove the specified resource from storage.
      *
      * @param $id
-     * @param Request $request
+     * @param  Request  $request
      * @return RedirectResponse
+     *
      * @throws \Throwable
      */
     public function destroy($id, Request $request)
     {
         if ($this->authenticatedSessionService->validate($request)) {
-
             $confirm = $this->cityService->destroyCity($id);
 
             if ($confirm['status'] == true) {
@@ -161,6 +170,7 @@ class CityController extends Controller
             } else {
                 notify($confirm['message'], $confirm['level'], $confirm['title']);
             }
+
             return redirect()->route('contact.settings.citys.index');
         }
         abort(403, 'Wrong user credentials');
@@ -170,14 +180,14 @@ class CityController extends Controller
      * Restore a Soft Deleted Resource
      *
      * @param $id
-     * @param Request $request
+     * @param  Request  $request
      * @return RedirectResponse|void
+     *
      * @throws \Throwable
      */
     public function restore($id, Request $request)
     {
         if ($this->authenticatedSessionService->validate($request)) {
-
             $confirm = $this->cityService->restoreCity($id);
 
             if ($confirm['status'] == true) {
@@ -185,6 +195,7 @@ class CityController extends Controller
             } else {
                 notify($confirm['message'], $confirm['level'], $confirm['title']);
             }
+
             return redirect()->route('contact.settings.citys.index');
         }
         abort(403, 'Wrong user credentials');
@@ -194,6 +205,7 @@ class CityController extends Controller
      * Display a listing of the resource.
      *
      * @return string|StreamedResponse
+     *
      * @throws Exception
      */
     public function export(Request $request)
@@ -202,12 +214,11 @@ class CityController extends Controller
 
         $cityExport = $this->cityService->exportCity($filters);
 
-        $filename = 'City-' . date('Ymd-His') . '.' . ($filters['format'] ?? 'xlsx');
+        $filename = 'City-'.date('Ymd-His').'.'.($filters['format'] ?? 'xlsx');
 
         return $cityExport->download($filename, function ($city) use ($cityExport) {
             return $cityExport->map($city);
         });
-
     }
 
     /**
@@ -224,6 +235,7 @@ class CityController extends Controller
      * Display a listing of the resource.
      *
      * @return Application|Factory|View
+     *
      * @throws Exception
      */
     public function importBulk(Request $request)
@@ -232,7 +244,7 @@ class CityController extends Controller
         $citys = $this->cityService->getAllCountries($filters);
 
         return view('setting.city.index', [
-            'citys' => $citys
+            'citys' => $citys,
         ]);
     }
 
@@ -240,6 +252,7 @@ class CityController extends Controller
      * Display a detail of the resource.
      *
      * @return StreamedResponse|string
+     *
      * @throws Exception
      */
     public function print(Request $request)
@@ -248,20 +261,19 @@ class CityController extends Controller
 
         $cityExport = $this->cityService->exportCity($filters);
 
-        $filename = 'City-' . date('Ymd-His') . '.' . ($filters['format'] ?? 'xlsx');
+        $filename = 'City-'.date('Ymd-His').'.'.($filters['format'] ?? 'xlsx');
 
         return $cityExport->download($filename, function ($city) use ($cityExport) {
             return $cityExport->map($city);
         });
-
     }
-
 
     /**
      * Display a detail of the resource.
      *
-     * @param Request $request
+     * @param  Request  $request
      * @return JsonResponse
+     *
      * @throws Exception
      */
     public function ajax(Request $request): JsonResponse
@@ -270,11 +282,11 @@ class CityController extends Controller
 
         $cities = $this->cityService->getAllCities($filters)->toArray();
 
-        if(count($cities) > 0):
+        if (count($cities) > 0) {
             $jsonReturn = ['status' => true, 'data' => $cities];
-        else :
+        } else {
             $jsonReturn = ['status' => false, 'data' => []];
-        endif;
+        }
 
         return response()->json($jsonReturn, 200);
     }

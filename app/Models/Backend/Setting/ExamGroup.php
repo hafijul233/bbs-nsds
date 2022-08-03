@@ -11,19 +11,18 @@ use OwenIt\Auditing\Contracts\Auditable;
 
 /**
  * @class ExamGroup
- * @package App\Models\Backend\Setting
  */
 class ExamGroup extends Model implements Auditable
 {
     use \OwenIt\Auditing\Auditable, HasFactory, SoftDeletes, Sortable;
 
     /**
-     * @var string $table
+     * @var string
      */
     protected $table = 'exam_groups';
 
     /**
-     * @var string $primaryKey
+     * @var string
      */
     protected $primaryKey = 'id';
 
@@ -34,7 +33,7 @@ class ExamGroup extends Model implements Auditable
      *
      * @var array
      */
-    protected $fillable = [ 'name', 'remarks', 'enabled', 'exam_level_id', 'exam_title_id'];
+    protected $fillable = ['name', 'remarks', 'enabled', 'exam_level_id', 'exam_title_id'];
 
     /**
      * The attributes that should be hidden for arrays.
@@ -65,5 +64,4 @@ class ExamGroup extends Model implements Auditable
     {
         return $this->belongsTo(ExamTitle::class);
     }
-
 }

@@ -65,8 +65,8 @@ class ExamTitleSeeder extends Seeder
 
         ];
 
-        foreach ($exam_titles as $exam_title):
+        foreach ($exam_titles as $exam_title) {
             ExamTitle::create($exam_title);
-        endforeach;
+        }
     }
 }

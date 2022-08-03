@@ -12,7 +12,6 @@ use Illuminate\Database\Eloquent\Collection;
 
 /**
  * @class ExamLevelRepository
- * @package Modules\Core\Repositories\Eloquent\Setting
  */
 class ExamLevelRepository extends EloquentRepository
 {
@@ -30,50 +29,52 @@ class ExamLevelRepository extends EloquentRepository
     /**
      * Search Function
      *
-     * @param array $filters
-     * @param bool $is_sortable
+     * @param  array  $filters
+     * @param  bool  $is_sortable
      * @return Builder
      */
     private function filterData(array $filters = [], bool $is_sortable = false): Builder
     {
         $query = $this->getQueryBuilder();
-        if (!empty($filters['search'])) :
+        if (! empty($filters['search'])) {
             $query->where('name', 'like', "%{$filters['search']}%")
                 ->orWhere('enabled', '=', "%{$filters['search']}%");
-        endif;
+        }
 
-        if (!empty($filters['enabled'])) :
+        if (! empty($filters['enabled'])) {
             $query->where('enabled', '=', $filters['enabled']);
-        endif;
-        if (!empty($filters['id'])) :
-            if (is_array($filters['id'])) :
+        }
+        if (! empty($filters['id'])) {
+            if (is_array($filters['id'])) {
                 $query->whereIn('id', $filters['id']);
-            else:
+            } else {
                 $query->where('id', '=', $filters['id']);
-            endif;
-        endif;
+            }
+        }
 
-        if (!empty($filters['sort']) && !empty($filters['direction'])) :
+        if (! empty($filters['sort']) && ! empty($filters['direction'])) {
             $query->orderBy($filters['sort'], $filters['direction']);
-        endif;
+        }
 
-        if ($is_sortable == true) :
+        if ($is_sortable == true) {
             $query->sortable();
-        endif;
+        }
 
-        if (AuthenticatedSessionService::isSuperAdmin()) :
+        if (AuthenticatedSessionService::isSuperAdmin()) {
             $query->withTrashed();
-        endif;
+        }
 
         return $query;
     }
 
     /**
      * Pagination Generator
-     * @param array $filters
-     * @param array $eagerRelations
-     * @param bool $is_sortable
+     *
+     * @param  array  $filters
+     * @param  array  $eagerRelations
+     * @param  bool  $is_sortable
      * @return LengthAwarePaginator
+     *
      * @throws Exception
      */
     public function paginateWith(array $filters = [], array $eagerRelations = [], bool $is_sortable = false): LengthAwarePaginator
@@ -88,10 +89,11 @@ class ExamLevelRepository extends EloquentRepository
     }
 
     /**
-     * @param array $filters
-     * @param array $eagerRelations
-     * @param bool $is_sortable
+     * @param  array  $filters
+     * @param  array  $eagerRelations
+     * @param  bool  $is_sortable
      * @return Builder[]|Collection
+     *
      * @throws Exception
      */
     public function getWith(array $filters = [], array $eagerRelations = [], bool $is_sortable = false)

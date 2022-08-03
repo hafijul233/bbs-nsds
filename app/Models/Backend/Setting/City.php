@@ -15,12 +15,12 @@ class City extends Model implements Auditable
     use AuditableTrait, HasFactory, SoftDeletes, Sortable;
 
     /**
-     * @var string $table
+     * @var string
      */
     protected $table = 'cities';
 
     /**
-     * @var string $primaryKey
+     * @var string
      */
     protected $primaryKey = 'id';
 
@@ -31,7 +31,7 @@ class City extends Model implements Auditable
      *
      * @var array
      */
-    protected $fillable = [ /*****/'enabled', 'created_by', 'updated_by', 'deleted_by'];
+    protected $fillable = [/*****/'enabled', 'created_by', 'updated_by', 'deleted_by'];
 
     /**
      * The attributes that should be hidden for arrays.
@@ -53,7 +53,7 @@ class City extends Model implements Auditable
      * @var array
      */
     protected $attributes = [
-        'enabled' => 'yes'
+        'enabled' => 'yes',
     ];
 
     /************************ Static Factory ************************/

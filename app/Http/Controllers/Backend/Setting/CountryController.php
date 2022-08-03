@@ -28,13 +28,12 @@ class CountryController extends Controller
     private $countryService;
 
     /**
-     * @param AuthenticatedSessionService $authenticatedSessionService
-     * @param CountryService $countryService
+     * @param  AuthenticatedSessionService  $authenticatedSessionService
+     * @param  CountryService  $countryService
      */
     public function __construct(AuthenticatedSessionService $authenticatedSessionService,
-                                CountryService              $countryService)
+        CountryService $countryService)
     {
-
         $this->authenticatedSessionService = $authenticatedSessionService;
         $this->countryService = $countryService;
     }
@@ -43,6 +42,7 @@ class CountryController extends Controller
      * Display a listing of the resource.
      *
      * @return Application|Factory|View
+     *
      * @throws Exception
      */
     public function index(Request $request)
@@ -51,7 +51,7 @@ class CountryController extends Controller
         $countries = $this->countryService->countryPaginate($filters);
 
         return view('setting.country.index', [
-            'countries' => $countries
+            'countries' => $countries,
         ]);
     }
 
@@ -68,8 +68,9 @@ class CountryController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param CountryRequest $request
+     * @param  CountryRequest  $request
      * @return RedirectResponse
+     *
      * @throws Exception|\Throwable
      */
     public function store(CountryRequest $request): RedirectResponse
@@ -77,18 +78,21 @@ class CountryController extends Controller
         $confirm = $this->countryService->storeCountry($request->except('_token'));
         if ($confirm['status'] == true) {
             notify($confirm['message'], $confirm['level'], $confirm['title']);
+
             return redirect()->route('contact.settings.countries.index');
         }
 
         notify($confirm['message'], $confirm['level'], $confirm['title']);
+
         return redirect()->back()->withInput();
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  $id
+     * @param    $id
      * @return Application|Factory|View
+     *
      * @throws Exception
      */
     public function show($id)
@@ -96,7 +100,7 @@ class CountryController extends Controller
         if ($country = $this->countryService->getCountryById($id)) {
             return view('setting.country.show', [
                 'country' => $country,
-                'timeline' => Utility::modelAudits($country)
+                'timeline' => Utility::modelAudits($country),
             ]);
         }
 
@@ -108,13 +112,14 @@ class CountryController extends Controller
      *
      * @param $id
      * @return Application|Factory|View
+     *
      * @throws Exception
      */
     public function edit($id)
     {
         if ($country = $this->countryService->getCountryById($id)) {
             return view('setting.country.edit', [
-                'country' => $country
+                'country' => $country,
             ]);
         }
 
@@ -124,9 +129,10 @@ class CountryController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param CountryRequest $request
-     * @param  $id
+     * @param  CountryRequest  $request
+     * @param    $id
      * @return RedirectResponse
+     *
      * @throws \Throwable
      */
     public function update(CountryRequest $request, $id): RedirectResponse
@@ -135,10 +141,12 @@ class CountryController extends Controller
 
         if ($confirm['status'] == true) {
             notify($confirm['message'], $confirm['level'], $confirm['title']);
+
             return redirect()->route('contact.settings.countries.index');
         }
 
         notify($confirm['message'], $confirm['level'], $confirm['title']);
+
         return redirect()->back()->withInput();
     }
 
@@ -146,14 +154,14 @@ class CountryController extends Controller
      * Remove the specified resource from storage.
      *
      * @param $id
-     * @param Request $request
+     * @param  Request  $request
      * @return RedirectResponse
+     *
      * @throws \Throwable
      */
     public function destroy($id, Request $request)
     {
         if ($this->authenticatedSessionService->validate($request)) {
-
             $confirm = $this->countryService->destroyCountry($id);
 
             if ($confirm['status'] == true) {
@@ -161,6 +169,7 @@ class CountryController extends Controller
             } else {
                 notify($confirm['message'], $confirm['level'], $confirm['title']);
             }
+
             return redirect()->route('contact.settings.countries.index');
         }
         abort(403, 'Wrong user credentials');
@@ -170,14 +179,14 @@ class CountryController extends Controller
      * Restore a Soft Deleted Resource
      *
      * @param $id
-     * @param Request $request
+     * @param  Request  $request
      * @return RedirectResponse|void
+     *
      * @throws \Throwable
      */
     public function restore($id, Request $request)
     {
         if ($this->authenticatedSessionService->validate($request)) {
-
             $confirm = $this->countryService->restoreCountry($id);
 
             if ($confirm['status'] == true) {
@@ -185,6 +194,7 @@ class CountryController extends Controller
             } else {
                 notify($confirm['message'], $confirm['level'], $confirm['title']);
             }
+
             return redirect()->route('contact.settings.countries.index');
         }
         abort(403, 'Wrong user credentials');
@@ -194,6 +204,7 @@ class CountryController extends Controller
      * Display a listing of the resource.
      *
      * @return string|StreamedResponse
+     *
      * @throws Exception
      */
     public function export(Request $request)
@@ -202,12 +213,11 @@ class CountryController extends Controller
 
         $countryExport = $this->countryService->exportCountry($filters);
 
-        $filename = 'Country-' . date('Ymd-His') . '.' . ($filters['format'] ?? 'xlsx');
+        $filename = 'Country-'.date('Ymd-His').'.'.($filters['format'] ?? 'xlsx');
 
         return $countryExport->download($filename, function ($country) use ($countryExport) {
             return $countryExport->map($country);
         });
-
     }
 
     /**
@@ -224,6 +234,7 @@ class CountryController extends Controller
      * Display a listing of the resource.
      *
      * @return Application|Factory|View
+     *
      * @throws Exception
      */
     public function importBulk(Request $request)
@@ -232,7 +243,7 @@ class CountryController extends Controller
         $countrys = $this->countryService->getAllCountries($filters);
 
         return view('setting.country.index', [
-            'countrys' => $countrys
+            'countrys' => $countrys,
         ]);
     }
 
@@ -240,6 +251,7 @@ class CountryController extends Controller
      * Display a detail of the resource.
      *
      * @return StreamedResponse|string
+     *
      * @throws Exception
      */
     public function print(Request $request)
@@ -248,11 +260,10 @@ class CountryController extends Controller
 
         $countryExport = $this->countryService->exportCountry($filters);
 
-        $filename = 'Country-' . date('Ymd-His') . '.' . ($filters['format'] ?? 'xlsx');
+        $filename = 'Country-'.date('Ymd-His').'.'.($filters['format'] ?? 'xlsx');
 
         return $countryExport->download($filename, function ($country) use ($countryExport) {
             return $countryExport->map($country);
         });
-
     }
 }

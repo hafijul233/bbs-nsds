@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Abstracts\Repository;
-
 
 use App\Interfaces\RepositoryInterface;
 use Exception;
@@ -14,25 +12,25 @@ use PDOException;
 
 /**
  * Class EloquentRepository
- * @package Modules\Backend\Repositories
  */
 abstract class EloquentRepository implements RepositoryInterface
 {
     /**
-     * @var Model $model eloquent Model Object
+     * @var Model eloquent Model Object
      */
     public $model;
 
     /**
-     * @var int $itemsPerPage number of items will be on pagination
+     * @var int number of items will be on pagination
      */
     public $itemsPerPage = 10;
 
     /**
      * Repository constructor.
      * Constructor to bind model to repo
-     * @param Model $model
-     * @param int $itemsPerPage
+     *
+     * @param  Model  $model
+     * @param  int  $itemsPerPage
      */
     public function __construct(Model $model, int $itemsPerPage = 10)
     {
@@ -53,8 +51,9 @@ abstract class EloquentRepository implements RepositoryInterface
     /**
      * create a new record in the database
      *
-     * @param array $data
+     * @param  array  $data
      * @return Model
+     *
      * @throws Exception
      */
     public function create(array $data): ?Model
@@ -62,9 +61,11 @@ abstract class EloquentRepository implements RepositoryInterface
         try {
             $newModel = $this->model->create($data);
             $this->setModel($newModel);
+
             return $this->getModel();
         } catch (Exception $exception) {
             $this->handleException($exception);
+
             return null;
         }
     }
@@ -72,9 +73,10 @@ abstract class EloquentRepository implements RepositoryInterface
     /**
      * update record in the database
      *
-     * @param array $data
+     * @param  array  $data
      * @param $id
      * @return bool
+     *
      * @throws Exception
      */
     public function update(array $data, $id): bool
@@ -82,40 +84,44 @@ abstract class EloquentRepository implements RepositoryInterface
         try {
             $recordModel = $this->model->findOrFail($id);
             $this->setModel($recordModel);
+
             return $this->model->update($data);
         } catch (Exception $exception) {
             $this->handleException($exception);
+
             return false;
         }
-
     }
 
     /**
      * remove record from the database
+     *
      * @param $id
      * @return bool
      */
     public function delete($id): bool
     {
-        return (bool)$this->model->destroy($id);
+        return (bool) $this->model->destroy($id);
     }
 
     /**
      * show the record with the given id
+     *
      * @param $id
-     * @param bool $purge
+     * @param  bool  $purge
      * @return mixed
+     *
      * @throws Exception
      */
     public function show($id, bool $purge = false)
     {
         $newModel = null;
         try {
-            if ($purge === true)
+            if ($purge === true) {
                 $newModel = $this->model->withTrashed()->findOrFail($id);
-            else
+            } else {
                 $newModel = $this->model->findOrFail($id);
-
+            }
         } catch (ModelNotFoundException $exception) {
             $this->handleException($exception);
         } finally {
@@ -125,16 +131,18 @@ abstract class EloquentRepository implements RepositoryInterface
 
     /**
      * remove record from the database
+     *
      * @param $id
      * @return bool
      */
     public function restore($id): bool
     {
-        return (bool)$this->model->withTrashed()->find($id)->restore($id);
+        return (bool) $this->model->withTrashed()->find($id)->restore($id);
     }
 
     /**
      * Get the associated model
+     *
      * @return Model
      */
     public function getModel(): Model
@@ -144,7 +152,8 @@ abstract class EloquentRepository implements RepositoryInterface
 
     /**
      * Associated Dynamically  model
-     * @param Model $model
+     *
+     * @param  Model  $model
      * @return void
      */
     public function setModel(Model $model)
@@ -174,13 +183,13 @@ abstract class EloquentRepository implements RepositoryInterface
     /**
      * Get the first Model meet this criteria
      *
-     * @param string $column
-     * @param string $operator
+     * @param  string  $column
+     * @param  string  $operator
      * @param $value
      * @return Model|null
+     *
      * @throws Exception
      */
-
     public function findFirstWhere(string $column, string $operator, $value): ?Model
     {
         $freshModel = null;
@@ -196,14 +205,14 @@ abstract class EloquentRepository implements RepositoryInterface
     /**
      * Get the all Model meet this criteria
      *
-     * @param string $column
-     * @param string $operator
+     * @param  string  $column
+     * @param  string  $operator
      * @param $value
-     * @param array $with
+     * @param  array  $with
      * @return mixed
+     *
      * @throws Exception
      */
-
     public function findAllWhere(string $column, string $operator, $value, array $with = [])
     {
         $collection = [];
@@ -217,12 +226,12 @@ abstract class EloquentRepository implements RepositoryInterface
         }
     }
 
-
     /**
      * Get the all Model Columns Collection
      *
-     * @param string $column
+     * @param  string  $column
      * @return mixed
+     *
      * @throws Exception
      */
     public function findColumn(string $column)
@@ -241,52 +250,56 @@ abstract class EloquentRepository implements RepositoryInterface
      * Handle All catch Exceptions
      *
      * @param $exception
+     *
      * @throws Exception
      */
     public function handleException($exception)
     {
-        \Log::error("Query Exception: ");
+        \Log::error('Query Exception: ');
         \Log::error($exception->getMessage());
         //if application is on production keep silent
-        if (\App::environment('production'))
+        if (\App::environment('production')) {
             \Log::error($exception->getMessage());
+        }
 
         //Eloquent Model Exception
-        else if ($exception instanceof ModelNotFoundException)
+        elseif ($exception instanceof ModelNotFoundException) {
             throw new ModelNotFoundException($exception->getMessage());
+        }
 
         //DB Error
-        else if ($exception instanceof PDOException)
+        elseif ($exception instanceof PDOException) {
             throw new PDOException($exception->getMessage());
-
-        else if ($exception instanceof \BadMethodCallException)
+        } elseif ($exception instanceof \BadMethodCallException) {
             throw new \BadMethodCallException($exception->getMessage());
+        }
 
         //Through general Exception
-        else
+        else {
             throw new Exception($exception->getMessage());
-
+        }
     }
 
     /**
-     * @param array $filters
-     * @param array $eagerRelations
-     * @param bool $is_sortable
+     * @param  array  $filters
+     * @param  array  $eagerRelations
+     * @param  bool  $is_sortable
      * @return mixed
+     *
      * @throws Exception
      */
     public function paginateWith(array $filters = [], array $eagerRelations = [], bool $is_sortable = false)
     {
         try {
             //if Sorting is available for this column
-            if ($is_sortable)
+            if ($is_sortable) {
                 $this->model->sortable();
+            }
 
             if (isset($filters['sort']) && isset($filters['direction'])) {
                 /*                $this->model->orderBy($filters['sort'], $filters['direction']);*/
                 unset($filters['sort'], $filters['direction']);
             }
-
         } catch (BadMethodCallException $exception) {
             $this->handleException($exception);
         } finally {

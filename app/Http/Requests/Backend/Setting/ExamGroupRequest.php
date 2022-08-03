@@ -6,7 +6,6 @@ use Illuminate\Foundation\Http\FormRequest;
 
 /**
  * @class CityRequest
- * @package App\Http\Requests\Backend\Setting
  */
 class ExamGroupRequest extends FormRequest
 {

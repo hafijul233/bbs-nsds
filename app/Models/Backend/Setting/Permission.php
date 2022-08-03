@@ -15,12 +15,12 @@ class Permission extends SpatiePermission implements Auditable
     use AuditableTrait, HasFactory, SoftDeletes, Sortable;
 
     /**
-     * @var string $table
+     * @var string
      */
     protected $table = 'permissions';
 
     /**
-     * @var string $primaryKey
+     * @var string
      */
     protected $primaryKey = 'id';
 
@@ -32,7 +32,6 @@ class Permission extends SpatiePermission implements Auditable
      * @var array
      */
     protected $fillable = ['display_name', 'name', 'guard_name', 'remarks', 'enabled'];
-
 
     /**
      * The attributes that should be hidden for arrays.
@@ -55,11 +54,10 @@ class Permission extends SpatiePermission implements Auditable
      */
     protected $attributes = [
         'guard_name' => 'web',
-        'enabled' => 'yes'
+        'enabled' => 'yes',
     ];
 
     /************************ Audit Relations ************************/
-
 
     /**
      * @return BelongsTo

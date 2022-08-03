@@ -13,19 +13,18 @@ class Username implements Rule
      */
     public function __construct()
     {
-
     }
 
     /**
      * Determine if the validation rule passes.
      *
-     * @param string $attribute
-     * @param mixed $value
+     * @param  string  $attribute
+     * @param  mixed  $value
      * @return bool
      */
     public function passes($attribute, $value): bool
     {
-        return (bool)preg_match('/^[a-zA-Z0-9\-_\.]+$/i', $value);
+        return (bool) preg_match('/^[a-zA-Z0-9\-_\.]+$/i', $value);
     }
 
     /**

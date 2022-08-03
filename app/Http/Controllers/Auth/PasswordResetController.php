@@ -17,7 +17,7 @@ class PasswordResetController extends Controller
     private $passwordResetService;
 
     /**
-     * @param PasswordResetService $passwordResetService
+     * @param  PasswordResetService  $passwordResetService
      */
     public function __construct(PasswordResetService $passwordResetService)
     {
@@ -37,7 +37,7 @@ class PasswordResetController extends Controller
     /**
      * Handle an incoming password reset link request.
      *
-     * @param PasswordResetRequest $request
+     * @param  PasswordResetRequest  $request
      * @return RedirectResponse
      */
     public function store(PasswordResetRequest $request): RedirectResponse
@@ -48,12 +48,13 @@ class PasswordResetController extends Controller
 
         if ($confirm['status'] === true) {
             notify($confirm['message'], $confirm['level'], $confirm['title']);
+
             return redirect()->to(route('auth.password.reset', $confirm['token']));
         }
 
         notify($confirm['message'], $confirm['level'], $confirm['title']);
-        return redirect()->back();
 
+        return redirect()->back();
     }
 
     public function edit($token)
@@ -69,10 +70,12 @@ class PasswordResetController extends Controller
 
         if ($confirm['status'] === true) {
             notify($confirm['message'], $confirm['level'], $confirm['title']);
+
             return redirect()->to(route('auth.login'));
         }
 
         notify($confirm['message'], $confirm['level'], $confirm['title']);
+
         return redirect()->back();
     }
 }

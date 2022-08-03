@@ -13,6 +13,7 @@ class CitySeeder extends Seeder
      * Run the database seeds.
      *
      * @return void
+     *
      * @throws Exception
      */
     public function run()
@@ -22,7 +23,7 @@ class CitySeeder extends Seeder
         DB::beginTransaction();
         try {
             DB::table('cities')->truncate();
-            DB::unprepared(file_get_contents(__DIR__ . '/cities/019.sql'));
+            DB::unprepared(file_get_contents(__DIR__.'/cities/019.sql'));
             DB::commit();
         } catch (\PDOException $exception) {
             DB::rollBack();

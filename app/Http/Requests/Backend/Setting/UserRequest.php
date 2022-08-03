@@ -33,34 +33,33 @@ class UserRequest extends FormRequest
             'role_id' => ['required', 'array', 'min:1', 'max:3'],
             'role_id.*' => ['required', 'integer', 'min:1', 'max:255'],
             'remarks' => ['nullable', 'string', 'min:3', 'max:255'],
-            'username' => ['string', 'min:5', 'max:255', new Username, 'unique:users,username,' . $this->user],
-            'email' => ['string', 'min:3', 'max:255', 'email', 'unique:users,email,' . $this->user],
-            'mobile' => ['string', 'min:11', 'max:13', new PhoneNumber, 'unique:users,mobile,' . $this->user],
+            'username' => ['string', 'min:5', 'max:255', new Username, 'unique:users,username,'.$this->user],
+            'email' => ['string', 'min:3', 'max:255', 'email', 'unique:users,email,'.$this->user],
+            'mobile' => ['string', 'min:11', 'max:13', new PhoneNumber, 'unique:users,mobile,'.$this->user],
         ];
-
 
         //Credential Field
         if (config('auth.credential_field') == Constant::LOGIN_EMAIL
             || (config('auth.credential_field') == Constant::LOGIN_OTP
-                && config('auth.credential_otp_field') == Constant::OTP_EMAIL)):
+                && config('auth.credential_otp_field') == Constant::OTP_EMAIL)) {
             $rules['email'][] = 'required';
-        else :
+        } else {
             $rules['email'][] = 'nullable';
-        endif;
+        }
 
         if (config('auth.credential_field') == Constant::LOGIN_MOBILE
             || (config('auth.credential_field') == Constant::LOGIN_OTP
-                && config('auth.credential_otp_field') == Constant::OTP_MOBILE)) :
+                && config('auth.credential_otp_field') == Constant::OTP_MOBILE)) {
             $rules['mobile'][] = 'required';
-        else :
+        } else {
             $rules['mobile'][] = 'nullable';
-        endif;
+        }
 
-        if (config('auth.credential_field') == Constant::LOGIN_USERNAME) :
+        if (config('auth.credential_field') == Constant::LOGIN_USERNAME) {
             $rules['username'][] = 'required';
-        else :
+        } else {
             $rules['username'][] = 'nullable';
-        endif;
+        }
 
         return  $rules;
     }

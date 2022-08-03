@@ -24,23 +24,24 @@ class StateController extends Controller
      * @var AuthenticatedSessionService
      */
     private $authenticatedSessionService;
+
     /**
      * @var StateService
      */
     private $stateService;
+
     /**
      * @var CountryService
      */
     private $countryService;
 
     /**
-     * @param AuthenticatedSessionService $authenticatedSessionService
-     * @param StateService $stateService
+     * @param  AuthenticatedSessionService  $authenticatedSessionService
+     * @param  StateService  $stateService
      */
     public function __construct(AuthenticatedSessionService $authenticatedSessionService,
-                                StateService $stateService)
+        StateService $stateService)
     {
-
         $this->authenticatedSessionService = $authenticatedSessionService;
         $this->stateService = $stateService;
     }
@@ -48,8 +49,9 @@ class StateController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @param Request $request
+     * @param  Request  $request
      * @return Application|Factory|View
+     *
      * @throws Exception
      */
     public function index(Request $request)
@@ -58,7 +60,7 @@ class StateController extends Controller
         $states = $this->stateService->statePaginate($filters);
 
         return view('backend.setting.state.index', [
-            'states' => $states
+            'states' => $states,
         ]);
     }
 
@@ -66,19 +68,22 @@ class StateController extends Controller
      * Show the form for creating a new resource.
      *
      * @return Application|Factory|View
+     *
      * @throws Exception
      */
     public function create()
     {
         $divisions = $this->stateService->getStateDropdown(['enabled' => Constant::ENABLED_OPTION, 'type' => 'division', 'sort' => ((session()->get('locale') == 'bd') ? 'native' : 'name'), 'direction' => 'asc'], (session()->get('locale') == 'bd'));
-        return view('backend.setting.state.create',['divisions' => $divisions]);
+
+        return view('backend.setting.state.create', ['divisions' => $divisions]);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param StateRequest $request
+     * @param  StateRequest  $request
      * @return RedirectResponse
+     *
      * @throws Exception|\Throwable
      */
     public function store(StateRequest $request): RedirectResponse
@@ -86,18 +91,21 @@ class StateController extends Controller
         $confirm = $this->stateService->storeState($request->except('_token'));
         if ($confirm['status'] == true) {
             notify($confirm['message'], $confirm['level'], $confirm['title']);
+
             return redirect()->route('backend.settings.states.index');
         }
 
         notify($confirm['message'], $confirm['level'], $confirm['title']);
+
         return redirect()->back()->withInput();
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  $id
+     * @param    $id
      * @return Application|Factory|View
+     *
      * @throws Exception
      */
     public function show($id)
@@ -105,7 +113,7 @@ class StateController extends Controller
         if ($state = $this->stateService->getStateById($id)) {
             return view('backend.setting.state.show', [
                 'state' => $state,
-                'timeline' => Utility::modelAudits($state)
+                'timeline' => Utility::modelAudits($state),
             ]);
         }
 
@@ -117,6 +125,7 @@ class StateController extends Controller
      *
      * @param $id
      * @return Application|Factory|View
+     *
      * @throws Exception
      */
     public function edit($id)
@@ -125,7 +134,7 @@ class StateController extends Controller
         if ($state = $this->stateService->getStateById($id)) {
             return view('backend.setting.state.edit', [
                 'state' => $state,
-                'divisions' => $divisions
+                'divisions' => $divisions,
             ]);
         }
 
@@ -135,9 +144,10 @@ class StateController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param StateRequest $request
-     * @param  $id
+     * @param  StateRequest  $request
+     * @param    $id
      * @return RedirectResponse
+     *
      * @throws \Throwable
      */
     public function update(StateRequest $request, $id): RedirectResponse
@@ -146,10 +156,12 @@ class StateController extends Controller
 
         if ($confirm['status'] == true) {
             notify($confirm['message'], $confirm['level'], $confirm['title']);
+
             return redirect()->route('backend.settings.states.index');
         }
 
         notify($confirm['message'], $confirm['level'], $confirm['title']);
+
         return redirect()->back()->withInput();
     }
 
@@ -157,14 +169,14 @@ class StateController extends Controller
      * Remove the specified resource from storage.
      *
      * @param $id
-     * @param Request $request
+     * @param  Request  $request
      * @return RedirectResponse
+     *
      * @throws \Throwable
      */
     public function destroy($id, Request $request)
     {
         if ($this->authenticatedSessionService->validate($request)) {
-
             $confirm = $this->stateService->destroyState($id);
 
             if ($confirm['status'] == true) {
@@ -172,6 +184,7 @@ class StateController extends Controller
             } else {
                 notify($confirm['message'], $confirm['level'], $confirm['title']);
             }
+
             return redirect()->route('backend.settings.states.index');
         }
         abort(403, 'Wrong user credentials');
@@ -181,14 +194,14 @@ class StateController extends Controller
      * Restore a Soft Deleted Resource
      *
      * @param $id
-     * @param Request $request
+     * @param  Request  $request
      * @return RedirectResponse|void
+     *
      * @throws \Throwable
      */
     public function restore($id, Request $request)
     {
         if ($this->authenticatedSessionService->validate($request)) {
-
             $confirm = $this->stateService->restoreState($id);
 
             if ($confirm['status'] == true) {
@@ -196,6 +209,7 @@ class StateController extends Controller
             } else {
                 notify($confirm['message'], $confirm['level'], $confirm['title']);
             }
+
             return redirect()->route('backend.settings.states.index');
         }
         abort(403, 'Wrong user credentials');
@@ -205,6 +219,7 @@ class StateController extends Controller
      * Display a listing of the resource.
      *
      * @return string|StreamedResponse
+     *
      * @throws Exception
      */
     public function export(Request $request)
@@ -213,12 +228,11 @@ class StateController extends Controller
 
         $stateExport = $this->stateService->exportState($filters);
 
-        $filename = 'State-' . date('Ymd-His') . '.' . ($filters['format'] ?? 'xlsx');
+        $filename = 'State-'.date('Ymd-His').'.'.($filters['format'] ?? 'xlsx');
 
         return $stateExport->download($filename, function ($state) use ($stateExport) {
             return $stateExport->map($state);
         });
-
     }
 
     /**
@@ -235,6 +249,7 @@ class StateController extends Controller
      * Display a listing of the resource.
      *
      * @return Application|Factory|View
+     *
      * @throws Exception
      */
     public function importBulk(Request $request)
@@ -243,7 +258,7 @@ class StateController extends Controller
         $states = $this->stateService->getAllStates($filters);
 
         return view('backend.setting.state.index', [
-            'states' => $states
+            'states' => $states,
         ]);
     }
 
@@ -251,6 +266,7 @@ class StateController extends Controller
      * Display a detail of the resource.
      *
      * @return StreamedResponse|string
+     *
      * @throws Exception
      */
     public function print(Request $request)
@@ -259,7 +275,7 @@ class StateController extends Controller
 
         $stateExport = $this->stateService->exportState($filters);
 
-        $filename = 'State-' . date('Ymd-His') . '.' . ($filters['format'] ?? 'xlsx');
+        $filename = 'State-'.date('Ymd-His').'.'.($filters['format'] ?? 'xlsx');
 
         return $stateExport->download($filename, function ($state) use ($stateExport) {
             return $stateExport->map($state);
@@ -269,8 +285,9 @@ class StateController extends Controller
     /**
      * Display a detail of the resource.
      *
-     * @param Request $request
+     * @param  Request  $request
      * @return JsonResponse
+     *
      * @throws Exception
      */
     public function ajax(Request $request): JsonResponse
@@ -279,11 +296,11 @@ class StateController extends Controller
 
         $states = $this->stateService->getAllStates($filters)->toArray();
 
-        if (count($states) > 0):
+        if (count($states) > 0) {
             $jsonReturn = ['status' => true, 'data' => $states];
-        else :
+        } else {
             $jsonReturn = ['status' => false, 'data' => []];
-        endif;
+        }
 
         return response()->json($jsonReturn, 200);
     }

@@ -58,15 +58,15 @@ return [
 
         'media' => [
             'driver' => 'local',
-            'root'   => public_path('media'),
-            'url'    => env('APP_URL').'/media',
+            'root' => public_path('media'),
+            'url' => env('APP_URL').'/media',
             'visibility' => 'public',
         ],
 
         'avatar' => [
             'driver' => 'local',
-            'root'   => public_path('media/avatars'),
-            'url'    => env('APP_URL').'/media/avatars',
+            'root' => public_path('media/avatars'),
+            'url' => env('APP_URL').'/media/avatars',
             'visibility' => 'public',
             'permissions' => [
                 'file' => [
@@ -77,7 +77,7 @@ return [
                     'public' => 0775,
                     'private' => 0775,
                 ],
-        ],
+            ],
         ],
 
         's3' => [

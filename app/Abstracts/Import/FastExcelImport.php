@@ -15,7 +15,7 @@ use Rap2hpoutre\FastExcel\FastExcel;
 abstract class FastExcelImport extends FastExcel implements ExportInterface
 {
     /**
-     * @var BorderBuilder $border
+     * @var BorderBuilder
      */
     protected $borderStyle = null;
 
@@ -30,7 +30,7 @@ abstract class FastExcelImport extends FastExcel implements ExportInterface
     protected $rowStyle = null;
 
     /**
-     * @var array $formatRow
+     * @var array
      */
     public $formatRow = [];
 
@@ -40,7 +40,7 @@ abstract class FastExcelImport extends FastExcel implements ExportInterface
      * @param $row
      * @return array
      */
-    public abstract function map($row): array;
+    abstract public function map($row): array;
 
     /**
      * Export Constructor
@@ -69,21 +69,21 @@ abstract class FastExcelImport extends FastExcel implements ExportInterface
             ->setFontSize(12)
             ->setShouldWrapText()
             ->setCellAlignment(CellAlignment::LEFT));
-
     }
 
     /**
-     * @param BorderBuilder $borderBuilder
+     * @param  BorderBuilder  $borderBuilder
      * @return FastExport
      */
     public function setBorderStyle(BorderBuilder $borderBuilder): self
     {
         $this->borderStyle = $borderBuilder;
+
         return $this;
     }
 
     /**
-     * @param StyleBuilder $styleBuilder
+     * @param  StyleBuilder  $styleBuilder
      * @return FastExport
      */
     public function setRowStyle(StyleBuilder $styleBuilder): self
@@ -102,7 +102,7 @@ abstract class FastExcelImport extends FastExcel implements ExportInterface
     }
 
     /**
-     * @param StyleBuilder $styleBuilder
+     * @param  StyleBuilder  $styleBuilder
      * @return FastExport
      */
     public function setHeadingStyle(StyleBuilder $styleBuilder): self
@@ -116,6 +116,7 @@ abstract class FastExcelImport extends FastExcel implements ExportInterface
         $style = $styleBuilder->build();
 
         $this->headerStyle($style);
+
         return $this;
     }
 
@@ -126,7 +127,7 @@ abstract class FastExcelImport extends FastExcel implements ExportInterface
      */
     public function getSupperAdminColumns($row)
     {
-        if (AuthenticatedSessionService::isSuperAdmin()):
+        if (AuthenticatedSessionService::isSuperAdmin()) {
             $this->formatRow['Deleted'] = ($row->deleted_at != null)
                 ? $row->deleted_at->format(config('backend.datetime'))
                 : null;
@@ -141,6 +142,6 @@ abstract class FastExcelImport extends FastExcel implements ExportInterface
             $this->formatRow['Destructor'] = ($row->deletedBy != null)
                 ? $row->deletedBy->name
                 : null;
-        endif;
+        }
     }
 }

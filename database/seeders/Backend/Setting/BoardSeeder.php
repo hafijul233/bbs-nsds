@@ -30,11 +30,11 @@ class BoardSeeder extends Seeder
             ['type' => Constant::CATALOG_TYPE['BOARD'], 'name' => 'Cambridge International - IGCE', 'remarks' => 'Education board name', 'additional_info' => [], 'enabled' => Constant::ENABLED_OPTION],
             ['type' => Constant::CATALOG_TYPE['BOARD'], 'name' => 'Edexcel International', 'remarks' => 'Education board name', 'additional_info' => [], 'enabled' => Constant::ENABLED_OPTION],
             ['type' => Constant::CATALOG_TYPE['BOARD'], 'name' => 'Bangladesh Technical Education Board (BTEB)', 'remarks' => 'Education board name', 'additional_info' => [], 'enabled' => Constant::ENABLED_OPTION],
-            ['type' => Constant::CATALOG_TYPE['BOARD'], 'name' => 'Others', 'remarks' => 'Education board name', 'additional_info' => [], 'enabled' => Constant::ENABLED_OPTION]
+            ['type' => Constant::CATALOG_TYPE['BOARD'], 'name' => 'Others', 'remarks' => 'Education board name', 'additional_info' => [], 'enabled' => Constant::ENABLED_OPTION],
         ];
 
-        foreach ($boards as $board):
+        foreach ($boards as $board) {
             Catalog::create($board);
-        endforeach;
+        }
     }
 }

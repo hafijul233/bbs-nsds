@@ -12,6 +12,7 @@ class OtherDirectorUserSeeder extends Seeder
      * Run the database seeds.
      *
      * @return void
+     *
      * @throws \Exception
      */
     public function run()
@@ -26,25 +27,21 @@ class OtherDirectorUserSeeder extends Seeder
                         'state_id' => $state->id,
                         'username' => "DD_{$state->name}",
                         'email' => strtolower("deputy_director_{$state->name}@bbs.com"),
-                        'remarks' => 'Deputy Director’s User ID'
+                        'remarks' => 'Deputy Director’s User ID',
                     ];
                     User::factory()->asDeputyDirector()->create($director);
-
-                } else if ($state->type == 'division') {
-
+                } elseif ($state->type == 'division') {
                     $director = [
                         'name' => "{$state->name} Division",
                         'state_id' => $state->id,
                         'username' => "JD_{$state->name}",
                         'email' => strtolower("joint_director_{$state->name}@bbs.com"),
-                        'remarks' => 'Joint Director’s User ID'
+                        'remarks' => 'Joint Director’s User ID',
                     ];
                     User::factory()->asJointDirector()->create($director);
-
                 } else {
                     //nothing
                 }
-
             } catch (\Exception $exception) {
                 throw new \Exception($exception->getMessage());
             }

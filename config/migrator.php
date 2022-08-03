@@ -5,5 +5,5 @@ return [
     'route' => 'migrator',
 
     // Middleware to authenticate users
-    'middleware' => 'auth'
+    'middleware' => 'auth',
 ];

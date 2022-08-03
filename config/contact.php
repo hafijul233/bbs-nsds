@@ -11,7 +11,7 @@ return [
     'priority' => [
         'high' => 'High',
         'low' => 'Low',
-        'normal' => 'Normal'
+        'normal' => 'Normal',
     ],
     'address_type' => [
         'home' => 'Home',
@@ -44,6 +44,6 @@ return [
     'default' => [
         'country' => 19,
         'state' => 771,
-        'city' => 8486
+        'city' => 8486,
     ],
 ];

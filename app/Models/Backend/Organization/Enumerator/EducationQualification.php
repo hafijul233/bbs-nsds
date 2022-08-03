@@ -21,12 +21,12 @@ class EducationQualification extends Model implements Auditable
     use AuditableTrait, HasFactory, SoftDeletes, Sortable;
 
     /**
-     * @var string $table
+     * @var string
      */
     protected $table = 'education_qualifications';
 
     /**
-     * @var string $primaryKey
+     * @var string
      */
     protected $primaryKey = 'id';
 
@@ -37,8 +37,7 @@ class EducationQualification extends Model implements Auditable
      *
      * @var array
      */
-    protected $fillable = [ 'enumerator_id', 'exam_level_id', 'exam_title_id', 'exam_group_id', 'exam_board_id', 'institute_id', 'pass_year', 'roll_number', 'grade_type', 'grade_point', 'enabled'];
-
+    protected $fillable = ['enumerator_id', 'exam_level_id', 'exam_title_id', 'exam_group_id', 'exam_board_id', 'institute_id', 'pass_year', 'roll_number', 'grade_type', 'grade_point', 'enabled'];
 
     /**
      * The attributes that should be hidden for arrays.
@@ -60,7 +59,7 @@ class EducationQualification extends Model implements Auditable
      * @var array
      */
     protected $attributes = [
-        'enabled' => 'yes'
+        'enabled' => 'yes',
     ];
 
     /************************ Audit Relations ************************/
@@ -112,5 +111,4 @@ class EducationQualification extends Model implements Auditable
     {
         return $this->belongsTo(Catalog::class, 'exam_board_id', 'id');
     }
-
 }

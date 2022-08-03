@@ -13,19 +13,18 @@ use OwenIt\Auditing\Contracts\Auditable;
 
 /**
  * @class Organization
- * @package App\Models\Backend
  */
 class Organization extends Model implements Auditable
 {
     use AuditableTrait, HasFactory, SoftDeletes, Sortable;
 
     /**
-     * @var string $table
+     * @var string
      */
     protected $table = '';
 
     /**
-     * @var string $primaryKey
+     * @var string
      */
     protected $primaryKey = 'id';
 
@@ -36,7 +35,7 @@ class Organization extends Model implements Auditable
      *
      * @var array
      */
-    protected $fillable = [ /*****/'enabled', 'created_by', 'updated_by', 'deleted_by'];
+    protected $fillable = [/*****/'enabled', 'created_by', 'updated_by', 'deleted_by'];
 
     /**
      * The attributes that should be hidden for arrays.
@@ -58,7 +57,7 @@ class Organization extends Model implements Auditable
      * @var array
      */
     protected $attributes = [
-        'enabled' => 'yes'
+        'enabled' => 'yes',
     ];
 
     /************************ Static Factory ************************/

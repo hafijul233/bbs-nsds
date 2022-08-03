@@ -32,7 +32,7 @@ return [
 
     'user' => [
         'morph_prefix' => 'user',
-        'guards'       => [
+        'guards' => [
             'web',
             'api',
         ],
@@ -47,10 +47,10 @@ return [
     |
     */
     'resolver' => [
-        'user'       => UserResolver::class,
+        'user' => UserResolver::class,
         'ip_address' => IpAddressResolver::class,
         'user_agent' => UserAgentResolver::class,
-        'url'        => UrlResolver::class,
+        'url' => UrlResolver::class,
     ],
 
     /*
@@ -125,7 +125,7 @@ return [
 
     'drivers' => [
         'database' => [
-            'table'      => 'audits',
+            'table' => 'audits',
             'connection' => null,
         ],
     ],

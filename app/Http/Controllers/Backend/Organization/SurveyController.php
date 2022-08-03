@@ -17,7 +17,6 @@ use Symfony\Component\HttpFoundation\StreamedResponse;
 
 /**
  * @class SurveyController
- * @package App\Http\Controllers\Backend\Organization
  */
 class SurveyController extends Controller
 {
@@ -25,7 +24,7 @@ class SurveyController extends Controller
      * @var AuthenticatedSessionService
      */
     private $authenticatedSessionService;
-    
+
     /**
      * @var SurveyService
      */
@@ -34,13 +33,12 @@ class SurveyController extends Controller
     /**
      * SurveyController Constructor
      *
-     * @param AuthenticatedSessionService $authenticatedSessionService
-     * @param SurveyService $surveyService
+     * @param  AuthenticatedSessionService  $authenticatedSessionService
+     * @param  SurveyService  $surveyService
      */
     public function __construct(AuthenticatedSessionService $authenticatedSessionService,
-                                SurveyService              $surveyService)
+        SurveyService $surveyService)
     {
-
         $this->authenticatedSessionService = $authenticatedSessionService;
         $this->surveyService = $surveyService;
     }
@@ -48,8 +46,9 @@ class SurveyController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @param Request $request
+     * @param  Request  $request
      * @return Application|Factory|View
+     *
      * @throws Exception
      */
     public function index(Request $request)
@@ -58,7 +57,7 @@ class SurveyController extends Controller
         $surveys = $this->surveyService->surveyPaginate($filters);
 
         return view('backend.organization.survey.index', [
-            'surveys' => $surveys
+            'surveys' => $surveys,
         ]);
     }
 
@@ -75,8 +74,9 @@ class SurveyController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  $request
+     * @param    $request
      * @return RedirectResponse
+     *
      * @throws Exception|\Throwable
      */
     public function store(SurveyRequest $request): RedirectResponse
@@ -84,18 +84,21 @@ class SurveyController extends Controller
         $confirm = $this->surveyService->storeSurvey($request->except('_token'));
         if ($confirm['status'] == true) {
             notify($confirm['message'], $confirm['level'], $confirm['title']);
+
             return redirect()->route('backend.organization.surveys.index');
         }
 
         notify($confirm['message'], $confirm['level'], $confirm['title']);
+
         return redirect()->back()->withInput();
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  $id
+     * @param    $id
      * @return Application|Factory|View
+     *
      * @throws Exception
      */
     public function show($id)
@@ -103,7 +106,7 @@ class SurveyController extends Controller
         if ($survey = $this->surveyService->getSurveyById($id)) {
             return view('backend.organization.survey.show', [
                 'survey' => $survey,
-                'timeline' => Utility::modelAudits($survey)
+                'timeline' => Utility::modelAudits($survey),
             ]);
         }
 
@@ -115,13 +118,14 @@ class SurveyController extends Controller
      *
      * @param $id
      * @return Application|Factory|View
+     *
      * @throws Exception
      */
     public function edit($id)
     {
         if ($survey = $this->surveyService->getSurveyById($id)) {
             return view('backend.organization.survey.edit', [
-                'survey' => $survey
+                'survey' => $survey,
             ]);
         }
 
@@ -131,9 +135,10 @@ class SurveyController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param SurveyRequest $request
-     * @param  $id
+     * @param  SurveyRequest  $request
+     * @param    $id
      * @return RedirectResponse
+     *
      * @throws \Throwable
      */
     public function update(SurveyRequest $request, $id): RedirectResponse
@@ -142,10 +147,12 @@ class SurveyController extends Controller
 
         if ($confirm['status'] == true) {
             notify($confirm['message'], $confirm['level'], $confirm['title']);
+
             return redirect()->route('backend.organization.surveys.index');
         }
 
         notify($confirm['message'], $confirm['level'], $confirm['title']);
+
         return redirect()->back()->withInput();
     }
 
@@ -153,14 +160,14 @@ class SurveyController extends Controller
      * Remove the specified resource from storage.
      *
      * @param $id
-     * @param Request $request
+     * @param  Request  $request
      * @return RedirectResponse
+     *
      * @throws \Throwable
      */
     public function destroy($id, Request $request)
     {
         if ($this->authenticatedSessionService->validate($request)) {
-
             $confirm = $this->surveyService->destroySurvey($id);
 
             if ($confirm['status'] == true) {
@@ -168,6 +175,7 @@ class SurveyController extends Controller
             } else {
                 notify($confirm['message'], $confirm['level'], $confirm['title']);
             }
+
             return redirect()->route('backend.organization.surveys.index');
         }
         abort(403, 'Wrong user credentials');
@@ -177,14 +185,14 @@ class SurveyController extends Controller
      * Restore a Soft Deleted Resource
      *
      * @param $id
-     * @param Request $request
+     * @param  Request  $request
      * @return RedirectResponse|void
+     *
      * @throws \Throwable
      */
     public function restore($id, Request $request)
     {
         if ($this->authenticatedSessionService->validate($request)) {
-
             $confirm = $this->surveyService->restoreSurvey($id);
 
             if ($confirm['status'] == true) {
@@ -192,6 +200,7 @@ class SurveyController extends Controller
             } else {
                 notify($confirm['message'], $confirm['level'], $confirm['title']);
             }
+
             return redirect()->route('backend.organization.surveys.index');
         }
         abort(403, 'Wrong user credentials');
@@ -201,6 +210,7 @@ class SurveyController extends Controller
      * Display a listing of the resource.
      *
      * @return string|StreamedResponse
+     *
      * @throws Exception
      */
     public function export(Request $request)
@@ -209,12 +219,11 @@ class SurveyController extends Controller
 
         $surveyExport = $this->surveyService->exportSurvey($filters);
 
-        $filename = 'Survey-' . date('Ymd-His') . '.' . ($filters['format'] ?? 'xlsx');
+        $filename = 'Survey-'.date('Ymd-His').'.'.($filters['format'] ?? 'xlsx');
 
         return $surveyExport->download($filename, function ($survey) use ($surveyExport) {
             return $surveyExport->map($survey);
         });
-
     }
 
     /**
@@ -231,6 +240,7 @@ class SurveyController extends Controller
      * Display a listing of the resource.
      *
      * @return Application|Factory|View
+     *
      * @throws Exception
      */
     public function importBulk(Request $request)
@@ -239,7 +249,7 @@ class SurveyController extends Controller
         $surveys = $this->surveyService->getAllSurveys($filters);
 
         return view('backend.organization.surveyindex', [
-            'surveys' => $surveys
+            'surveys' => $surveys,
         ]);
     }
 
@@ -247,6 +257,7 @@ class SurveyController extends Controller
      * Display a detail of the resource.
      *
      * @return StreamedResponse|string
+     *
      * @throws Exception
      */
     public function print(Request $request)
@@ -255,11 +266,10 @@ class SurveyController extends Controller
 
         $surveyExport = $this->surveyService->exportSurvey($filters);
 
-        $filename = 'Survey-' . date('Ymd-His') . '.' . ($filters['format'] ?? 'xlsx');
+        $filename = 'Survey-'.date('Ymd-His').'.'.($filters['format'] ?? 'xlsx');
 
         return $surveyExport->download($filename, function ($survey) use ($surveyExport) {
             return $surveyExport->map($survey);
         });
-
     }
 }

@@ -21,19 +21,19 @@ class PermissionController extends Controller
      * @var AuthenticatedSessionService
      */
     private $authenticatedSessionService;
+
     /**
      * @var PermissionService
      */
     private $permissionService;
 
     /**
-     * @param AuthenticatedSessionService $authenticatedSessionService
-     * @param PermissionService $permissionService
+     * @param  AuthenticatedSessionService  $authenticatedSessionService
+     * @param  PermissionService  $permissionService
      */
     public function __construct(AuthenticatedSessionService $authenticatedSessionService,
-                                PermissionService              $permissionService)
+        PermissionService $permissionService)
     {
-
         $this->authenticatedSessionService = $authenticatedSessionService;
         $this->permissionService = $permissionService;
     }
@@ -41,8 +41,9 @@ class PermissionController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @param Request $request
+     * @param  Request  $request
      * @return Application|Factory|View
+     *
      * @throws Exception
      */
     public function index(Request $request)
@@ -51,7 +52,7 @@ class PermissionController extends Controller
         $permissions = $this->permissionService->permissionPaginate($filters);
 
         return view('backend.setting.permission.index', [
-            'permissions' => $permissions
+            'permissions' => $permissions,
         ]);
     }
 
@@ -68,8 +69,9 @@ class PermissionController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param PermissionRequest $request
+     * @param  PermissionRequest  $request
      * @return RedirectResponse
+     *
      * @throws Exception|\Throwable
      */
     public function store(PermissionRequest $request): RedirectResponse
@@ -77,18 +79,21 @@ class PermissionController extends Controller
         $confirm = $this->permissionService->storePermission($request->except('_token'));
         if ($confirm['status'] == true) {
             notify($confirm['message'], $confirm['level'], $confirm['title']);
+
             return redirect()->route('backend.settings.permissions.index');
         }
 
         notify($confirm['message'], $confirm['level'], $confirm['title']);
+
         return redirect()->back()->withInput();
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  $id
+     * @param    $id
      * @return Application|Factory|View
+     *
      * @throws Exception
      */
     public function show($id)
@@ -96,7 +101,7 @@ class PermissionController extends Controller
         if ($permission = $this->permissionService->getPermissionById($id)) {
             return view('backend.setting.permission.show', [
                 'permission' => $permission,
-                'timeline' => Utility::modelAudits($permission)
+                'timeline' => Utility::modelAudits($permission),
             ]);
         }
 
@@ -108,13 +113,14 @@ class PermissionController extends Controller
      *
      * @param $id
      * @return Application|Factory|View
+     *
      * @throws Exception
      */
     public function edit($id)
     {
         if ($permission = $this->permissionService->getPermissionById($id)) {
             return view('backend.setting.permission.edit', [
-                'permission' => $permission
+                'permission' => $permission,
             ]);
         }
 
@@ -124,9 +130,10 @@ class PermissionController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param PermissionRequest $request
-     * @param  $id
+     * @param  PermissionRequest  $request
+     * @param    $id
      * @return RedirectResponse
+     *
      * @throws \Throwable
      */
     public function update(PermissionRequest $request, $id): RedirectResponse
@@ -135,10 +142,12 @@ class PermissionController extends Controller
 
         if ($confirm['status'] == true) {
             notify($confirm['message'], $confirm['level'], $confirm['title']);
+
             return redirect()->route('backend.settings.permissions.index');
         }
 
         notify($confirm['message'], $confirm['level'], $confirm['title']);
+
         return redirect()->back()->withInput();
     }
 
@@ -146,14 +155,14 @@ class PermissionController extends Controller
      * Remove the specified resource from storage.
      *
      * @param $id
-     * @param Request $request
+     * @param  Request  $request
      * @return RedirectResponse
+     *
      * @throws \Throwable
      */
     public function destroy($id, Request $request)
     {
         if ($this->authenticatedSessionService->validate($request)) {
-
             $confirm = $this->permissionService->destroyPermission($id);
 
             if ($confirm['status'] == true) {
@@ -161,6 +170,7 @@ class PermissionController extends Controller
             } else {
                 notify($confirm['message'], $confirm['level'], $confirm['title']);
             }
+
             return redirect()->route('backend.settings.permissions.index');
         }
         abort(403, 'Wrong user credentials');
@@ -170,14 +180,14 @@ class PermissionController extends Controller
      * Restore a Soft Deleted Resource
      *
      * @param $id
-     * @param Request $request
+     * @param  Request  $request
      * @return RedirectResponse|void
+     *
      * @throws \Throwable
      */
     public function restore($id, Request $request)
     {
         if ($this->authenticatedSessionService->validate($request)) {
-
             $confirm = $this->permissionService->restorePermission($id);
 
             if ($confirm['status'] == true) {
@@ -185,6 +195,7 @@ class PermissionController extends Controller
             } else {
                 notify($confirm['message'], $confirm['level'], $confirm['title']);
             }
+
             return redirect()->route('backend.settings.permissions.index');
         }
         abort(403, 'Wrong user credentials');
@@ -194,6 +205,7 @@ class PermissionController extends Controller
      * Display a listing of the resource.
      *
      * @return string|StreamedResponse
+     *
      * @throws Exception
      */
     public function export(Request $request)
@@ -202,12 +214,11 @@ class PermissionController extends Controller
 
         $permissionExport = $this->permissionService->exportPermission($filters);
 
-        $filename = 'Permission-' . date('Ymd-His') . '.' . ($filters['format'] ?? 'xlsx');
+        $filename = 'Permission-'.date('Ymd-His').'.'.($filters['format'] ?? 'xlsx');
 
         return $permissionExport->download($filename, function ($permission) use ($permissionExport) {
             return $permissionExport->map($permission);
         });
-
     }
 
     /**
@@ -224,6 +235,7 @@ class PermissionController extends Controller
      * Display a listing of the resource.
      *
      * @return Application|Factory|View
+     *
      * @throws Exception
      */
     public function importBulk(Request $request)
@@ -232,7 +244,7 @@ class PermissionController extends Controller
         $permissions = $this->permissionService->getAllPermissions($filters);
 
         return view('backend.setting.permission.index', [
-            'permissions' => $permissions
+            'permissions' => $permissions,
         ]);
     }
 
@@ -240,6 +252,7 @@ class PermissionController extends Controller
      * Display a detail of the resource.
      *
      * @return StreamedResponse|string
+     *
      * @throws Exception
      */
     public function print(Request $request)
@@ -248,11 +261,10 @@ class PermissionController extends Controller
 
         $permissionExport = $this->permissionService->exportPermission($filters);
 
-        $filename = 'Permission-' . date('Ymd-His') . '.' . ($filters['format'] ?? 'xlsx');
+        $filename = 'Permission-'.date('Ymd-His').'.'.($filters['format'] ?? 'xlsx');
 
         return $permissionExport->download($filename, function ($permission) use ($permissionExport) {
             return $permissionExport->map($permission);
         });
-
     }
 }

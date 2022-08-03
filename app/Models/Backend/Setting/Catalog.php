@@ -12,19 +12,18 @@ use OwenIt\Auditing\Contracts\Auditable;
 
 /**
  * @class Catalog
- * @package App\Models\Backend\Setting
  */
 class Catalog extends Model implements Auditable
 {
     use AuditableTrait, HasFactory, SoftDeletes, Sortable;
 
     /**
-     * @var string $table
+     * @var string
      */
     protected $table = 'catalogs';
 
     /**
-     * @var string $primaryKey
+     * @var string
      */
     protected $primaryKey = 'id';
 
@@ -35,7 +34,7 @@ class Catalog extends Model implements Auditable
      *
      * @var array
      */
-    protected $fillable = [ 'model_type', 'name', 'remarks', 'additional_info', 'enabled', 'created_by', 'updated_by', 'deleted_by'];
+    protected $fillable = ['model_type', 'name', 'remarks', 'additional_info', 'enabled', 'created_by', 'updated_by', 'deleted_by'];
 
     /**
      * The attributes that should be hidden for arrays.
@@ -50,7 +49,7 @@ class Catalog extends Model implements Auditable
      * @var array
      */
     protected $casts = [
-        'additional_info' => 'array'
+        'additional_info' => 'array',
     ];
 
     /**
@@ -59,7 +58,7 @@ class Catalog extends Model implements Auditable
      * @var array
      */
     protected $attributes = [
-        'enabled' => 'yes'
+        'enabled' => 'yes',
     ];
 
     /************************ Static Factory ************************/

@@ -17,7 +17,7 @@ class SurveyFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->paragraph(1)
+            'name' => $this->faker->paragraph(1),
         ];
     }
 }

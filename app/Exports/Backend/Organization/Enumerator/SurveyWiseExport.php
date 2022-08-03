@@ -10,14 +10,14 @@ use OpenSpout\Common\Exception\InvalidArgumentException;
 
 /**
  * Class SurveyWiseExport
- * @package App\Exports\Backend\Organization\Enumerator
  */
 class SurveyWiseExport extends FastExcelExport
 {
     /**
      * EnumeratorExport constructor.
      *
-     * @param null $data
+     * @param  null  $data
+     *
      * @throws InvalidArgumentException
      */
     public function __construct($data = null)
@@ -28,7 +28,7 @@ class SurveyWiseExport extends FastExcelExport
     }
 
     /**
-     * @param Enumerator $row
+     * @param  Enumerator  $row
      * @return array
      */
     public function map($row): array
@@ -52,8 +52,6 @@ class SurveyWiseExport extends FastExcelExport
             trans('enumerator.Total Survey', [], 'en') => $row->totalSurvey ?? null,
         ];
 
-
         return $this->formatRow;
     }
 }
-

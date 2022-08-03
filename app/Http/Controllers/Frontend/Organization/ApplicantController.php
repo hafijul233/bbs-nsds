@@ -20,7 +20,6 @@ use Psr\Container\NotFoundExceptionInterface;
 
 /**
  * @class ApplicantController
- * @package App\Http\Controllers\Backend\Organization
  */
 class ApplicantController extends Controller
 {
@@ -28,18 +27,22 @@ class ApplicantController extends Controller
      * @var EnumeratorService
      */
     private $enumeratorService;
+
     /**
      * @var SurveyService
      */
     private $surveyService;
+
     /**
      * @var CatalogService
      */
     private $catalogService;
+
     /**
      * @var ExamLevelService
      */
     private $examLevelService;
+
     /**
      * @var StateService
      */
@@ -48,19 +51,18 @@ class ApplicantController extends Controller
     /**
      * ApplicantController Constructor
      *
-     * @param EnumeratorService $enumeratorService
-     * @param SurveyService $surveyService
-     * @param CatalogService $catalogService
-     * @param ExamLevelService $examLevelService
-     * @param StateService $stateService
+     * @param  EnumeratorService  $enumeratorService
+     * @param  SurveyService  $surveyService
+     * @param  CatalogService  $catalogService
+     * @param  ExamLevelService  $examLevelService
+     * @param  StateService  $stateService
      */
     public function __construct(EnumeratorService $enumeratorService,
-                                SurveyService $surveyService,
-                                CatalogService $catalogService,
-                                ExamLevelService $examLevelService,
-                                StateService $stateService)
+        SurveyService $surveyService,
+        CatalogService $catalogService,
+        ExamLevelService $examLevelService,
+        StateService $stateService)
     {
-
         $this->enumeratorService = $enumeratorService;
         $this->surveyService = $surveyService;
         $this->catalogService = $catalogService;
@@ -72,6 +74,7 @@ class ApplicantController extends Controller
      * Show the form for creating a new resource.
      *
      * @return Application|Factory|View
+     *
      * @throws ContainerExceptionInterface
      * @throws NotFoundExceptionInterface
      * @throws Exception
@@ -79,28 +82,29 @@ class ApplicantController extends Controller
     public function create()
     {
         $enables = [];
-        foreach (Constant::ENABLED_OPTIONS as $field => $label):
-            $enables[$field] = __('common.' . $label);
-        endforeach;
-        $examDropDown = array();
-        foreach ($this->examLevelService->getExamLevelDropdown(['id' => [1, 2, 3, 4]]) as $field => $label):
-            $examDropDown[$field] = __('enumerator.' . $label);
-        endforeach;
-        
+        foreach (Constant::ENABLED_OPTIONS as $field => $label) {
+            $enables[$field] = __('common.'.$label);
+        }
+        $examDropDown = [];
+        foreach ($this->examLevelService->getExamLevelDropdown(['id' => [1, 2, 3, 4]]) as $field => $label) {
+            $examDropDown[$field] = __('enumerator.'.$label);
+        }
+
         return view('frontend.organization.applicant.create', [
             'enables' => $enables,
             'states' => $this->stateService->getStateDropdown(['enabled' => Constant::ENABLED_OPTION, 'type' => 'district', 'sort' => ((session()->get('locale') == 'bd') ? 'native' : 'name'), 'direction' => 'asc'], (session()->get('locale') == 'bd')),
             'surveys' => $this->surveyService->getSurveyDropDown(['enabled' => Constant::ENABLED_OPTION]),
             'genders' => $this->catalogService->getCatalogDropdown(['type' => Constant::CATALOG_TYPE['GENDER']], 'bn'),
-            'exam_dropdown' => $examDropDown
+            'exam_dropdown' => $examDropDown,
         ]);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param ApplicantRequest $request
+     * @param  ApplicantRequest  $request
      * @return RedirectResponse
+     *
      * @throws \Throwable
      */
     public function store(ApplicantRequest $request): RedirectResponse
@@ -115,10 +119,12 @@ class ApplicantController extends Controller
 
         if ($confirm['status'] == true) {
             notify('Applicant Registration Successful', $confirm['level'], $confirm['title']);
+
             return redirect()->back();
         }
 
         notify($confirm['message'], $confirm['level'], $confirm['title']);
+
         return redirect()->back()->withInput();
     }
 }

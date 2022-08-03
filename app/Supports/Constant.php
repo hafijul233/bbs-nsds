@@ -1,11 +1,9 @@
 <?php
 
-
 namespace App\Supports;
 
 /**
  * Class Constant
- * @package App\Supports
  */
 class Constant
 {
@@ -53,42 +51,55 @@ class Constant
      * Timing Constants
      */
     const SECOND = '1';
+
     const MINUTE = '60';
+
     const HOUR = '3600';
+
     const DAY = '86400';
+
     const WEEK = '604800';
+
     const MONTH = '2592000';
+
     const YEAR = '31536000';
+
     const DECADE = '315360000'; //1de=10y
 
     /**
      * Toastr Message Levels
      */
     const MSG_TOASTR_ERROR = 'error';
+
     const MSG_TOASTR_WARNING = 'warning';
+
     const MSG_TOASTR_SUCCESS = 'success';
+
     const MSG_TOASTR_INFO = 'info';
 
     /**
      * Authentication Login Medium
      */
     const LOGIN_EMAIL = 'email';
+
     const LOGIN_USERNAME = 'username';
+
     const LOGIN_MOBILE = 'mobile';
+
     const LOGIN_OTP = 'otp';
 
     /**
      * OTP Medium Source
      */
     const OTP_MOBILE = 'mobile';
+
     const OTP_EMAIL = 'email';
 
     const EXPORT_OPTIONS = [
         'xlsx' => 'Microsoft Excel (.xlsx)',
         'ods' => 'Open Document Spreadsheet (.ods)',
-/*        'csv' => 'Comma Seperated Values (.csv)'*/
+        /*        'csv' => 'Comma Seperated Values (.csv)'*/
     ];
-
 
     /**
      * Default Role Name for system administrator
@@ -131,36 +142,38 @@ class Constant
      * Default Exp[ort type
      */
     const EXPORT_DEFAULT = 'xlsx';
+
     /**
      * CATALOG TYPES
      */
     const CATALOG_TYPE = [
-        "GENDER" => 'GEN',
-        "MARITAL_STATUS" => 'MAS',
-        "RELIGION" => 'REL',
-        "UNIVERSITY" => 'UNI',
-        "BOARD" => 'BOR',
-        "QUOTA" => 'QOT'
+        'GENDER' => 'GEN',
+        'MARITAL_STATUS' => 'MAS',
+        'RELIGION' => 'REL',
+        'UNIVERSITY' => 'UNI',
+        'BOARD' => 'BOR',
+        'QUOTA' => 'QOT',
     ];
+
     /**
      * CATALOG TYPES
      */
     const CATALOG_LABEL = [
-        "GEN" => 'Gender',
-        "MAS" => 'Marital Status',
-        "REL" => 'Religion',
-        "UNI" => 'University',
-        "BOR" => 'Board',
-        "QOT" => 'Quote'
+        'GEN' => 'Gender',
+        'MAS' => 'Marital Status',
+        'REL' => 'Religion',
+        'UNI' => 'University',
+        'BOR' => 'Board',
+        'QOT' => 'Quote',
     ];
 
     const GPA_TYPE = [
-        1 => "1st Division",
-        2 => "2nd Division",
-        3 => "3rd Division",
-        4 => "GPA(Out of 4)",
-        5 => "GPA(Out of 5)",
-        6 => "Others",
+        1 => '1st Division',
+        2 => '2nd Division',
+        3 => '3rd Division',
+        4 => 'GPA(Out of 4)',
+        5 => 'GPA(Out of 5)',
+        6 => 'Others',
 
     ];
 
@@ -169,11 +182,7 @@ class Constant
         'bd' => 'Bangla',
     ];
 
-
     const WORKED_EARLIER = 1;
 
     const WORK_IN_FUTURE = 2;
-
-
-
 }

@@ -16,7 +16,6 @@ use Throwable;
 
 /**
  * @class CityService
- * @package Modules\City\Services\Setting
  */
 class CityService extends Service
 {
@@ -27,7 +26,8 @@ class CityService extends Service
 
     /**
      * CityService constructor.
-     * @param CityRepository $cityRepository
+     *
+     * @param  CityRepository  $cityRepository
      */
     public function __construct(CityRepository $cityRepository)
     {
@@ -38,9 +38,10 @@ class CityService extends Service
     /**
      * Get All City models as collection
      *
-     * @param array $filters
-     * @param array $eagerRelations
+     * @param  array  $filters
+     * @param  array  $eagerRelations
      * @return Builder[]|Collection
+     *
      * @throws Exception
      */
     public function getAllCities(array $filters = [], array $eagerRelations = [])
@@ -51,9 +52,10 @@ class CityService extends Service
     /**
      * Create City Model Pagination
      *
-     * @param array $filters
-     * @param array $eagerRelations
+     * @param  array  $filters
+     * @param  array  $eagerRelations
      * @return LengthAwarePaginator
+     *
      * @throws Exception
      */
     public function cityPaginate(array $filters = [], array $eagerRelations = []): LengthAwarePaginator
@@ -64,9 +66,10 @@ class CityService extends Service
     /**
      * Show City Model
      *
-     * @param int $id
-     * @param bool $purge
+     * @param  int  $id
+     * @param  bool  $purge
      * @return mixed
+     *
      * @throws Exception
      */
     public function getCityById($id, bool $purge = false)
@@ -77,8 +80,9 @@ class CityService extends Service
     /**
      * Save City Model
      *
-     * @param array $inputs
+     * @param  array  $inputs
      * @return array
+     *
      * @throws Exception
      * @throws Throwable
      */
@@ -89,27 +93,31 @@ class CityService extends Service
             $newCity = $this->cityRepository->create($inputs);
             if ($newCity instanceof City) {
                 DB::commit();
+
                 return ['status' => true, 'message' => __('New City Created'),
-                    'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!'];
+                    'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!', ];
             } else {
                 DB::rollBack();
+
                 return ['status' => false, 'message' => __('New City Creation Failed'),
-                    'level' => Constant::MSG_TOASTR_ERROR, 'title' => 'Alert!'];
+                    'level' => Constant::MSG_TOASTR_ERROR, 'title' => 'Alert!', ];
             }
         } catch (Exception $exception) {
             $this->cityRepository->handleException($exception);
             DB::rollBack();
+
             return ['status' => false, 'message' => $exception->getMessage(),
-                'level' => Constant::MSG_TOASTR_WARNING, 'title' => 'Error!'];
+                'level' => Constant::MSG_TOASTR_WARNING, 'title' => 'Error!', ];
         }
     }
 
     /**
      * Update City Model
      *
-     * @param array $inputs
+     * @param  array  $inputs
      * @param $id
      * @return array
+     *
      * @throws Throwable
      */
     public function updateCity(array $inputs, $id): array
@@ -120,22 +128,25 @@ class CityService extends Service
             if ($city instanceof City) {
                 if ($this->cityRepository->update($inputs, $id)) {
                     DB::commit();
+
                     return ['status' => true, 'message' => __('City Info Updated'),
-                        'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!'];
+                        'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!', ];
                 } else {
                     DB::rollBack();
+
                     return ['status' => false, 'message' => __('City Info Update Failed'),
-                        'level' => Constant::MSG_TOASTR_ERROR, 'title' => 'Alert!'];
+                        'level' => Constant::MSG_TOASTR_ERROR, 'title' => 'Alert!', ];
                 }
             } else {
                 return ['status' => false, 'message' => __('City Model Not Found'),
-                    'level' => Constant::MSG_TOASTR_WARNING, 'title' => 'Alert!'];
+                    'level' => Constant::MSG_TOASTR_WARNING, 'title' => 'Alert!', ];
             }
         } catch (Exception $exception) {
             $this->cityRepository->handleException($exception);
             DB::rollBack();
+
             return ['status' => false, 'message' => $exception->getMessage(),
-                'level' => Constant::MSG_TOASTR_WARNING, 'title' => 'Error!'];
+                'level' => Constant::MSG_TOASTR_WARNING, 'title' => 'Error!', ];
         }
     }
 
@@ -144,6 +155,7 @@ class CityService extends Service
      *
      * @param $id
      * @return array
+     *
      * @throws Throwable
      */
     public function destroyCity($id): array
@@ -152,19 +164,21 @@ class CityService extends Service
         try {
             if ($this->cityRepository->delete($id)) {
                 DB::commit();
-                return ['status' => true, 'message' => __('City is Trashed'),
-                    'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!'];
 
+                return ['status' => true, 'message' => __('City is Trashed'),
+                    'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!', ];
             } else {
                 DB::rollBack();
+
                 return ['status' => false, 'message' => __('City is Delete Failed'),
-                    'level' => Constant::MSG_TOASTR_ERROR, 'title' => 'Alert!'];
+                    'level' => Constant::MSG_TOASTR_ERROR, 'title' => 'Alert!', ];
             }
         } catch (Exception $exception) {
             $this->cityRepository->handleException($exception);
             DB::rollBack();
+
             return ['status' => false, 'message' => $exception->getMessage(),
-                'level' => Constant::MSG_TOASTR_WARNING, 'title' => 'Error!'];
+                'level' => Constant::MSG_TOASTR_WARNING, 'title' => 'Error!', ];
         }
     }
 
@@ -173,6 +187,7 @@ class CityService extends Service
      *
      * @param $id
      * @return array
+     *
      * @throws Throwable
      */
     public function restoreCity($id): array
@@ -181,37 +196,41 @@ class CityService extends Service
         try {
             if ($this->cityRepository->restore($id)) {
                 DB::commit();
-                return ['status' => true, 'message' => __('City is Restored'),
-                    'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!'];
 
+                return ['status' => true, 'message' => __('City is Restored'),
+                    'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!', ];
             } else {
                 DB::rollBack();
+
                 return ['status' => false, 'message' => __('City is Restoration Failed'),
-                    'level' => Constant::MSG_TOASTR_ERROR, 'title' => 'Alert!'];
+                    'level' => Constant::MSG_TOASTR_ERROR, 'title' => 'Alert!', ];
             }
         } catch (Exception $exception) {
             $this->cityRepository->handleException($exception);
             DB::rollBack();
+
             return ['status' => false, 'message' => $exception->getMessage(),
-                'level' => Constant::MSG_TOASTR_WARNING, 'title' => 'Error!'];
+                'level' => Constant::MSG_TOASTR_WARNING, 'title' => 'Error!', ];
         }
     }
 
     /**
      * Export Object for Export Download
      *
-     * @param array $filters
+     * @param  array  $filters
      * @return CityExport
+     *
      * @throws Exception
      */
     public function exportCity(array $filters = []): CityExport
     {
-        return (new CityExport($this->cityRepository->getWith($filters)));
+        return new CityExport($this->cityRepository->getWith($filters));
     }
 
     /**
-     * @param array $filters
+     * @param  array  $filters
      * @return array
+     *
      * @throws Exception
      */
     public function getCityDropdown(array $filters = []): array

@@ -191,8 +191,8 @@ class ExamGroupSeeder extends Seeder
             ['name' => 'Others', 'remarks' => 'n/a', 'enabled' => 'yes', 'exam_level_id' => '5', 'exam_title_id' => '5'],
         ];
 
-        foreach ($exam_groups as $exam_group):
+        foreach ($exam_groups as $exam_group) {
             ExamGroup::create($exam_group);
-        endforeach;
+        }
     }
 }

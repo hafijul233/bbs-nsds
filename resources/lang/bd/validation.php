@@ -13,7 +13,6 @@ return [
     |
     */
 
-
     'accepted' => ':attribute গ্রহণ করা আবশ্যক।',
     'accepted_if' => ':attribute অবশ্যই গ্রহণ করতে হবে যখন :other সমান :value হয়।',
     'active_url' => 'এই :attribute একটি বৈধ URL নয়।',

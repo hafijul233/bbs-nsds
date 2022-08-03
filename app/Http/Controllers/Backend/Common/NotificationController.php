@@ -13,11 +13,10 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 
-
 class NotificationController extends Controller
 {
     /**
-     * @var User $notifiableUser
+     * @var User
      */
     protected $notifiableUser = null;
 
@@ -29,7 +28,7 @@ class NotificationController extends Controller
     /**
      * NotificationController constructor.
      *
-     * @param NotificationService $notificationService
+     * @param  NotificationService  $notificationService
      */
     public function __construct(NotificationService $notificationService)
     {
@@ -42,6 +41,7 @@ class NotificationController extends Controller
      * Display a listing of the resource.
      *
      * @return Application|Factory|View
+     *
      * @throws \Exception
      */
     public function index(Request $request)
@@ -50,21 +50,23 @@ class NotificationController extends Controller
         $notifications = $this->notificationService->notificationPaginate($filters);
 
         return view('admin::common.notification.index', [
-            'notifications' => $notifications
+            'notifications' => $notifications,
         ]);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param string $id
+     * @param  string  $id
      * @return RedirectResponse
+     *
      * @throws \Exception
      */
     public function show(string $id)
     {
         if ($notification = $this->notificationService->getNotificationById($id)) {
             $notificationData = $notification->data;
+
             return redirect()->to($notificationData['url']);
         }
 
@@ -74,8 +76,9 @@ class NotificationController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param string $id
+     * @param  string  $id
      * @return Response
+     *
      * @throws \Exception
      */
     public function mark(string $id): Response
@@ -92,7 +95,7 @@ class NotificationController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $request
+     * @param  Request  $request
      * @return RedirectResponse
      */
     public function markAll(Request $request): RedirectResponse
@@ -101,5 +104,4 @@ class NotificationController extends Controller
 
         return redirect()->back();
     }
-
 }

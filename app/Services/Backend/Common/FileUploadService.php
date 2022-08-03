@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Services\Backend\Common;
-
 
 use App\Abstracts\Service\Service;
 use App\Supports\Constant;
@@ -17,9 +15,10 @@ use function public_path;
 class FileUploadService extends Service
 {
     /**
-     * @param string $name
-     * @param string $extension
+     * @param  string  $name
+     * @param  string  $extension
      * @return string|null
+     *
      * @throws Exception
      */
     public function createAvatarImageFromText(string $name, string $extension = 'jpg'): ?string
@@ -28,8 +27,9 @@ class FileUploadService extends Service
 
         $tmpPath = public_path('/media/tmp/');
 
-        if (!is_dir($tmpPath))
+        if (! is_dir($tmpPath)) {
             mkdir($tmpPath, '0777', true);
+        }
 
         $imageObject = Image::canvas(256, 256, '#ffffff');
         try {
@@ -40,14 +40,15 @@ class FileUploadService extends Service
         } finally {
             try {
                 if ($imageObject instanceof \Intervention\Image\Image) {
-                    if ($imageObject->resize(256, 256)->save($tmpPath . $fileName, 80, $extension)) {
-                        return $tmpPath . $fileName;
-                    } else
+                    if ($imageObject->resize(256, 256)->save($tmpPath.$fileName, 80, $extension)) {
+                        return $tmpPath.$fileName;
+                    } else {
                         return null;
+                    }
                 }
-
             } catch (Exception $imageSaveException) {
                 Log::error($imageSaveException->getMessage());
+
                 return null;
             }
         }
@@ -56,8 +57,8 @@ class FileUploadService extends Service
     }
 
     /**
-     * @param UploadedFile $file
-     * @param string $extension
+     * @param  UploadedFile  $file
+     * @param  string  $extension
      * @return string|null
      */
     public function createAvatarImageFromInput(UploadedFile $file, string $extension = 'jpg'): ?string
@@ -77,14 +78,15 @@ class FileUploadService extends Service
                     if ($imageObject->resize(256, null, function ($constraint) {
                         $constraint->aspectRatio();
                     })->crop(256, 256, 0, 0)
-                        ->save($tmpPath . $fileName, 80, $extension))
-                        return $tmpPath . $fileName;
-                    else
+                        ->save($tmpPath.$fileName, 80, $extension)) {
+                        return $tmpPath.$fileName;
+                    } else {
                         return null;
+                    }
                 }
-
             } catch (Exception $imageSaveException) {
                 Log::error($imageSaveException->getMessage());
+
                 return null;
             }
         }
@@ -93,11 +95,11 @@ class FileUploadService extends Service
     }
 
     /**
-     * @param string $extension
+     * @param  string  $extension
      * @return string
      */
     public function randomFileName(string $extension = 'jpg'): string
     {
-        return Str::random(32) . '.' . $extension;
+        return Str::random(32).'.'.$extension;
     }
 }

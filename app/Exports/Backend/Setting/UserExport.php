@@ -4,15 +4,15 @@ namespace App\Exports\Backend\Setting;
 
 use App\Abstracts\Export\FastExcelExport;
 use App\Models\Backend\Setting\User;
-use OpenSpout\Common\Exception\InvalidArgumentException;
-use Illuminate\Database\Eloquent\Collection;
 use function config;
-
+use Illuminate\Database\Eloquent\Collection;
+use OpenSpout\Common\Exception\InvalidArgumentException;
 
 class UserExport extends FastExcelExport
 {
     /**
-     * @param null $data
+     * @param  null  $data
+     *
      * @throws InvalidArgumentException
      */
     public function __construct($data = null)
@@ -23,7 +23,7 @@ class UserExport extends FastExcelExport
     }
 
     /**
-     * @param User $row
+     * @param  User  $row
      * @return array
      */
     public function map($row): array
@@ -38,9 +38,10 @@ class UserExport extends FastExcelExport
             'Remarks' => $row->remarks,
             'Enabled' => ucfirst($row->enabled),
             'Created' => $row->created_at->format(config('backend.datetime')),
-            'Updated' => $row->updated_at->format(config('backend.datetime'))
+            'Updated' => $row->updated_at->format(config('backend.datetime')),
         ];
         $this->getSupperAdminColumns($row);
+
         return $this->formatRow;
     }
 

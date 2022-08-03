@@ -30,7 +30,6 @@ use Symfony\Component\HttpFoundation\StreamedResponse;
 
 /**
  * @class EnumeratorController
- * @package App\Http\Controllers\Backend\Organization
  */
 class EnumeratorController extends Controller
 {
@@ -43,18 +42,22 @@ class EnumeratorController extends Controller
      * @var EnumeratorService
      */
     private $enumeratorService;
+
     /**
      * @var SurveyService
      */
     private $surveyService;
+
     /**
      * @var CatalogService
      */
     private $catalogService;
+
     /**
      * @var ExamLevelService
      */
     private $examLevelService;
+
     /**
      * @var StateService
      */
@@ -63,21 +66,20 @@ class EnumeratorController extends Controller
     /**
      * EnumeratorController Constructor
      *
-     * @param AuthenticatedSessionService $authenticatedSessionService
-     * @param EnumeratorService $enumeratorService
-     * @param SurveyService $surveyService
-     * @param CatalogService $catalogService
-     * @param ExamLevelService $examLevelService
-     * @param StateService $stateService
+     * @param  AuthenticatedSessionService  $authenticatedSessionService
+     * @param  EnumeratorService  $enumeratorService
+     * @param  SurveyService  $surveyService
+     * @param  CatalogService  $catalogService
+     * @param  ExamLevelService  $examLevelService
+     * @param  StateService  $stateService
      */
     public function __construct(AuthenticatedSessionService $authenticatedSessionService,
-                                EnumeratorService $enumeratorService,
-                                SurveyService $surveyService,
-                                CatalogService $catalogService,
-                                ExamLevelService $examLevelService,
-                                StateService $stateService)
+        EnumeratorService $enumeratorService,
+        SurveyService $surveyService,
+        CatalogService $catalogService,
+        ExamLevelService $examLevelService,
+        StateService $stateService)
     {
-
         $this->authenticatedSessionService = $authenticatedSessionService;
         $this->enumeratorService = $enumeratorService;
         $this->surveyService = $surveyService;
@@ -89,28 +91,30 @@ class EnumeratorController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @param Request $request
+     * @param  Request  $request
      * @return Application|Factory|View
+     *
      * @throws Exception
      */
     public function index(Request $request)
     {
         $filters = $request->except('page');
-        if (isset(auth()->user()->roles[0]) && in_array(auth()->user()->roles[0]->id, array(1, 2))):
+        if (isset(auth()->user()->roles[0]) && in_array(auth()->user()->roles[0]->id, [1, 2])) {
             $filters['created_by'] = '';
-        else:
+        } else {
             $filters['created_by'] = auth()->user()->id;
-        endif;
+        }
         $states = $this->stateService->getStateDropdown(['enabled' => Constant::ENABLED_OPTION, 'type' => 'district', 'sort' => ((session()->get('locale') == 'bd') ? 'native' : 'name'), 'direction' => 'asc'], (session()->get('locale') == 'bd'));
         $divisions = $this->stateService->getStateDropdown(['enabled' => Constant::ENABLED_OPTION, 'type' => 'division', 'sort' => ((session()->get('locale') == 'bd') ? 'native' : 'name'), 'direction' => 'asc'], (session()->get('locale') == 'bd'));
         $surveys = $this->surveyService->getSurveyDropDown(['enabled' => Constant::ENABLED_OPTION]);
         $enumerators = $this->enumeratorService->enumeratorPaginate($filters);
+
         return view('backend.organization.enumerator.index', [
             'enumerators' => $enumerators,
             'divisions' => $divisions,
             'states' => $states,
             'surveys' => $surveys,
-            'request' => $filters
+            'request' => $filters,
         ]);
     }
 
@@ -118,6 +122,7 @@ class EnumeratorController extends Controller
      * Show the form for creating a new resource.
      *
      * @return Application|Factory|View
+     *
      * @throws ContainerExceptionInterface
      * @throws NotFoundExceptionInterface
      * @throws Exception
@@ -125,9 +130,9 @@ class EnumeratorController extends Controller
     public function create()
     {
         $enables = [];
-        foreach (Constant::ENABLED_OPTIONS as $field => $label):
-            $enables[$field] = __('common.' . $label);
-        endforeach;
+        foreach (Constant::ENABLED_OPTIONS as $field => $label) {
+            $enables[$field] = __('common.'.$label);
+        }
 
         return view('backend.organization.enumerator.create', [
             'enables' => $enables,
@@ -141,8 +146,9 @@ class EnumeratorController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param CreateEnumeratorRequest $request
+     * @param  CreateEnumeratorRequest  $request
      * @return RedirectResponse
+     *
      * @throws Exception|\Throwable
      */
     public function store(CreateEnumeratorRequest $request): RedirectResponse
@@ -153,18 +159,21 @@ class EnumeratorController extends Controller
 
         if ($confirm['status'] == true) {
             notify($confirm['message'], $confirm['level'], $confirm['title']);
+
             return redirect()->route('backend.organization.enumerators.index');
         }
 
         notify($confirm['message'], $confirm['level'], $confirm['title']);
+
         return redirect()->back()->withInput();
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  $id
+     * @param    $id
      * @return Application|Factory|View
+     *
      * @throws Exception
      */
     public function show($id)
@@ -172,7 +181,7 @@ class EnumeratorController extends Controller
         if ($enumerator = $this->enumeratorService->getEnumeratorById($id)) {
             return view('backend.organization.enumerator.show', [
                 'enumerator' => $enumerator,
-                'timeline' => Utility::modelAudits($enumerator)
+                'timeline' => Utility::modelAudits($enumerator),
             ]);
         }
 
@@ -184,6 +193,7 @@ class EnumeratorController extends Controller
      *
      * @param $id
      * @return Application|Factory|View
+     *
      * @throws ContainerExceptionInterface
      * @throws NotFoundExceptionInterface
      * @throws Exception
@@ -191,11 +201,10 @@ class EnumeratorController extends Controller
     public function edit($id)
     {
         if ($enumerator = $this->enumeratorService->getEnumeratorById($id)) {
-
             $enables = [];
-            foreach (Constant::ENABLED_OPTIONS as $field => $label):
-                $enables[$field] = __('common.' . $label);
-            endforeach;
+            foreach (Constant::ENABLED_OPTIONS as $field => $label) {
+                $enables[$field] = __('common.'.$label);
+            }
 
             return view('backend.organization.enumerator.edit', [
                 'enumerator' => $enumerator,
@@ -213,9 +222,10 @@ class EnumeratorController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param UpdateEnumeratorRequest $request
-     * @param  $id
+     * @param  UpdateEnumeratorRequest  $request
+     * @param    $id
      * @return RedirectResponse
+     *
      * @throws \Throwable
      */
     public function update(UpdateEnumeratorRequest $request, $id): RedirectResponse
@@ -225,10 +235,12 @@ class EnumeratorController extends Controller
 
         if ($confirm['status'] == true) {
             notify($confirm['message'], $confirm['level'], $confirm['title']);
+
             return redirect()->route('backend.organization.enumerators.index');
         }
 
         notify($confirm['message'], $confirm['level'], $confirm['title']);
+
         return redirect()->back()->withInput();
     }
 
@@ -236,14 +248,14 @@ class EnumeratorController extends Controller
      * Remove the specified resource from storage.
      *
      * @param $id
-     * @param Request $request
+     * @param  Request  $request
      * @return RedirectResponse
+     *
      * @throws \Throwable
      */
     public function destroy($id, Request $request)
     {
         if ($this->authenticatedSessionService->validate($request)) {
-
             $confirm = $this->enumeratorService->destroyEnumerator($id);
 
             if ($confirm['status'] == true) {
@@ -251,6 +263,7 @@ class EnumeratorController extends Controller
             } else {
                 notify($confirm['message'], $confirm['level'], $confirm['title']);
             }
+
             return redirect()->route('backend.organization.enumerators.index');
         }
         abort(403, 'Wrong user credentials');
@@ -260,14 +273,14 @@ class EnumeratorController extends Controller
      * Restore a Soft Deleted Resource
      *
      * @param $id
-     * @param Request $request
+     * @param  Request  $request
      * @return RedirectResponse|void
+     *
      * @throws \Throwable
      */
     public function restore($id, Request $request)
     {
         if ($this->authenticatedSessionService->validate($request)) {
-
             $confirm = $this->enumeratorService->restoreEnumerator($id);
 
             if ($confirm['status'] == true) {
@@ -275,6 +288,7 @@ class EnumeratorController extends Controller
             } else {
                 notify($confirm['message'], $confirm['level'], $confirm['title']);
             }
+
             return redirect()->route('backend.organization.enumerators.index');
         }
         abort(403, 'Wrong user credentials');
@@ -283,8 +297,9 @@ class EnumeratorController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @param Request $request
+     * @param  Request  $request
      * @return string|StreamedResponse
+     *
      * @throws IOException
      * @throws InvalidArgumentException
      * @throws UnsupportedTypeException
@@ -299,11 +314,12 @@ class EnumeratorController extends Controller
 
         $enumeratorExport = $this->enumeratorService->exportEnumerator($filters);
 
-        $filename = 'Enumerator-' . date('Ymd-His') . '-' . $request->get('filter') . '.' . ($filters['format'] ?? 'xlsx');
+        $filename = 'Enumerator-'.date('Ymd-His').'-'.$request->get('filter').'.'.($filters['format'] ?? 'xlsx');
 
         return $enumeratorExport->download($filename, function ($enumerator) use ($enumeratorExport, &$counter) {
             $enumerator->counter = $counter;
             $counter++;
+
             return $enumeratorExport->map($enumerator);
         });
     }
@@ -311,8 +327,9 @@ class EnumeratorController extends Controller
     /**
      * Display a detail of the resource.
      *
-     * @param Request $request
+     * @param  Request  $request
      * @return JsonResponse
+     *
      * @throws Exception
      */
     public function ajax(Request $request): JsonResponse
@@ -321,19 +338,19 @@ class EnumeratorController extends Controller
 
         $enumerators = $this->enumeratorService->getAllEnumerators($filters);
 
-        if (count($enumerators) > 0):
-            foreach ($enumerators as $index => $enumerator) :
+        if (count($enumerators) > 0) {
+            foreach ($enumerators as $index => $enumerator) {
                 $enumerators[$index]->update_route = route('backend.organization.enumerators.update', $enumerator->id);
                 $enumerators[$index]->survey_id = $enumerator->surveys->pluck('id')->toArray();
                 $enumerators[$index]->prev_post_state_id = $enumerator->previousPostings->pluck('id')->toArray();
                 $enumerators[$index]->future_post_state_id = $enumerator->futurePostings->pluck('id')->toArray();
                 unset($enumerators[$index]->surveys, $enumerators[$index]->previousPostings, $enumerators[$index]->futurePostings);
-            endforeach;
+            }
 
             $jsonReturn = ['status' => true, 'data' => $enumerators];
-        else :
+        } else {
             $jsonReturn = ['status' => false, 'data' => []];
-        endif;
+        }
 
         return response()->json($jsonReturn, 200);
     }

@@ -6,7 +6,6 @@ use Illuminate\Foundation\Http\FormRequest;
 
 /**
  * @class StateRequest
- * @package App\Http\Requests\Backend\Setting
  */
 class StateRequest extends FormRequest
 {
@@ -18,14 +17,14 @@ class StateRequest extends FormRequest
     public function rules()
     {
         return [
-            "country_id" => "required|integer",
-            "name" => "required|string",
-            "native" => "required|string",
-            "type" => "required|string",
-            "latitude" => "nullable|numeric",
-            "longitude" => "nullable|numeric",
-            "enabled" => "required|string",
-            "remarks" => "nullable|string"
+            'country_id' => 'required|integer',
+            'name' => 'required|string',
+            'native' => 'required|string',
+            'type' => 'required|string',
+            'latitude' => 'nullable|numeric',
+            'longitude' => 'nullable|numeric',
+            'enabled' => 'required|string',
+            'remarks' => 'nullable|string',
         ];
     }
 

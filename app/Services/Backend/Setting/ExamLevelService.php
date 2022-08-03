@@ -15,7 +15,6 @@ use Throwable;
 
 /**
  * @class ExamLevelService
- * @package App\Services\Backend\Setting
  */
 class ExamLevelService extends Service
 {
@@ -26,7 +25,8 @@ class ExamLevelService extends Service
 
     /**
      * ExamLevelService constructor.
-     * @param ExamLevelRepository $examLevelRepository
+     *
+     * @param  ExamLevelRepository  $examLevelRepository
      */
     public function __construct(ExamLevelRepository $examLevelRepository)
     {
@@ -37,9 +37,10 @@ class ExamLevelService extends Service
     /**
      * Get All ExamLevel models as collection
      *
-     * @param array $filters
-     * @param array $eagerRelations
+     * @param  array  $filters
+     * @param  array  $eagerRelations
      * @return Builder[]|Collection
+     *
      * @throws Exception
      */
     public function getAllExamLevels(array $filters = [], array $eagerRelations = [])
@@ -50,9 +51,10 @@ class ExamLevelService extends Service
     /**
      * Create ExamLevel Model Pagination
      *
-     * @param array $filters
-     * @param array $eagerRelations
+     * @param  array  $filters
+     * @param  array  $eagerRelations
      * @return LengthAwarePaginator
+     *
      * @throws Exception
      */
     public function barcodePaginate(array $filters = [], array $eagerRelations = []): LengthAwarePaginator
@@ -63,9 +65,10 @@ class ExamLevelService extends Service
     /**
      * Show ExamLevel Model
      *
-     * @param int $id
-     * @param bool $purge
+     * @param  int  $id
+     * @param  bool  $purge
      * @return mixed
+     *
      * @throws Exception
      */
     public function getExamLevelById($id, bool $purge = false)
@@ -76,8 +79,9 @@ class ExamLevelService extends Service
     /**
      * Save ExamLevel Model
      *
-     * @param array $inputs
+     * @param  array  $inputs
      * @return array
+     *
      * @throws Exception
      * @throws Throwable
      */
@@ -88,27 +92,31 @@ class ExamLevelService extends Service
             $newExamLevel = $this->examLevelRepository->create($inputs);
             if ($newExamLevel instanceof ExamLevel) {
                 DB::commit();
+
                 return ['status' => true, 'message' => __('New ExamLevel Created'),
-                    'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!'];
+                    'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!', ];
             } else {
                 DB::rollBack();
+
                 return ['status' => false, 'message' => __('New ExamLevel Creation Failed'),
-                    'level' => Constant::MSG_TOASTR_ERROR, 'title' => 'Alert!'];
+                    'level' => Constant::MSG_TOASTR_ERROR, 'title' => 'Alert!', ];
             }
         } catch (Exception $exception) {
             $this->examLevelRepository->handleException($exception);
             DB::rollBack();
+
             return ['status' => false, 'message' => $exception->getMessage(),
-                'level' => Constant::MSG_TOASTR_WARNING, 'title' => 'Error!'];
+                'level' => Constant::MSG_TOASTR_WARNING, 'title' => 'Error!', ];
         }
     }
 
     /**
      * Update ExamLevel Model
      *
-     * @param array $inputs
+     * @param  array  $inputs
      * @param $id
      * @return array
+     *
      * @throws Throwable
      */
     public function updateExamLevel(array $inputs, $id): array
@@ -119,22 +127,25 @@ class ExamLevelService extends Service
             if ($barcode instanceof ExamLevel) {
                 if ($this->examLevelRepository->update($inputs, $id)) {
                     DB::commit();
+
                     return ['status' => true, 'message' => __('ExamLevel Info Updated'),
-                        'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!'];
+                        'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!', ];
                 } else {
                     DB::rollBack();
+
                     return ['status' => false, 'message' => __('ExamLevel Info Update Failed'),
-                        'level' => Constant::MSG_TOASTR_ERROR, 'title' => 'Alert!'];
+                        'level' => Constant::MSG_TOASTR_ERROR, 'title' => 'Alert!', ];
                 }
             } else {
                 return ['status' => false, 'message' => __('ExamLevel Model Not Found'),
-                    'level' => Constant::MSG_TOASTR_WARNING, 'title' => 'Alert!'];
+                    'level' => Constant::MSG_TOASTR_WARNING, 'title' => 'Alert!', ];
             }
         } catch (Exception $exception) {
             $this->examLevelRepository->handleException($exception);
             DB::rollBack();
+
             return ['status' => false, 'message' => $exception->getMessage(),
-                'level' => Constant::MSG_TOASTR_WARNING, 'title' => 'Error!'];
+                'level' => Constant::MSG_TOASTR_WARNING, 'title' => 'Error!', ];
         }
     }
 
@@ -143,6 +154,7 @@ class ExamLevelService extends Service
      *
      * @param $id
      * @return array
+     *
      * @throws Throwable
      */
     public function destroyExamLevel($id): array
@@ -151,19 +163,21 @@ class ExamLevelService extends Service
         try {
             if ($this->examLevelRepository->delete($id)) {
                 DB::commit();
-                return ['status' => true, 'message' => __('ExamLevel is Trashed'),
-                    'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!'];
 
+                return ['status' => true, 'message' => __('ExamLevel is Trashed'),
+                    'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!', ];
             } else {
                 DB::rollBack();
+
                 return ['status' => false, 'message' => __('ExamLevel is Delete Failed'),
-                    'level' => Constant::MSG_TOASTR_ERROR, 'title' => 'Alert!'];
+                    'level' => Constant::MSG_TOASTR_ERROR, 'title' => 'Alert!', ];
             }
         } catch (Exception $exception) {
             $this->examLevelRepository->handleException($exception);
             DB::rollBack();
+
             return ['status' => false, 'message' => $exception->getMessage(),
-                'level' => Constant::MSG_TOASTR_WARNING, 'title' => 'Error!'];
+                'level' => Constant::MSG_TOASTR_WARNING, 'title' => 'Error!', ];
         }
     }
 
@@ -172,6 +186,7 @@ class ExamLevelService extends Service
      *
      * @param $id
      * @return array
+     *
      * @throws Throwable
      */
     public function restoreExamLevel($id): array
@@ -180,37 +195,41 @@ class ExamLevelService extends Service
         try {
             if ($this->examLevelRepository->restore($id)) {
                 DB::commit();
-                return ['status' => true, 'message' => __('ExamLevel is Restored'),
-                    'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!'];
 
+                return ['status' => true, 'message' => __('ExamLevel is Restored'),
+                    'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!', ];
             } else {
                 DB::rollBack();
+
                 return ['status' => false, 'message' => __('ExamLevel is Restoration Failed'),
-                    'level' => Constant::MSG_TOASTR_ERROR, 'title' => 'Alert!'];
+                    'level' => Constant::MSG_TOASTR_ERROR, 'title' => 'Alert!', ];
             }
         } catch (Exception $exception) {
             $this->examLevelRepository->handleException($exception);
             DB::rollBack();
+
             return ['status' => false, 'message' => $exception->getMessage(),
-                'level' => Constant::MSG_TOASTR_WARNING, 'title' => 'Error!'];
+                'level' => Constant::MSG_TOASTR_WARNING, 'title' => 'Error!', ];
         }
     }
 
     /**
      * Export Object for Export Download
      *
-     * @param array $filters
+     * @param  array  $filters
      * @return ExamLevelExport
+     *
      * @throws Exception
      */
     public function exportExamLevel(array $filters = []): ExamLevelExport
     {
-        return (new ExamLevelExport($this->examLevelRepository->getWith($filters)));
+        return new ExamLevelExport($this->examLevelRepository->getWith($filters));
     }
 
     /**
-     * @param array $filters
+     * @param  array  $filters
      * @return array
+     *
      * @throws Exception
      */
     public function getExamLevelDropdown(array $filters = []): array

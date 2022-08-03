@@ -1,18 +1,16 @@
 <?php
 
-
 namespace App\Services\Backend\Common;
-
 
 use App\Abstracts\Service\Service;
 use App\Models\Setting\User;
 use App\Services\Backend\Setting\UserService;
+use function auth;
 use Exception;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notification;
 use Illuminate\Support\Facades\Auth;
-use function auth;
 
 class NotificationService extends Service
 {
@@ -22,7 +20,7 @@ class NotificationService extends Service
     private $userService;
 
     /**
-     * @param UserService $userService
+     * @param  UserService  $userService
      */
     public function __construct(UserService $userService)
     {
@@ -33,8 +31,9 @@ class NotificationService extends Service
      * Return Paginated Notifications
      * of current logged user
      *
-     * @param array $filters
+     * @param  array  $filters
      * @return LengthAwarePaginator
+     *
      * @throws Exception
      */
     public function notificationPaginate(array $filters = []): LengthAwarePaginator
@@ -50,7 +49,7 @@ class NotificationService extends Service
         if (isset($filters['type'])) {
             if ($filters['type'] == 'all') {
                 $notifications = $notifiableUser->notifications();
-            } elseif($filters['type'] == 'unread') {
+            } elseif ($filters['type'] == 'unread') {
                 $notifications = $notifiableUser->unreadNotifications();
             }
         } else {
@@ -63,7 +62,7 @@ class NotificationService extends Service
         if (isset($filters['sort'])) {
             if ($filters['sort'] == 'asc') {
                 $notifications = $notifications->oldest();
-            } elseif($filters['type'] == 'desc') {
+            } elseif ($filters['type'] == 'desc') {
                 $notifications = $notifications->latest();
             }
         } else {
@@ -74,9 +73,10 @@ class NotificationService extends Service
     }
 
     /**
-     * @param array $filters
-     * @param array $eagerRelations
+     * @param  array  $filters
+     * @param  array  $eagerRelations
      * @return mixed
+     *
      * @throws Exception
      */
     public function rolePaginate(array $filters = [], array $eagerRelations = [])
@@ -85,8 +85,9 @@ class NotificationService extends Service
     }
 
     /**
-     * @param string $id
+     * @param  string  $id
      * @return Notification|null
+     *
      * @throws Exception
      */
     public function getNotificationById(string $id): ?Notification
@@ -103,15 +104,15 @@ class NotificationService extends Service
             $notification = $currentUser->notifications()->where('id', $id)->get();
 
             return $notification;
-
         } catch (Exception $exception) {
             return null;
         }
     }
 
     /**
-     * @param array $inputs
+     * @param  array  $inputs
      * @return Model
+     *
      * @throws Exception
      */
     public function storeNotification(array $inputs): Model
@@ -120,9 +121,10 @@ class NotificationService extends Service
     }
 
     /**
-     * @param array $inputs
+     * @param  array  $inputs
      * @param $id
      * @return bool
+     *
      * @throws Exception
      */
     public function updateNotification(array $inputs, $id): bool
@@ -130,17 +132,17 @@ class NotificationService extends Service
         return $this->userRepository->update($inputs, $id);
     }
 
-
     /**
-     * @param array $filters
+     * @param  array  $filters
      * @return array
      */
     public function notificationDropdown(array $filters = []): array
     {
         $roleCollection = $this->userRepository->all();
         $roles = [];
-        foreach ($roleCollection as $role)
+        foreach ($roleCollection as $role) {
             $roles[$role->id] = $role['name'];
+        }
 
         return $roles;
     }

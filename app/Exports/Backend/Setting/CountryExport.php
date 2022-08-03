@@ -4,13 +4,14 @@ namespace App\Exports\Backend\Setting;
 
 use App\Abstracts\Export\FastExcelExport;
 use App\Models\Setting\Permission;
-use OpenSpout\Common\Exception\InvalidArgumentException;
 use function config;
+use OpenSpout\Common\Exception\InvalidArgumentException;
 
 class CountryExport extends FastExcelExport
 {
     /**
-     * @param null $data
+     * @param  null  $data
+     *
      * @throws InvalidArgumentException
      */
     public function __construct($data = null)
@@ -21,7 +22,7 @@ class CountryExport extends FastExcelExport
     }
 
     /**
-     * @param Permission $row
+     * @param  Permission  $row
      * @return array
      */
     public function map($row): array
@@ -34,7 +35,7 @@ class CountryExport extends FastExcelExport
             'Remarks' => $row->remarks,
             'Enabled' => ucfirst($row->enabled),
             'Created' => $row->created_at->format(config('backend.datetime')),
-            'Updated' => $row->updated_at->format(config('backend.datetime'))
+            'Updated' => $row->updated_at->format(config('backend.datetime')),
         ];
 
         $this->getSupperAdminColumns($row);

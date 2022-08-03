@@ -13,19 +13,19 @@ class AddBlameableColumnsInEnumeratorsTable extends Migration
      */
     public function up()
     {
-        if (!Schema::hasColumn('enumerators', 'created_by')) {
+        if (! Schema::hasColumn('enumerators', 'created_by')) {
             Schema::table('enumerators', function (Blueprint $table) {
                 $table->integer('created_by')->unsigned()->nullable()->default(null)->after('created_at');
             });
         }
 
-        if (!Schema::hasColumn('enumerators', 'updated_by')) {
+        if (! Schema::hasColumn('enumerators', 'updated_by')) {
             Schema::table('enumerators', function (Blueprint $table) {
                 $table->integer('updated_by')->unsigned()->nullable()->default(null)->after('updated_at');
             });
         }
 
-        if (!Schema::hasColumn('enumerators', 'deleted_by')) {
+        if (! Schema::hasColumn('enumerators', 'deleted_by')) {
             Schema::table('enumerators', function (Blueprint $table) {
                 $table->integer('deleted_by')->unsigned()->nullable()->default(null)->after('deleted_at');
             });

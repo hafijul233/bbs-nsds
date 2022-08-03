@@ -22,19 +22,19 @@ class ExamGroupController extends Controller
      * @var AuthenticatedSessionService
      */
     private $authenticatedSessionService;
+
     /**
      * @var ExamGroupService
      */
     private $examGroupService;
 
     /**
-     * @param AuthenticatedSessionService $authenticatedSessionService
-     * @param ExamGroupService $examGroupService
+     * @param  AuthenticatedSessionService  $authenticatedSessionService
+     * @param  ExamGroupService  $examGroupService
      */
     public function __construct(AuthenticatedSessionService $authenticatedSessionService,
-                                ExamGroupService              $examGroupService)
+        ExamGroupService $examGroupService)
     {
-
         $this->authenticatedSessionService = $authenticatedSessionService;
         $this->examGroupService = $examGroupService;
     }
@@ -43,6 +43,7 @@ class ExamGroupController extends Controller
      * Display a listing of the resource.
      *
      * @return Application|Factory|View
+     *
      * @throws Exception
      */
     public function index(Request $request)
@@ -51,7 +52,7 @@ class ExamGroupController extends Controller
         $examGroups = $this->examGroupService->examGroupPaginate($filters);
 
         return view('setting.examGroup.index', [
-            'examGroups' => $examGroups
+            'examGroups' => $examGroups,
         ]);
     }
 
@@ -68,8 +69,9 @@ class ExamGroupController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param ExamGroupRequest $request
+     * @param  ExamGroupRequest  $request
      * @return RedirectResponse
+     *
      * @throws Exception|\Throwable
      */
     public function store(ExamGroupRequest $request): RedirectResponse
@@ -77,18 +79,21 @@ class ExamGroupController extends Controller
         $confirm = $this->examGroupService->storeExamGroup($request->except('_token'));
         if ($confirm['status'] == true) {
             notify($confirm['message'], $confirm['level'], $confirm['title']);
+
             return redirect()->route('contact.settings.examGroups.index');
         }
 
         notify($confirm['message'], $confirm['level'], $confirm['title']);
+
         return redirect()->back()->withInput();
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  $id
+     * @param    $id
      * @return Application|Factory|View
+     *
      * @throws Exception
      */
     public function show($id)
@@ -96,7 +101,7 @@ class ExamGroupController extends Controller
         if ($examGroup = $this->examGroupService->getExamGroupById($id)) {
             return view('setting.examGroup.show', [
                 'examGroup' => $examGroup,
-                'timeline' => Utility::modelAudits($examGroup)
+                'timeline' => Utility::modelAudits($examGroup),
             ]);
         }
 
@@ -108,13 +113,14 @@ class ExamGroupController extends Controller
      *
      * @param $id
      * @return Application|Factory|View
+     *
      * @throws Exception
      */
     public function edit($id)
     {
         if ($examGroup = $this->examGroupService->getExamGroupById($id)) {
             return view('setting.examGroup.edit', [
-                'examGroup' => $examGroup
+                'examGroup' => $examGroup,
             ]);
         }
 
@@ -124,9 +130,10 @@ class ExamGroupController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param ExamGroupRequest $request
-     * @param  $id
+     * @param  ExamGroupRequest  $request
+     * @param    $id
      * @return RedirectResponse
+     *
      * @throws \Throwable
      */
     public function update(ExamGroupRequest $request, $id): RedirectResponse
@@ -135,10 +142,12 @@ class ExamGroupController extends Controller
 
         if ($confirm['status'] == true) {
             notify($confirm['message'], $confirm['level'], $confirm['title']);
+
             return redirect()->route('contact.settings.examGroups.index');
         }
 
         notify($confirm['message'], $confirm['level'], $confirm['title']);
+
         return redirect()->back()->withInput();
     }
 
@@ -146,14 +155,14 @@ class ExamGroupController extends Controller
      * Remove the specified resource from storage.
      *
      * @param $id
-     * @param Request $request
+     * @param  Request  $request
      * @return RedirectResponse
+     *
      * @throws \Throwable
      */
     public function destroy($id, Request $request)
     {
         if ($this->authenticatedSessionService->validate($request)) {
-
             $confirm = $this->examGroupService->destroyExamGroup($id);
 
             if ($confirm['status'] == true) {
@@ -161,6 +170,7 @@ class ExamGroupController extends Controller
             } else {
                 notify($confirm['message'], $confirm['level'], $confirm['title']);
             }
+
             return redirect()->route('contact.settings.examGroups.index');
         }
         abort(403, 'Wrong user credentials');
@@ -170,14 +180,14 @@ class ExamGroupController extends Controller
      * Restore a Soft Deleted Resource
      *
      * @param $id
-     * @param Request $request
+     * @param  Request  $request
      * @return RedirectResponse|void
+     *
      * @throws \Throwable
      */
     public function restore($id, Request $request)
     {
         if ($this->authenticatedSessionService->validate($request)) {
-
             $confirm = $this->examGroupService->restoreExamGroup($id);
 
             if ($confirm['status'] == true) {
@@ -185,6 +195,7 @@ class ExamGroupController extends Controller
             } else {
                 notify($confirm['message'], $confirm['level'], $confirm['title']);
             }
+
             return redirect()->route('contact.settings.examGroups.index');
         }
         abort(403, 'Wrong user credentials');
@@ -194,6 +205,7 @@ class ExamGroupController extends Controller
      * Display a listing of the resource.
      *
      * @return string|StreamedResponse
+     *
      * @throws Exception
      */
     public function export(Request $request)
@@ -202,12 +214,11 @@ class ExamGroupController extends Controller
 
         $examGroupExport = $this->examGroupService->exportExamGroup($filters);
 
-        $filename = 'ExamGroup-' . date('Ymd-His') . '.' . ($filters['format'] ?? 'xlsx');
+        $filename = 'ExamGroup-'.date('Ymd-His').'.'.($filters['format'] ?? 'xlsx');
 
         return $examGroupExport->download($filename, function ($examGroup) use ($examGroupExport) {
             return $examGroupExport->map($examGroup);
         });
-
     }
 
     /**
@@ -224,6 +235,7 @@ class ExamGroupController extends Controller
      * Display a listing of the resource.
      *
      * @return Application|Factory|View
+     *
      * @throws Exception
      */
     public function importBulk(Request $request)
@@ -232,7 +244,7 @@ class ExamGroupController extends Controller
         $examGroups = $this->examGroupService->getAllCountries($filters);
 
         return view('setting.examGroup.index', [
-            'examGroups' => $examGroups
+            'examGroups' => $examGroups,
         ]);
     }
 
@@ -240,6 +252,7 @@ class ExamGroupController extends Controller
      * Display a detail of the resource.
      *
      * @return StreamedResponse|string
+     *
      * @throws Exception
      */
     public function print(Request $request)
@@ -248,7 +261,7 @@ class ExamGroupController extends Controller
 
         $examGroupExport = $this->examGroupService->exportExamGroup($filters);
 
-        $filename = 'ExamGroup-' . date('Ymd-His') . '.' . ($filters['format'] ?? 'xlsx');
+        $filename = 'ExamGroup-'.date('Ymd-His').'.'.($filters['format'] ?? 'xlsx');
 
         return $examGroupExport->download($filename, function ($examGroup) use ($examGroupExport) {
             return $examGroupExport->map($examGroup);
@@ -258,22 +271,23 @@ class ExamGroupController extends Controller
     /**
      * Display a detail of the resource.
      *
-     * @param Request $request
+     * @param  Request  $request
      * @return JsonResponse
+     *
      * @throws Exception
      */
     public function ajax(Request $request): JsonResponse
     {
         $filters = $request->except('page');
 
-        \Log::info("Ajax Request:", $request->all());
+        \Log::info('Ajax Request:', $request->all());
         $examGroups = $this->examGroupService->getAllExamGroups($filters)->toArray();
 
-        if(count($examGroups) > 0):
+        if (count($examGroups) > 0) {
             $jsonReturn = ['status' => true, 'data' => $examGroups];
-        else :
+        } else {
             $jsonReturn = ['status' => false, 'data' => []];
-        endif;
+        }
 
         return response()->json($jsonReturn, 200);
     }

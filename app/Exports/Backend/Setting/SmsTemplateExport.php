@@ -8,14 +8,14 @@ use OpenSpout\Common\Exception\InvalidArgumentException;
 
 /**
  * @class SmsTemplateExport
- * @package App\Exports\Backend\Setting
  */
 class SmsTemplateExport extends FastExcelExport
 {
     /**
      * SmsTemplateExport constructor.
      *
-     * @param null $data
+     * @param  null  $data
+     *
      * @throws InvalidArgumentException
      */
     public function __construct($data = null)
@@ -26,7 +26,7 @@ class SmsTemplateExport extends FastExcelExport
     }
 
     /**
-     * @param SmsTemplate $row
+     * @param  SmsTemplate  $row
      * @return array
      */
     public function map($row): array
@@ -37,7 +37,7 @@ class SmsTemplateExport extends FastExcelExport
             'Remarks' => $row->remarks,
             'Enabled' => ucfirst($row->enabled),
             'Created' => $row->created_at->format(config('app.datetime')),
-            'Updated' => $row->updated_at->format(config('app.datetime'))
+            'Updated' => $row->updated_at->format(config('app.datetime')),
         ];
 
         $this->getSupperAdminColumns($row);
@@ -45,4 +45,3 @@ class SmsTemplateExport extends FastExcelExport
         return $this->formatRow;
     }
 }
-

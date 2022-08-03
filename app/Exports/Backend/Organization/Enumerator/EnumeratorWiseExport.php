@@ -10,14 +10,14 @@ use OpenSpout\Common\Exception\InvalidArgumentException;
 
 /**
  * Class EnumeratorWiseExport
- * @package App\Exports\Backend\Organization\Enumerator
  */
 class EnumeratorWiseExport extends FastExcelExport
 {
     /**
      * EnumeratorExport constructor.
      *
-     * @param null $data
+     * @param  null  $data
+     *
      * @throws InvalidArgumentException
      */
     public function __construct($data = null)
@@ -28,7 +28,7 @@ class EnumeratorWiseExport extends FastExcelExport
     }
 
     /**
-     * @param Enumerator $row
+     * @param  Enumerator  $row
      * @return array
      */
     public function map($row): array
@@ -68,7 +68,7 @@ class EnumeratorWiseExport extends FastExcelExport
                 : 'No Survey Available'),
 
             trans('enumerator.Created By', [], 'en') => $row->created_by_username ?? 'N/A',
-            trans('enumerator.Created Date', [], 'en') => $row->created_at->format(config('backend.datetime'))
+            trans('enumerator.Created Date', [], 'en') => $row->created_at->format(config('backend.datetime')),
         ];
 
         return $this->formatRow;
@@ -80,11 +80,11 @@ class EnumeratorWiseExport extends FastExcelExport
      */
     private function stateArrayToString($data): string
     {
-        $stateArray = array();
+        $stateArray = [];
         $stateString = 'No District Available';
         if (isset($data)) {
             foreach ($data as $index => $state) {
-                $stateArray[] = ($index + 1) . ". " . $state->name ?? null . "\n";
+                $stateArray[] = ($index + 1).'. '.$state->name ?? null."\n";
             }
             $stateString = implode("\n", $stateArray);
         }
@@ -98,11 +98,11 @@ class EnumeratorWiseExport extends FastExcelExport
      */
     private function surveys($data): string
     {
-        $stateArray = array();
+        $stateArray = [];
         $stateString = 'No Survey Available';
         if (isset($data)) {
             foreach ($data as $index => $survey) {
-                $stateArray[] = ($index + 1) . ". " . $survey->name ?? null . "\n";
+                $stateArray[] = ($index + 1).'. '.$survey->name ?? null."\n";
             }
             $stateString = implode("\n", $stateArray);
         }
@@ -110,4 +110,3 @@ class EnumeratorWiseExport extends FastExcelExport
         return $stateString;
     }
 }
-

@@ -30,7 +30,7 @@ class PermissionSeeder extends Seeder
                     'display_name' => Utility::permissionDisplay($route),
                     'name' => $route,
                     'guard_name' => 'web',
-                    'enabled' => 'yes']);
+                    'enabled' => 'yes', ]);
             } catch (\PDOException $exception) {
                 throw new \PDOException($exception->getMessage());
             }

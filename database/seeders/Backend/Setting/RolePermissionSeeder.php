@@ -36,7 +36,7 @@ class RolePermissionSeeder extends Seeder
 
         $operatorRole = Role::findByName('Director'); //manager&operator
 
-        foreach ($permissions as $permission) :
+        foreach ($permissions as $permission) {
             $superAdminRole->givePermissionTo($permission);
 
             if (strpos($permission->name, 'restore') === false) {
@@ -48,9 +48,7 @@ class RolePermissionSeeder extends Seeder
                     $operatorRole->givePermissionTo($permission);
                 }
             }
-
-        endforeach;
+        }
         //Default permission for all other
-
     }
 }

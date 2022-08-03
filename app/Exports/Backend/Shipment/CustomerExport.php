@@ -8,14 +8,14 @@ use OpenSpout\Common\Exception\InvalidArgumentException;
 
 /**
  * @class CustomerExport
- * @package App\Exports\Backend\Shipment
  */
 class CustomerExport extends FastExcelExport
 {
     /**
      * CustomerExport constructor.
      *
-     * @param null $data
+     * @param  null  $data
+     *
      * @throws InvalidArgumentException
      */
     public function __construct($data = null)
@@ -26,7 +26,7 @@ class CustomerExport extends FastExcelExport
     }
 
     /**
-     * @param Customer $row
+     * @param  Customer  $row
      * @return array
      */
     public function map($row): array
@@ -37,7 +37,7 @@ class CustomerExport extends FastExcelExport
             'Remarks' => $row->remarks,
             'Enabled' => ucfirst($row->enabled),
             'Created' => $row->created_at->format(config('app.datetime')),
-            'Updated' => $row->updated_at->format(config('app.datetime'))
+            'Updated' => $row->updated_at->format(config('app.datetime')),
         ];
 
         $this->getSupperAdminColumns($row);
@@ -45,4 +45,3 @@ class CustomerExport extends FastExcelExport
         return $this->formatRow;
     }
 }
-

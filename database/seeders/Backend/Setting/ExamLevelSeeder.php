@@ -22,7 +22,7 @@ class ExamLevelSeeder extends Seeder
                 'icon' => 'fas fa-school',
                 'code' => 'ssc',
                 'remarks' => 'n/a',
-                'enabled' => Constant::ENABLED_OPTION
+                'enabled' => Constant::ENABLED_OPTION,
             ],
             [
                 'id' => '2',
@@ -30,7 +30,7 @@ class ExamLevelSeeder extends Seeder
                 'icon' => 'fas fa-laptop-code',
                 'code' => 'hsc',
                 'remarks' => 'n/a',
-                'enabled' => Constant::ENABLED_OPTION
+                'enabled' => Constant::ENABLED_OPTION,
             ],
             [
                 'id' => '3',
@@ -38,7 +38,7 @@ class ExamLevelSeeder extends Seeder
                 'icon' => 'fas fa-graduation-cap',
                 'code' => 'gra',
                 'remarks' => 'n/a',
-                'enabled' => Constant::ENABLED_OPTION
+                'enabled' => Constant::ENABLED_OPTION,
             ],
             [
                 'id' => '4',
@@ -46,7 +46,7 @@ class ExamLevelSeeder extends Seeder
                 'icon' => 'fas fa-chalkboard-teacher',
                 'code' => 'mas',
                 'remarks' => 'n/a',
-                'enabled' => Constant::ENABLED_OPTION
+                'enabled' => Constant::ENABLED_OPTION,
             ],
             [
                 'id' => '5',
@@ -54,13 +54,12 @@ class ExamLevelSeeder extends Seeder
                 'icon' => 'fas fa-book',
                 'code' => 'ext',
                 'remarks' => 'n/a',
-                'enabled' => Constant::ENABLED_OPTION
-            ]
+                'enabled' => Constant::ENABLED_OPTION,
+            ],
         ];
 
-        foreach ($exam_levels as $exam_level):
+        foreach ($exam_levels as $exam_level) {
             ExamLevel::create($exam_level);
-        endforeach;
-
+        }
     }
 }

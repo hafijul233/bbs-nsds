@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Auth;;
+namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\NewPasswordRequest;
@@ -17,32 +17,30 @@ class NewPasswordController extends Controller
     private $newPasswordService;
 
     /**
-     * @param NewPasswordService $newPasswordService
+     * @param  NewPasswordService  $newPasswordService
      */
     public function __construct(NewPasswordService $newPasswordService)
     {
         $this->newPasswordService = $newPasswordService;
     }
+
     /**
      * Display the password reset view.
      *
-     * @param Request $request
+     * @param  Request  $request
      * @return View
      */
     public function create(Request $request): View
     {
-
     }
 
     /**
      * Handle an incoming new password request.
      *
-     * @param NewPasswordRequest $request
+     * @param  NewPasswordRequest  $request
      * @return RedirectResponse
-     *
      */
     public function store(NewPasswordRequest $request)
     {
-
     }
 }

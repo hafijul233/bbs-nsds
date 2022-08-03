@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Auth;;
+namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
@@ -13,7 +13,7 @@ class VerifyEmailController extends Controller
     /**
      * Mark the authenticated user's email address as verified.
      *
-     * @param EmailVerificationRequest $request
+     * @param  EmailVerificationRequest  $request
      * @return RedirectResponse
      */
     public function __invoke(EmailVerificationRequest $request)

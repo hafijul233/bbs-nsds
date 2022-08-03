@@ -12,11 +12,9 @@ class ModelRestoreController extends Controller
 {
     /**
      * ModelRestoreController constructor.
-     *
      */
     public function __construct()
     {
-
     }
 
     /**
@@ -24,15 +22,15 @@ class ModelRestoreController extends Controller
      *
      * @param $route
      * @param $id
-     * @param ModelRestoreRequest $request
+     * @param  ModelRestoreRequest  $request
      * @return Application|Factory|View
      */
     public function __invoke($route, $id, ModelRestoreRequest $request)
     {
-        if ($request->user()->can($route . '.restore')) {
+        if ($request->user()->can($route.'.restore')) {
             return view('backend.model.restore', [
-                'route' => [$route . '.restore', $id],
-                'method' => 'patch'
+                'route' => [$route.'.restore', $id],
+                'method' => 'patch',
             ]);
         }
         abort(403);

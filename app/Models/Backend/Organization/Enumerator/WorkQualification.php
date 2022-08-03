@@ -15,12 +15,12 @@ class WorkQualification extends Model implements Auditable
     use AuditableTrait, HasFactory, SoftDeletes, Sortable;
 
     /**
-     * @var string $table
+     * @var string
      */
     protected $table = 'work_qualifications';
 
     /**
-     * @var string $primaryKey
+     * @var string
      */
     protected $primaryKey = 'id';
 
@@ -32,7 +32,6 @@ class WorkQualification extends Model implements Auditable
      * @var array
      */
     protected $fillable = ['enumerator_id', 'company', 'designation', 'start_date', 'end_date', 'responsibility', 'enabled'];
-
 
     /**
      * The attributes that should be hidden for arrays.
@@ -48,7 +47,7 @@ class WorkQualification extends Model implements Auditable
      */
     protected $casts = [
         'start_date' => 'datetime',
-        'end_date' => 'datetime'
+        'end_date' => 'datetime',
     ];
 
     /**
@@ -57,7 +56,7 @@ class WorkQualification extends Model implements Auditable
      * @var array
      */
     protected $attributes = [
-        'enabled' => 'yes'
+        'enabled' => 'yes',
     ];
 
     /************************ Audit Relations ************************/

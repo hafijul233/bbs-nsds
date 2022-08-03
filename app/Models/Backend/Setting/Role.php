@@ -23,7 +23,6 @@ class Role extends SpatieRole implements Auditable
      */
     protected $fillable = ['name', 'guard_name', 'remarks', 'enabled'];
 
-
     /**
      * The attributes that should be hidden for arrays.
      *
@@ -45,7 +44,7 @@ class Role extends SpatieRole implements Auditable
      */
     protected $attributes = [
         'guard_name' => 'web',
-        'enabled' => 'yes'
+        'enabled' => 'yes',
     ];
 
     /************************ Audit Relations ************************/
@@ -93,5 +92,4 @@ class Role extends SpatieRole implements Auditable
     {
         return $this->users->count() ?? 0;
     }
-
 }

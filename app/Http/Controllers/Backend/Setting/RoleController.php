@@ -39,13 +39,13 @@ class RoleController extends Controller
     /**
      * PermissionController constructor.
      *
-     * @param AuthenticatedSessionService $authenticatedSessionService
-     * @param RoleService $roleService
-     * @param PermissionService $permissionService
+     * @param  AuthenticatedSessionService  $authenticatedSessionService
+     * @param  RoleService  $roleService
+     * @param  PermissionService  $permissionService
      */
     public function __construct(AuthenticatedSessionService $authenticatedSessionService,
-                                RoleService                 $roleService,
-                                PermissionService              $permissionService)
+        RoleService $roleService,
+        PermissionService $permissionService)
     {
         $this->roleService = $roleService;
         $this->authenticatedSessionService = $authenticatedSessionService;
@@ -55,8 +55,9 @@ class RoleController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @param Request $request
+     * @param  Request  $request
      * @return Application|Factory|View
+     *
      * @throws Exception
      */
     public function index(Request $request)
@@ -65,7 +66,7 @@ class RoleController extends Controller
         $roles = $this->roleService->rolePaginate($filters);
 
         return view('backend.setting.role.index', [
-            'roles' => $roles
+            'roles' => $roles,
         ]);
     }
 
@@ -82,8 +83,9 @@ class RoleController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param RoleRequest $request
+     * @param  RoleRequest  $request
      * @return RedirectResponse
+     *
      * @throws Exception|Throwable
      */
     public function store(RoleRequest $request): RedirectResponse
@@ -92,26 +94,28 @@ class RoleController extends Controller
 
         if ($confirm['status'] == true) {
             notify($confirm['message'], $confirm['level'], $confirm['title']);
+
             return redirect()->route('backend.settings.roles.index');
         }
 
         notify($confirm['message'], $confirm['level'], $confirm['title']);
+
         return redirect()->back()->withInput();
     }
 
     /**
      * Display the specified resource.
      *
-     * @param int $id
+     * @param  int  $id
      * @return Application|Factory|View
+     *
      * @throws Exception
      */
     public function show(int $id)
     {
         if ($role = $this->roleService->getRoleById($id)) {
-
             $permissions = $this->permissionService->getAllPermissions([
-                'sort' => 'display_name', 'direction' => 'asc'
+                'sort' => 'display_name', 'direction' => 'asc',
             ]);
 
             $availablePermissionIds = $role->permissions()->pluck('id')->toArray();
@@ -120,7 +124,7 @@ class RoleController extends Controller
                 'role' => $role,
                 'permissions' => $permissions,
                 'availablePermissionIds' => $availablePermissionIds,
-                'timeline' => Utility::modelAudits($role)
+                'timeline' => Utility::modelAudits($role),
             ]);
         }
 
@@ -130,14 +134,14 @@ class RoleController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param int $id
+     * @param  int  $id
      * @return Application|Factory|View
+     *
      * @throws Exception
      */
     public function edit($id)
     {
         if ($role = $this->roleService->getRoleById($id)) {
-
             return view('backend.setting.role.edit', ['role' => $role]);
         }
 
@@ -147,9 +151,10 @@ class RoleController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param RoleRequest $request
-     * @param  $id
+     * @param  RoleRequest  $request
+     * @param    $id
      * @return RedirectResponse
+     *
      * @throws Throwable
      */
     public function update(RoleRequest $request, $id): RedirectResponse
@@ -158,19 +163,22 @@ class RoleController extends Controller
 
         if ($confirm['status'] == true) {
             notify($confirm['message'], $confirm['level'], $confirm['title']);
+
             return redirect()->route('backend.settings.roles.index');
         }
 
         notify($confirm['message'], $confirm['level'], $confirm['title']);
+
         return redirect()->back()->withInput();
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param int $id
-     * @param Request $request
+     * @param  int  $id
+     * @param  Request  $request
      * @return RedirectResponse
+     *
      * @throws Throwable
      */
     public function destroy($id, Request $request)
@@ -182,6 +190,7 @@ class RoleController extends Controller
             } else {
                 notify($confirm['message'], $confirm['level'], $confirm['title']);
             }
+
             return redirect()->route('backend.settings.roles.index');
         }
         abort(403, 'Wrong user credentials');
@@ -191,8 +200,9 @@ class RoleController extends Controller
      * Restore a Soft Deleted Resource
      *
      * @param $id
-     * @param Request $request
+     * @param  Request  $request
      * @return RedirectResponse|void
+     *
      * @throws \Throwable
      */
     public function restore($id, Request $request)
@@ -204,6 +214,7 @@ class RoleController extends Controller
             } else {
                 notify($confirm['message'], $confirm['level'], $confirm['title']);
             }
+
             return redirect()->route('backend.settings.roles.index');
         }
         abort(403, 'Wrong user credentials');
@@ -223,6 +234,7 @@ class RoleController extends Controller
      * Display a listing of the resource.
      *
      * @return Application|Factory|View
+     *
      * @throws Exception
      */
     public function importBulk(Request $request)
@@ -231,7 +243,7 @@ class RoleController extends Controller
         $permissions = $this->permissionService->getAllPermissions($filters);
 
         return view('backend.setting.permission.index', [
-            'permissions' => $permissions
+            'permissions' => $permissions,
         ]);
     }
 
@@ -239,6 +251,7 @@ class RoleController extends Controller
      * Display a listing of the resource.
      *
      * @return string|StreamedResponse
+     *
      * @throws Exception
      */
     public function export(Request $request)
@@ -247,28 +260,27 @@ class RoleController extends Controller
 
         $roleExport = $this->roleService->exportRole($filters);
 
-        $filename = 'Role-' . date('Ymd-His') . '.' . ($filters['format'] ?? 'xlsx');
+        $filename = 'Role-'.date('Ymd-His').'.'.($filters['format'] ?? 'xlsx');
 
         return $roleExport->download($filename, function ($role) use ($roleExport) {
             return $roleExport->map($role);
         });
-
     }
 
     /**
      * Display a detail of the resource.
      *
      * @return StreamedResponse|string
+     *
      * @throws Exception
      */
     public function print(Request $request)
     {
-
         $filters = $request->except('page');
 
         $roleExport = $this->roleService->exportRole($filters);
 
-        $filename = 'Role-' . date('Ymd-His') . '.' . ($filters['format'] ?? 'xlsx');
+        $filename = 'Role-'.date('Ymd-His').'.'.($filters['format'] ?? 'xlsx');
 
         return $roleExport->download($filename, function ($role) {
             $format = [
@@ -279,9 +291,9 @@ class RoleController extends Controller
                 'Remarks' => $role->remarks,
                 'Enabled' => ucfirst($role->enabled),
                 'Created' => $role->created_at->format(config('backend.datetime')),
-                'Updated' => $role->updated_at->format(config('backend.datetime'))
+                'Updated' => $role->updated_at->format(config('backend.datetime')),
             ];
-            if (AuthenticatedSessionService::isSuperAdmin()):
+            if (AuthenticatedSessionService::isSuperAdmin()) {
                 $format['Deleted'] = ($role->deleted_at != null)
                     ? $role->deleted_at->format(config('backend.datetime'))
                     : null;
@@ -296,22 +308,22 @@ class RoleController extends Controller
                 $format['Destructor'] = ($role->deletedBy != null)
                     ? $role->deletedBy->name
                     : null;
-            endif;
+            }
+
             return $format;
         });
-
     }
 
     /**
      * @param $id
-     * @param Request $request
+     * @param  Request  $request
      * @return JsonResponse|void
+     *
      * @throws Exception
      */
     public function permission($id, Request $request)
     {
         if ($request->ajax()) {
-
             $jsonResponse = ['message' => null, 'errors' => []];
 
             if ($role = $this->roleService->getRoleById($id)) {
@@ -320,10 +332,9 @@ class RoleController extends Controller
 
                 //formatted response is collected from service
                 return response()->json(array_merge($jsonResponse, $confirm));
-
             } else {
                 throw ValidationException::withMessages([
-                    'role' => 'Invalid Role Id Provided'
+                    'role' => 'Invalid Role Id Provided',
                 ]);
             }
         }
@@ -334,19 +345,20 @@ class RoleController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @param Request $request
+     * @param  Request  $request
      * @return JsonResponse
+     *
      * @throws Exception
      */
     public function ajax(Request $request): JsonResponse
     {
         $filters = $request->except('_token');
 
-        if ($filters['paginate'] === true):
+        if ($filters['paginate'] === true) {
             $roles = $this->roleService->rolePaginate($filters, ['permissions']);
-        else :
+        } else {
             $roles = $this->roleService->getAllRoles($filters, ['permissions']);
-        endif;
+        }
 
         return response()->json($roles, 200);
     }

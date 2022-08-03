@@ -18,40 +18,32 @@ class RoleSeeder extends Seeder
         Role::create([
             'id' => 1,
             'name' => Constant::SUPER_ADMIN_ROLE,
-            'remarks' => 'Role which will have all privileges.'
+            'remarks' => 'Role which will have all privileges.',
         ]);
 
         $roles = [
             [
                 'name' => 'Administrator',
-                'remarks' => 'Role which will have all privileges with out restore deleted data.'
-            ]
-            , [
+                'remarks' => 'Role which will have all privileges with out restore deleted data.',
+            ], [
                 'name' => 'Director',
-                'remarks' => 'Role which will have basic privileges and report generation.'
-            ]
-            , [
+                'remarks' => 'Role which will have basic privileges and report generation.',
+            ], [
                 'name' => 'Joint Director',
-                'remarks' => 'Role which will have basic privileges and report generation.'
-            ]
-            , [
+                'remarks' => 'Role which will have basic privileges and report generation.',
+            ], [
                 'name' => 'Deputy Director',
-                'remarks' => 'Role which will have basic privileges and report generation.'
-            ]
-            , [
+                'remarks' => 'Role which will have basic privileges and report generation.',
+            ], [
                 'name' => 'Project Director',
-                'remarks' => 'Role which will have basic privileges and report generation.'
-            ]
-
-            , [
+                'remarks' => 'Role which will have basic privileges and report generation.',
+            ], [
                 'name' => 'Focal Point Officer',
-                'remarks' => 'Role which will have basic privileges and report generation.'
-            ]
-
-            , [
+                'remarks' => 'Role which will have basic privileges and report generation.',
+            ], [
                 'name' => 'Enumerator',
-                'remarks' => 'Role which will have basic operation and minimal system options.'
-            ]
+                'remarks' => 'Role which will have basic operation and minimal system options.',
+            ],
         ];
 
         foreach ($roles as $role) {

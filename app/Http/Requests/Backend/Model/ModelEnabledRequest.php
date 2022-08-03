@@ -1,11 +1,11 @@
 <?php
+
 namespace App\Http\Requests\Backend\Model;
 
 use Illuminate\Foundation\Http\FormRequest;
 
 /**
  * Class ModelEnabledRequest
- * @package App\Http\Requests\Backend\Common
  */
 class ModelEnabledRequest extends FormRequest
 {

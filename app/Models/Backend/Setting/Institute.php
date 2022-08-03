@@ -11,19 +11,18 @@ use OwenIt\Auditing\Contracts\Auditable;
 
 /**
  * @class Institute
- * @package App\Models\Backend\Setting
  */
 class Institute extends Model implements Auditable
 {
     use AuditableTrait, HasFactory, SoftDeletes, Sortable;
 
     /**
-     * @var string $table
+     * @var string
      */
     protected $table = 'institutes';
 
     /**
-     * @var string $primaryKey
+     * @var string
      */
     protected $primaryKey = 'id';
 
@@ -34,7 +33,7 @@ class Institute extends Model implements Auditable
      *
      * @var array
      */
-    protected $fillable = [ 'name', 'remarks', 'enabled', 'exam_level_id'];
+    protected $fillable = ['name', 'remarks', 'enabled', 'exam_level_id'];
 
     /**
      * The attributes that should be hidden for arrays.
@@ -56,7 +55,7 @@ class Institute extends Model implements Auditable
      * @var array
      */
     protected $attributes = [
-        'enabled' => 'yes'
+        'enabled' => 'yes',
     ];
 
     public function examLevel()

@@ -22,19 +22,19 @@ class GenderSeeder extends Seeder
                 'name' => 'Male',
                 'remarks' => 'n/a',
                 'additional_info' => [],
-                'enabled' => Constant::ENABLED_OPTION
+                'enabled' => Constant::ENABLED_OPTION,
             ],
             [
                 'type' => Constant::CATALOG_TYPE['GENDER'],
                 'name' => 'Female',
                 'remarks' => 'n/a',
                 'additional_info' => [],
-                'enabled' => Constant::ENABLED_OPTION
+                'enabled' => Constant::ENABLED_OPTION,
             ],
         ];
 
-        foreach ($genders as $gender):
+        foreach ($genders as $gender) {
             Catalog::create($gender);
-            endforeach;
+        }
     }
 }

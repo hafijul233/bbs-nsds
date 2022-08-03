@@ -19,17 +19,16 @@ return [
     'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
     'register' => [
         'success' => 'Registration successful. Welcome a aboard.',
-        'failed' => 'Registration Failed. Please try again later.'
+        'failed' => 'Registration Failed. Please try again later.',
     ],
     'login' => [
         'failed' => 'These credentials do not match our records.',
         'success' => 'Credentials verified. Welcome !',
         'banned' => 'User account is disabled. Contact system administrator.',
-        'forced' => 'Your password has been changed. Please reset password.'
+        'forced' => 'Your password has been changed. Please reset password.',
     ],
     'logout' => [
         'title' => 'Ready to Leave?',
-        'message' => 'Select "Logout" below if you are ready to end your current session.'
-    ]
+        'message' => 'Select "Logout" below if you are ready to end your current session.',
+    ],
 ];
-

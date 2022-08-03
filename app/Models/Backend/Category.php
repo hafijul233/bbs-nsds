@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Kalnoy\Nestedset\NodeTrait;
 use Kyslik\ColumnSortable\Sortable;
 use OwenIt\Auditing\Auditable as AuditableTrait;
 use OwenIt\Auditing\Contracts\Auditable;
@@ -17,12 +16,12 @@ class Category extends Model implements Auditable
     use AuditableTrait, HasFactory, SoftDeletes, Sortable;
 
     /**
-     * @var string $table
+     * @var string
      */
     protected $table = 'categories';
 
     /**
-     * @var string $primaryKey
+     * @var string
      */
     protected $primaryKey = 'id';
 
@@ -33,8 +32,8 @@ class Category extends Model implements Auditable
      *
      * @var array
      */
-    protected $fillable = [ /*****/
-        'enabled', 'created_by', 'updated_by', 'deleted_by'];
+    protected $fillable = [/*****/
+        'enabled', 'created_by', 'updated_by', 'deleted_by', ];
 
     /**
      * The attributes that should be hidden for arrays.
@@ -56,7 +55,7 @@ class Category extends Model implements Auditable
      * @var array
      */
     protected $attributes = [
-        'enabled' => 'yes'
+        'enabled' => 'yes',
     ];
 
     /************************ Static Factory ************************/

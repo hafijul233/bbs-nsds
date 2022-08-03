@@ -6,7 +6,6 @@ use Illuminate\Foundation\Http\FormRequest;
 
 /**
  * @class RoleRequest
- * @package App\Http\Requests\Backend\Setting
  */
 class RoleRequest extends FormRequest
 {
@@ -18,10 +17,10 @@ class RoleRequest extends FormRequest
     public function rules()
     {
         return [
-            "name" => "required|string",
-            "guard_name" => "required|string",
-            "enabled" => "required|string",
-            "remarks" => "nullable|string"
+            'name' => 'required|string',
+            'guard_name' => 'required|string',
+            'enabled' => 'required|string',
+            'remarks' => 'nullable|string',
         ];
     }
 

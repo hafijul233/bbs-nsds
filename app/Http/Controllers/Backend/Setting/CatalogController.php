@@ -17,8 +17,6 @@ use Symfony\Component\HttpFoundation\StreamedResponse;
 
 /**
  * @class CatalogController
- * @package $NAMESPACE$
- * 
  */
 class CatalogController extends Controller
 {
@@ -26,7 +24,7 @@ class CatalogController extends Controller
      * @var AuthenticatedSessionService
      */
     private $authenticatedSessionService;
-    
+
     /**
      * @var CatalogService
      */
@@ -35,13 +33,12 @@ class CatalogController extends Controller
     /**
      * CatalogController Constructor
      *
-     * @param AuthenticatedSessionService $authenticatedSessionService
-     * @param CatalogService $catalogService
+     * @param  AuthenticatedSessionService  $authenticatedSessionService
+     * @param  CatalogService  $catalogService
      */
     public function __construct(AuthenticatedSessionService $authenticatedSessionService,
-                                CatalogService              $catalogService)
+        CatalogService $catalogService)
     {
-
         $this->authenticatedSessionService = $authenticatedSessionService;
         $this->catalogService = $catalogService;
     }
@@ -49,8 +46,9 @@ class CatalogController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @param Request $request
+     * @param  Request  $request
      * @return Application|Factory|View
+     *
      * @throws Exception
      */
     public function index(Request $request)
@@ -59,7 +57,7 @@ class CatalogController extends Controller
         $catalogs = $this->catalogService->catalogPaginate($filters);
 
         return view('backend.setting.catalog.index', [
-            'catalogs' => $catalogs
+            'catalogs' => $catalogs,
         ]);
     }
 
@@ -76,8 +74,9 @@ class CatalogController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param CatalogRequest $request
+     * @param  CatalogRequest  $request
      * @return RedirectResponse
+     *
      * @throws Exception|\Throwable
      */
     public function store(CatalogRequest $request): RedirectResponse
@@ -85,18 +84,21 @@ class CatalogController extends Controller
         $confirm = $this->catalogService->storeCatalog($request->except('_token'));
         if ($confirm['status'] == true) {
             notify($confirm['message'], $confirm['level'], $confirm['title']);
+
             return redirect()->route('backend.settings.catalogs.index');
         }
 
         notify($confirm['message'], $confirm['level'], $confirm['title']);
+
         return redirect()->back()->withInput();
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  $id
+     * @param    $id
      * @return Application|Factory|View
+     *
      * @throws Exception
      */
     public function show($id)
@@ -104,7 +106,7 @@ class CatalogController extends Controller
         if ($catalog = $this->catalogService->getCatalogById($id)) {
             return view('backend.setting.catalog.show', [
                 'catalog' => $catalog,
-                'timeline' => Utility::modelAudits($catalog)
+                'timeline' => Utility::modelAudits($catalog),
             ]);
         }
 
@@ -116,6 +118,7 @@ class CatalogController extends Controller
      *
      * @param $id
      * @return Application|Factory|View
+     *
      * @throws Exception
      */
     public function edit($id)
@@ -125,7 +128,7 @@ class CatalogController extends Controller
 
             return view('backend.setting.catalog.edit', [
                 'catalog' => $catalog,
-                'catalogTypes' => $catalogTypes
+                'catalogTypes' => $catalogTypes,
             ]);
         }
 
@@ -135,9 +138,10 @@ class CatalogController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param CatalogRequest $request
-     * @param  $id
+     * @param  CatalogRequest  $request
+     * @param    $id
      * @return RedirectResponse
+     *
      * @throws \Throwable
      */
     public function update(CatalogRequest $request, $id): RedirectResponse
@@ -146,10 +150,12 @@ class CatalogController extends Controller
 
         if ($confirm['status'] == true) {
             notify($confirm['message'], $confirm['level'], $confirm['title']);
+
             return redirect()->route('backend.settings.catalogs.index');
         }
 
         notify($confirm['message'], $confirm['level'], $confirm['title']);
+
         return redirect()->back()->withInput();
     }
 
@@ -157,14 +163,14 @@ class CatalogController extends Controller
      * Remove the specified resource from storage.
      *
      * @param $id
-     * @param Request $request
+     * @param  Request  $request
      * @return RedirectResponse
+     *
      * @throws \Throwable
      */
     public function destroy($id, Request $request)
     {
         if ($this->authenticatedSessionService->validate($request)) {
-
             $confirm = $this->catalogService->destroyCatalog($id);
 
             if ($confirm['status'] == true) {
@@ -172,6 +178,7 @@ class CatalogController extends Controller
             } else {
                 notify($confirm['message'], $confirm['level'], $confirm['title']);
             }
+
             return redirect()->route('backend.settings.catalogs.index');
         }
         abort(403, 'Wrong user credentials');
@@ -181,14 +188,14 @@ class CatalogController extends Controller
      * Restore a Soft Deleted Resource
      *
      * @param $id
-     * @param Request $request
+     * @param  Request  $request
      * @return RedirectResponse|void
+     *
      * @throws \Throwable
      */
     public function restore($id, Request $request)
     {
         if ($this->authenticatedSessionService->validate($request)) {
-
             $confirm = $this->catalogService->restoreCatalog($id);
 
             if ($confirm['status'] == true) {
@@ -196,6 +203,7 @@ class CatalogController extends Controller
             } else {
                 notify($confirm['message'], $confirm['level'], $confirm['title']);
             }
+
             return redirect()->route('backend.settings.catalogs.index');
         }
         abort(403, 'Wrong user credentials');
@@ -205,6 +213,7 @@ class CatalogController extends Controller
      * Display a listing of the resource.
      *
      * @return string|StreamedResponse
+     *
      * @throws Exception
      */
     public function export(Request $request)
@@ -213,12 +222,11 @@ class CatalogController extends Controller
 
         $catalogExport = $this->catalogService->exportCatalog($filters);
 
-        $filename = 'Catalog-' . date('Ymd-His') . '.' . ($filters['format'] ?? 'xlsx');
+        $filename = 'Catalog-'.date('Ymd-His').'.'.($filters['format'] ?? 'xlsx');
 
         return $catalogExport->download($filename, function ($catalog) use ($catalogExport) {
             return $catalogExport->map($catalog);
         });
-
     }
 
     /**
@@ -235,6 +243,7 @@ class CatalogController extends Controller
      * Display a listing of the resource.
      *
      * @return Application|Factory|View
+     *
      * @throws Exception
      */
     public function importBulk(Request $request)
@@ -243,7 +252,7 @@ class CatalogController extends Controller
         $catalogs = $this->catalogService->getAllCatalogs($filters);
 
         return view('backend.setting.catalogindex', [
-            'catalogs' => $catalogs
+            'catalogs' => $catalogs,
         ]);
     }
 
@@ -251,6 +260,7 @@ class CatalogController extends Controller
      * Display a detail of the resource.
      *
      * @return StreamedResponse|string
+     *
      * @throws Exception
      */
     public function print(Request $request)
@@ -259,11 +269,10 @@ class CatalogController extends Controller
 
         $catalogExport = $this->catalogService->exportCatalog($filters);
 
-        $filename = 'Catalog-' . date('Ymd-His') . '.' . ($filters['format'] ?? 'xlsx');
+        $filename = 'Catalog-'.date('Ymd-His').'.'.($filters['format'] ?? 'xlsx');
 
         return $catalogExport->download($filename, function ($catalog) use ($catalogExport) {
             return $catalogExport->map($catalog);
         });
-
     }
 }

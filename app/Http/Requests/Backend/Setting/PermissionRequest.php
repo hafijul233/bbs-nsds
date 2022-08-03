@@ -6,7 +6,6 @@ use Illuminate\Foundation\Http\FormRequest;
 
 /**
  * @class PermissionRequest
- * @package App\Http\Requests\Backend\Setting
  */
 class PermissionRequest extends FormRequest
 {
@@ -18,11 +17,11 @@ class PermissionRequest extends FormRequest
     public function rules()
     {
         return [
-            "name" => "required|string",
-            "guard_name" => "required|string",
-            "display_name" => "required|string",
-            "enabled" => "required|string",
-            "remarks" => "nullable|string"
+            'name' => 'required|string',
+            'guard_name' => 'required|string',
+            'display_name' => 'required|string',
+            'enabled' => 'required|string',
+            'remarks' => 'nullable|string',
         ];
     }
 

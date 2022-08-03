@@ -2,6 +2,7 @@
 
 namespace App\Services\Auth;
 
+use function __;
 use App\Models\Setting\User;
 use App\Repositories\Eloquent\Backend\Setting\UserRepository;
 use App\Services\Backend\Common\FileUploadService;
@@ -11,7 +12,6 @@ use Exception;
 use Illuminate\Support\Facades\Auth;
 use Spatie\MediaLibrary\MediaCollections\Exceptions\FileDoesNotExist;
 use Spatie\MediaLibrary\MediaCollections\Exceptions\FileIsTooBig;
-use function __;
 
 class RegisteredUserService
 {
@@ -27,19 +27,21 @@ class RegisteredUserService
 
     /**
      * RegisteredUserService constructor.
-     * @param UserRepository $userRepository
-     * @param FileUploadService $fileUploadService
+     *
+     * @param  UserRepository  $userRepository
+     * @param  FileUploadService  $fileUploadService
      */
-    public function __construct(UserRepository    $userRepository,
-                                FileUploadService $fileUploadService)
+    public function __construct(UserRepository $userRepository,
+        FileUploadService $fileUploadService)
     {
         $this->userRepository = $userRepository;
         $this->fileUploadService = $fileUploadService;
     }
 
     /**
-     * @param array $registerFormInputs
+     * @param  array  $registerFormInputs
      * @return array
+     *
      * @throws Exception
      */
     public function attemptRegistration(array $registerFormInputs): ?array
@@ -66,13 +68,15 @@ class RegisteredUserService
             }
         } catch (\Exception $exception) {
             $this->userRepository->handleException($exception);
+
             return ['status' => false, 'message' => __($exception->getMessage()), 'level' => Constant::MSG_TOASTR_ERROR, 'title' => 'Error!'];
         }
     }
 
     /**
-     * @param array $request
+     * @param  array  $request
      * @return array
+     *
      * @throws Exception
      */
     private function formatRegistrationInfo(array $request): array
@@ -85,14 +89,14 @@ class RegisteredUserService
             'mobile' => ($request['mobile'] ?? null),
             'email' => ($request['email'] ?? null),
             'remarks' => 'self-registered',
-            'enabled' => Constant::ENABLED_OPTION
+            'enabled' => Constant::ENABLED_OPTION,
         ];
     }
 
-
     /**
-     * @param User $user
+     * @param  User  $user
      * @return bool
+     *
      * @throws FileDoesNotExist
      * @throws FileIsTooBig
      * @throws Exception
@@ -102,16 +106,18 @@ class RegisteredUserService
         //add profile image
         $profileImagePath = $this->fileUploadService->createAvatarImageFromText($user->name);
         $user->addMedia($profileImagePath)->toMediaCollection('avatars');
+
         return $user->save();
     }
 
     /**
-     * @param User $user
+     * @param  User  $user
      * @return bool
      */
     protected function attachDefaultRoles(User $user): bool
     {
         $this->userRepository->setModel($user);
+
         return $this->userRepository->manageRoles([Constant::GUEST_ROLE_ID]);
     }
 }

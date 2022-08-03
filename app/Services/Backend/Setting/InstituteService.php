@@ -15,18 +15,18 @@ use Throwable;
 
 /**
  * @class InstituteService
- * @package App\Services\Backend\Setting
  */
 class InstituteService extends Service
 {
-/**
+    /**
      * @var InstituteRepository
      */
     private $instituteRepository;
 
     /**
      * InstituteService constructor.
-     * @param InstituteRepository $instituteRepository
+     *
+     * @param  InstituteRepository  $instituteRepository
      */
     public function __construct(InstituteRepository $instituteRepository)
     {
@@ -36,10 +36,11 @@ class InstituteService extends Service
 
     /**
      * Get All Institute models as collection
-     * 
-     * @param array $filters
-     * @param array $eagerRelations
+     *
+     * @param  array  $filters
+     * @param  array  $eagerRelations
      * @return Builder[]|Collection
+     *
      * @throws Exception
      */
     public function getAllInstitutes(array $filters = [], array $eagerRelations = [])
@@ -49,10 +50,11 @@ class InstituteService extends Service
 
     /**
      * Create Institute Model Pagination
-     * 
-     * @param array $filters
-     * @param array $eagerRelations
+     *
+     * @param  array  $filters
+     * @param  array  $eagerRelations
      * @return LengthAwarePaginator
+     *
      * @throws Exception
      */
     public function institutePaginate(array $filters = [], array $eagerRelations = []): LengthAwarePaginator
@@ -62,10 +64,11 @@ class InstituteService extends Service
 
     /**
      * Show Institute Model
-     * 
-     * @param int $id
-     * @param bool $purge
+     *
+     * @param  int  $id
+     * @param  bool  $purge
      * @return mixed
+     *
      * @throws Exception
      */
     public function getInstituteById($id, bool $purge = false)
@@ -75,9 +78,10 @@ class InstituteService extends Service
 
     /**
      * Save Institute Model
-     * 
-     * @param array $inputs
+     *
+     * @param  array  $inputs
      * @return array
+     *
      * @throws Exception
      * @throws Throwable
      */
@@ -88,27 +92,31 @@ class InstituteService extends Service
             $newInstitute = $this->instituteRepository->create($inputs);
             if ($newInstitute instanceof Institute) {
                 DB::commit();
+
                 return ['status' => true, 'message' => __('New Institute Created'),
-                    'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!'];
+                    'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!', ];
             } else {
                 DB::rollBack();
+
                 return ['status' => false, 'message' => __('New Institute Creation Failed'),
-                    'level' => Constant::MSG_TOASTR_ERROR, 'title' => 'Alert!'];
+                    'level' => Constant::MSG_TOASTR_ERROR, 'title' => 'Alert!', ];
             }
         } catch (Exception $exception) {
             $this->instituteRepository->handleException($exception);
             DB::rollBack();
+
             return ['status' => false, 'message' => $exception->getMessage(),
-                'level' => Constant::MSG_TOASTR_WARNING, 'title' => 'Error!'];
+                'level' => Constant::MSG_TOASTR_WARNING, 'title' => 'Error!', ];
         }
     }
 
     /**
      * Update Institute Model
-     * 
-     * @param array $inputs
+     *
+     * @param  array  $inputs
      * @param $id
      * @return array
+     *
      * @throws Throwable
      */
     public function updateInstitute(array $inputs, $id): array
@@ -119,30 +127,34 @@ class InstituteService extends Service
             if ($institute instanceof Institute) {
                 if ($this->instituteRepository->update($inputs, $id)) {
                     DB::commit();
+
                     return ['status' => true, 'message' => __('Institute Info Updated'),
-                        'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!'];
+                        'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!', ];
                 } else {
                     DB::rollBack();
+
                     return ['status' => false, 'message' => __('Institute Info Update Failed'),
-                        'level' => Constant::MSG_TOASTR_ERROR, 'title' => 'Alert!'];
+                        'level' => Constant::MSG_TOASTR_ERROR, 'title' => 'Alert!', ];
                 }
             } else {
                 return ['status' => false, 'message' => __('Institute Model Not Found'),
-                    'level' => Constant::MSG_TOASTR_WARNING, 'title' => 'Alert!'];
+                    'level' => Constant::MSG_TOASTR_WARNING, 'title' => 'Alert!', ];
             }
         } catch (Exception $exception) {
             $this->instituteRepository->handleException($exception);
             DB::rollBack();
+
             return ['status' => false, 'message' => $exception->getMessage(),
-                'level' => Constant::MSG_TOASTR_WARNING, 'title' => 'Error!'];
+                'level' => Constant::MSG_TOASTR_WARNING, 'title' => 'Error!', ];
         }
     }
 
     /**
      * Destroy Institute Model
-     * 
+     *
      * @param $id
      * @return array
+     *
      * @throws Throwable
      */
     public function destroyInstitute($id): array
@@ -151,27 +163,30 @@ class InstituteService extends Service
         try {
             if ($this->instituteRepository->delete($id)) {
                 DB::commit();
-                return ['status' => true, 'message' => __('Institute is Trashed'),
-                    'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!'];
 
+                return ['status' => true, 'message' => __('Institute is Trashed'),
+                    'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!', ];
             } else {
                 DB::rollBack();
+
                 return ['status' => false, 'message' => __('Institute is Delete Failed'),
-                    'level' => Constant::MSG_TOASTR_ERROR, 'title' => 'Alert!'];
+                    'level' => Constant::MSG_TOASTR_ERROR, 'title' => 'Alert!', ];
             }
         } catch (Exception $exception) {
             $this->instituteRepository->handleException($exception);
             DB::rollBack();
+
             return ['status' => false, 'message' => $exception->getMessage(),
-                'level' => Constant::MSG_TOASTR_WARNING, 'title' => 'Error!'];
+                'level' => Constant::MSG_TOASTR_WARNING, 'title' => 'Error!', ];
         }
     }
 
     /**
      * Restore Institute Model
-     * 
+     *
      * @param $id
      * @return array
+     *
      * @throws Throwable
      */
     public function restoreInstitute($id): array
@@ -180,43 +195,46 @@ class InstituteService extends Service
         try {
             if ($this->instituteRepository->restore($id)) {
                 DB::commit();
-                return ['status' => true, 'message' => __('Institute is Restored'),
-                    'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!'];
 
+                return ['status' => true, 'message' => __('Institute is Restored'),
+                    'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!', ];
             } else {
                 DB::rollBack();
+
                 return ['status' => false, 'message' => __('Institute is Restoration Failed'),
-                    'level' => Constant::MSG_TOASTR_ERROR, 'title' => 'Alert!'];
+                    'level' => Constant::MSG_TOASTR_ERROR, 'title' => 'Alert!', ];
             }
         } catch (Exception $exception) {
             $this->instituteRepository->handleException($exception);
             DB::rollBack();
+
             return ['status' => false, 'message' => $exception->getMessage(),
-                'level' => Constant::MSG_TOASTR_WARNING, 'title' => 'Error!'];
+                'level' => Constant::MSG_TOASTR_WARNING, 'title' => 'Error!', ];
         }
     }
 
     /**
      * Export Object for Export Download
      *
-     * @param array $filters
+     * @param  array  $filters
      * @return InstituteExport
+     *
      * @throws Exception
      */
     public function exportInstitute(array $filters = []): InstituteExport
     {
-        return (new InstituteExport($this->instituteRepository->getWith($filters)));
+        return new InstituteExport($this->instituteRepository->getWith($filters));
     }
 
-    public function getInstituteDropDown(array $filters):array
+    public function getInstituteDropDown(array $filters): array
     {
         $institutes = $this->getAllInstitutes($filters);
 
         $instituteArray = [];
 
-        foreach ($institutes as $institute):
+        foreach ($institutes as $institute) {
             $instituteArray[$institute->id] = $institute->name;
-        endforeach;
+        }
 
         return $instituteArray;
     }

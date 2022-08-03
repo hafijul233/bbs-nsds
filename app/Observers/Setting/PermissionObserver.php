@@ -2,8 +2,6 @@
 
 namespace App\Observers\Setting;
 
-
-
 use App\Models\Setting\Permission;
 use App\Notifications\Setting\Permission\PermissionCreatedNotification;
 use App\Notifications\Setting\Permission\PermissionDeletedNotification;
@@ -17,7 +15,7 @@ class PermissionObserver
     private $userService;
 
     /**
-     * @param UserService $userService
+     * @param  UserService  $userService
      */
     public function __construct(UserService $userService)
     {
@@ -27,23 +25,25 @@ class PermissionObserver
     /**
      * Handle the Permission "created" event.
      *
-     * @param Permission $permission
+     * @param  Permission  $permission
      * @return void
+     *
      * @throws \Exception
      */
     public function created(Permission $permission)
     {
         //send notification to all super admin about new user
-        if($admins = $this->userService->getUsersByRoleName('Super Administrator')) {
-            foreach ($admins as $admin)
+        if ($admins = $this->userService->getUsersByRoleName('Super Administrator')) {
+            foreach ($admins as $admin) {
                 $admin->notify(new PermissionCreatedNotification($permission));
+            }
         }
     }
 
     /**
      * Handle the Permission "updated" event.
      *
-     * @param Permission $permission
+     * @param  Permission  $permission
      * @return void
      */
     public function updated(Permission $permission)
@@ -54,23 +54,25 @@ class PermissionObserver
     /**
      * Handle the Permission "deleted" event.
      *
-     * @param Permission $permission
+     * @param  Permission  $permission
      * @return void
+     *
      * @throws \Exception
      */
     public function deleted(Permission $permission)
     {
         //send notification to all super admin about new user
-        if($admins = $this->userService->getUsersByRoleName('Super Administrator')) {
-            foreach ($admins as $admin)
+        if ($admins = $this->userService->getUsersByRoleName('Super Administrator')) {
+            foreach ($admins as $admin) {
                 $admin->notify(new PermissionDeletedNotification($permission));
+            }
         }
     }
 
     /**
      * Handle the Permission "restored" event.
      *
-     * @param Permission $permission
+     * @param  Permission  $permission
      * @return void
      */
     public function restored(Permission $permission)
@@ -81,7 +83,7 @@ class PermissionObserver
     /**
      * Handle the Permission "force deleted" event.
      *
-     * @param Permission $permission
+     * @param  Permission  $permission
      * @return void
      */
     public function forceDeleted(Permission $permission)

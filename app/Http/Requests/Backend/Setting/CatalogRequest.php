@@ -6,7 +6,6 @@ use Illuminate\Foundation\Http\FormRequest;
 
 /**
  * @class CityRequest
- * @package App\Http\Requests\Backend\Setting
  */
 class CatalogRequest extends FormRequest
 {
@@ -18,10 +17,10 @@ class CatalogRequest extends FormRequest
     public function rules()
     {
         return [
-            "type" => "required|string",
-            "name" => "required|string",
-            "enabled" => "required|string",
-            "remarks" => "nullable|string"
+            'type' => 'required|string',
+            'name' => 'required|string',
+            'enabled' => 'required|string',
+            'remarks' => 'nullable|string',
         ];
     }
 

@@ -11,14 +11,14 @@ class TranslateController extends Controller
     /**
      * Handle the incoming request.
      *
-     * @param Request $request
+     * @param  Request  $request
      * @return RedirectResponse
      */
     public function __invoke(Request $request)
     {
         $locale = $request->language;
 
-        if (!in_array($locale, config('app.available_locales'))){
+        if (! in_array($locale, config('app.available_locales'))) {
             $locale = 'en';
         }
 

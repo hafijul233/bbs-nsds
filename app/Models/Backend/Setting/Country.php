@@ -15,12 +15,12 @@ class Country extends Model implements Auditable
     use AuditableTrait, SoftDeletes, Sortable;
 
     /**
-     * @var string $table
+     * @var string
      */
     protected $table = 'countries';
 
     /**
-     * @var string $primaryKey
+     * @var string
      */
     protected $primaryKey = 'id';
 
@@ -47,7 +47,7 @@ class Country extends Model implements Auditable
      */
     protected $casts = [
         'translations' => 'array',
-        'timezones' => 'array'
+        'timezones' => 'array',
     ];
 
     /**
@@ -56,7 +56,7 @@ class Country extends Model implements Auditable
      * @var array
      */
     protected $attributes = [
-        'enabled' => 'yes'
+        'enabled' => 'yes',
     ];
 
     /************************ Audit Relations ************************/
@@ -86,7 +86,6 @@ class Country extends Model implements Auditable
     }
 
     /************************ Events ************************/
-
 
     /************************ Relations ************************/
     /**

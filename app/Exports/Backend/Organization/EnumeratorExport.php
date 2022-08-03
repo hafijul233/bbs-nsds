@@ -4,19 +4,19 @@ namespace App\Exports\Backend\Organization;
 
 use App\Abstracts\Export\FastExcelExport;
 use App\Models\Backend\Organization\Enumerator;
-use OpenSpout\Common\Exception\InvalidArgumentException;
 use Carbon\Carbon;
+use OpenSpout\Common\Exception\InvalidArgumentException;
 
 /**
  * @class EnumeratorExport
- * @package App\Exports\Backend\Organization
  */
 class EnumeratorExport extends FastExcelExport
 {
     /**
      * EnumeratorExport constructor.
      *
-     * @param null $data
+     * @param  null  $data
+     *
      * @throws InvalidArgumentException
      */
     public function __construct($data = null)
@@ -27,7 +27,7 @@ class EnumeratorExport extends FastExcelExport
     }
 
     /**
-     * @param Enumerator $row
+     * @param  Enumerator  $row
      * @return array
      */
     public function map($row): array
@@ -49,37 +49,37 @@ class EnumeratorExport extends FastExcelExport
             trans('Mobile 2', [], 'en') => $row->mobile_2 ?? null,
             trans('Email', [], 'en') => $row->email ?? null,
             trans('Whatsapp Number', [], 'en') => $row->whatsapp ?? null,
-            trans('Facebook ID', [], 'en') => $row->facebook ?? null
+            trans('Facebook ID', [], 'en') => $row->facebook ?? null,
         ];
 
-        $this->formatRow[trans('Revenue staff of BBS', [], 'en')] =  ucfirst($row->is_employee) ?? null;
-        $this->formatRow[trans('Designation', [], 'en')] =  (($row->is_employee == 'yes') ? $row->designation :   'N/A') ?? null;
-        $this->formatRow[trans('Office Name', [], 'en')] =  (($row->is_employee == 'yes') ? $row->company :   'N/A') ?? null;
+        $this->formatRow[trans('Revenue staff of BBS', [], 'en')] = ucfirst($row->is_employee) ?? null;
+        $this->formatRow[trans('Designation', [], 'en')] = (($row->is_employee == 'yes') ? $row->designation : 'N/A') ?? null;
+        $this->formatRow[trans('Office Name', [], 'en')] = (($row->is_employee == 'yes') ? $row->company : 'N/A') ?? null;
 
         //if(is_null(request('prev_post_state_id'))){
-            $this->formatRow = array_merge($this->formatRow, [
-                trans('Worked Earlier', [], 'en') => $this->stateArrayToString($row->previousPostings) ?? null
-            ]);
+        $this->formatRow = array_merge($this->formatRow, [
+            trans('Worked Earlier', [], 'en') => $this->stateArrayToString($row->previousPostings) ?? null,
+        ]);
         //}
         //if(is_null(request('future_post_state_id'))){
-            $this->formatRow = array_merge($this->formatRow, [
-                trans('Want to work in future', [], 'en') => $this->stateArrayToString($row->futurePostings) ?? null
-            ]);
+        $this->formatRow = array_merge($this->formatRow, [
+            trans('Want to work in future', [], 'en') => $this->stateArrayToString($row->futurePostings) ?? null,
+        ]);
         //}
         //if(is_null(request('survey_id'))){
-            $this->formatRow = array_merge($this->formatRow, [
-                trans('Work Experience in BBS', [], 'en') => $this->surveys($row->surveys) ?? null
-            ]);
+        $this->formatRow = array_merge($this->formatRow, [
+            trans('Work Experience in BBS', [], 'en') => $this->surveys($row->surveys) ?? null,
+        ]);
         //}
-        if(request('is_total_survey') == true){
+        if (request('is_total_survey') == true) {
             $this->formatRow = array_merge($this->formatRow, [
-                trans('Total Survey', [], 'en') => $row->totalSurvey ?? null
+                trans('Total Survey', [], 'en') => $row->totalSurvey ?? null,
             ]);
         }
         $this->formatRow = array_merge($this->formatRow, [
             trans('Created By', [], 'en') => $row->created_by_username ?? 'null',
             //'Enabled' => ucfirst(($row->enabled ?? '')),
-            'Created Date' => $row->created_at->format(config('backend.datetime'))
+            'Created Date' => $row->created_at->format(config('backend.datetime')),
         ]);
 
         /*$this->getSupperAdminColumns($row);*/
@@ -97,7 +97,6 @@ class EnumeratorExport extends FastExcelExport
             unset($this->formatRow[trans('Worked Earlier', [], 'en')]);
             unset($this->formatRow[trans('Created By', [], 'en')]);
             unset($this->formatRow['Created Date']);
-
         }
 
         return $this->formatRow;
@@ -109,11 +108,11 @@ class EnumeratorExport extends FastExcelExport
      */
     public function stateArrayToString($data): string
     {
-        $stateArray = array();
+        $stateArray = [];
         $stateString = 'No District Available';
-        if(isset($data)){
-            foreach($data as $index=>$state){
-                $stateArray[] = ($index+1).". ".$state->name ?? null."\n";
+        if (isset($data)) {
+            foreach ($data as $index => $state) {
+                $stateArray[] = ($index + 1).'. '.$state->name ?? null."\n";
             }
             $stateString = implode("\n", $stateArray);
         }
@@ -127,11 +126,11 @@ class EnumeratorExport extends FastExcelExport
      */
     public function surveys($data): string
     {
-        $stateArray = array();
+        $stateArray = [];
         $stateString = 'No Survey Available';
-        if(isset($data)){
-            foreach($data as $index => $survey){
-                $stateArray[] = ($index+1).". ".$survey->name ?? null."\n";
+        if (isset($data)) {
+            foreach ($data as $index => $survey) {
+                $stateArray[] = ($index + 1).'. '.$survey->name ?? null."\n";
             }
             $stateString = implode("\n", $stateArray);
         }
@@ -139,4 +138,3 @@ class EnumeratorExport extends FastExcelExport
         return $stateString;
     }
 }
-

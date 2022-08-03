@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Auth;;
+namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\RegisterRequest;
@@ -9,7 +9,6 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
-
 
 class RegisteredUserController extends Controller
 {
@@ -20,7 +19,8 @@ class RegisteredUserController extends Controller
 
     /**
      * RegisteredUserController constructor.
-     * @param RegisteredUserService $registeredUserService
+     *
+     * @param  RegisteredUserService  $registeredUserService
      */
     public function __construct(RegisteredUserService $registeredUserService)
     {
@@ -40,8 +40,9 @@ class RegisteredUserController extends Controller
     /**
      * Handle an incoming registration request.
      *
-     * @param RegisterRequest $request
+     * @param  RegisterRequest  $request
      * @return RedirectResponse
+     *
      * @throws \Throwable
      */
     public function store(RegisterRequest $request): RedirectResponse
@@ -51,9 +52,11 @@ class RegisteredUserController extends Controller
 
         if ($confirm['status'] == true) {
             notify($confirm['message'], $confirm['level'], $confirm['title']);
+
             return redirect()->route(config('backend.config.home_url', 'admin.'));
         } else {
             notify($confirm['message'], $confirm['level'], $confirm['title']);
+
             return redirect()->back();
         }
     }

@@ -67,7 +67,7 @@ return [
 
     'stubs' => [
         'enabled' => true,
-        'path' => base_path() . '/stubs/module',
+        'path' => base_path().'/stubs/module',
         'files' => [
             'routes/web' => 'Routes/web.php',
             'routes/api' => 'Routes/api.php',
@@ -79,7 +79,7 @@ return [
             'assets/js/app' => 'Resources/assets/js/app.js',
             'assets/sass/app' => 'Resources/assets/sass/app.scss',
             'webpack' => 'webpack.mix.js',
-            'package' => 'package.json'
+            'package' => 'package.json',
         ],
         'replacements' => [
             'routes/web' => ['LOWER_NAME', 'STUDLY_NAME'],

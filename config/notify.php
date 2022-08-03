@@ -13,11 +13,11 @@ return [
         'class' => Toastr::class,
 
         'notify_js' => [
-            env('ASSET_URL', 'http://127.0.0.1:8000') . '/plugins/toastr/toastr.min.js',
+            env('ASSET_URL', 'http://127.0.0.1:8000').'/plugins/toastr/toastr.min.js',
         ],
 
         'notify_css' => [
-            env('ASSET_URL', 'http://127.0.0.1:8000') . '/plugins/toastr/toastr.min.css',
+            env('ASSET_URL', 'http://127.0.0.1:8000').'/plugins/toastr/toastr.min.css',
         ],
 
         'types' => [
@@ -30,7 +30,7 @@ return [
         'options' => [
             'closeButton' => true,
             'progressBar' => true,
-            'preventDuplicates' => true
+            'preventDuplicates' => true,
         ],
     ],
 

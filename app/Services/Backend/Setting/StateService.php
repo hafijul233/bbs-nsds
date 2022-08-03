@@ -16,18 +16,18 @@ use Throwable;
 
 /**
  * @class StateService
- * @package Modules\State\Services\Setting
  */
 class StateService extends Service
 {
-/**
+    /**
      * @var StateRepository
      */
     private $stateRepository;
 
     /**
      * StateService constructor.
-     * @param StateRepository $stateRepository
+     *
+     * @param  StateRepository  $stateRepository
      */
     public function __construct(StateRepository $stateRepository)
     {
@@ -37,10 +37,11 @@ class StateService extends Service
 
     /**
      * Get All State models as collection
-     * 
-     * @param array $filters
-     * @param array $eagerRelations
+     *
+     * @param  array  $filters
+     * @param  array  $eagerRelations
      * @return Builder[]|Collection
+     *
      * @throws Exception
      */
     public function getAllStates(array $filters = [], array $eagerRelations = [])
@@ -50,10 +51,11 @@ class StateService extends Service
 
     /**
      * Create State Model Pagination
-     * 
-     * @param array $filters
-     * @param array $eagerRelations
+     *
+     * @param  array  $filters
+     * @param  array  $eagerRelations
      * @return LengthAwarePaginator
+     *
      * @throws Exception
      */
     public function statePaginate(array $filters = [], array $eagerRelations = []): LengthAwarePaginator
@@ -63,10 +65,11 @@ class StateService extends Service
 
     /**
      * Show State Model
-     * 
-     * @param int $id
-     * @param bool $purge
+     *
+     * @param  int  $id
+     * @param  bool  $purge
      * @return mixed
+     *
      * @throws Exception
      */
     public function getStateById($id, bool $purge = false)
@@ -76,9 +79,10 @@ class StateService extends Service
 
     /**
      * Save State Model
-     * 
-     * @param array $inputs
+     *
+     * @param  array  $inputs
      * @return array
+     *
      * @throws Exception
      * @throws Throwable
      */
@@ -89,27 +93,31 @@ class StateService extends Service
             $newState = $this->stateRepository->create($inputs);
             if ($newState instanceof State) {
                 DB::commit();
+
                 return ['status' => true, 'message' => __('New State Created'),
-                    'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!'];
+                    'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!', ];
             } else {
                 DB::rollBack();
+
                 return ['status' => false, 'message' => __('New State Creation Failed'),
-                    'level' => Constant::MSG_TOASTR_ERROR, 'title' => 'Alert!'];
+                    'level' => Constant::MSG_TOASTR_ERROR, 'title' => 'Alert!', ];
             }
         } catch (Exception $exception) {
             $this->stateRepository->handleException($exception);
             DB::rollBack();
+
             return ['status' => false, 'message' => $exception->getMessage(),
-                'level' => Constant::MSG_TOASTR_WARNING, 'title' => 'Error!'];
+                'level' => Constant::MSG_TOASTR_WARNING, 'title' => 'Error!', ];
         }
     }
 
     /**
      * Update State Model
-     * 
-     * @param array $inputs
+     *
+     * @param  array  $inputs
      * @param $id
      * @return array
+     *
      * @throws Throwable
      */
     public function updateState(array $inputs, $id): array
@@ -120,30 +128,34 @@ class StateService extends Service
             if ($state instanceof State) {
                 if ($this->stateRepository->update($inputs, $id)) {
                     DB::commit();
+
                     return ['status' => true, 'message' => __('State Info Updated'),
-                        'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!'];
+                        'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!', ];
                 } else {
                     DB::rollBack();
+
                     return ['status' => false, 'message' => __('State Info Update Failed'),
-                        'level' => Constant::MSG_TOASTR_ERROR, 'title' => 'Alert!'];
+                        'level' => Constant::MSG_TOASTR_ERROR, 'title' => 'Alert!', ];
                 }
             } else {
                 return ['status' => false, 'message' => __('State Model Not Found'),
-                    'level' => Constant::MSG_TOASTR_WARNING, 'title' => 'Alert!'];
+                    'level' => Constant::MSG_TOASTR_WARNING, 'title' => 'Alert!', ];
             }
         } catch (Exception $exception) {
             $this->stateRepository->handleException($exception);
             DB::rollBack();
+
             return ['status' => false, 'message' => $exception->getMessage(),
-                'level' => Constant::MSG_TOASTR_WARNING, 'title' => 'Error!'];
+                'level' => Constant::MSG_TOASTR_WARNING, 'title' => 'Error!', ];
         }
     }
 
     /**
      * Destroy State Model
-     * 
+     *
      * @param $id
      * @return array
+     *
      * @throws Throwable
      */
     public function destroyState($id): array
@@ -152,27 +164,30 @@ class StateService extends Service
         try {
             if ($this->stateRepository->delete($id)) {
                 DB::commit();
-                return ['status' => true, 'message' => __('State is Trashed'),
-                    'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!'];
 
+                return ['status' => true, 'message' => __('State is Trashed'),
+                    'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!', ];
             } else {
                 DB::rollBack();
+
                 return ['status' => false, 'message' => __('State is Delete Failed'),
-                    'level' => Constant::MSG_TOASTR_ERROR, 'title' => 'Alert!'];
+                    'level' => Constant::MSG_TOASTR_ERROR, 'title' => 'Alert!', ];
             }
         } catch (Exception $exception) {
             $this->stateRepository->handleException($exception);
             DB::rollBack();
+
             return ['status' => false, 'message' => $exception->getMessage(),
-                'level' => Constant::MSG_TOASTR_WARNING, 'title' => 'Error!'];
+                'level' => Constant::MSG_TOASTR_WARNING, 'title' => 'Error!', ];
         }
     }
 
     /**
      * Restore State Model
-     * 
+     *
      * @param $id
      * @return array
+     *
      * @throws Throwable
      */
     public function restoreState($id): array
@@ -181,37 +196,41 @@ class StateService extends Service
         try {
             if ($this->stateRepository->restore($id)) {
                 DB::commit();
-                return ['status' => true, 'message' => __('State is Restored'),
-                    'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!'];
 
+                return ['status' => true, 'message' => __('State is Restored'),
+                    'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!', ];
             } else {
                 DB::rollBack();
+
                 return ['status' => false, 'message' => __('State is Restoration Failed'),
-                    'level' => Constant::MSG_TOASTR_ERROR, 'title' => 'Alert!'];
+                    'level' => Constant::MSG_TOASTR_ERROR, 'title' => 'Alert!', ];
             }
         } catch (Exception $exception) {
             $this->stateRepository->handleException($exception);
             DB::rollBack();
+
             return ['status' => false, 'message' => $exception->getMessage(),
-                'level' => Constant::MSG_TOASTR_WARNING, 'title' => 'Error!'];
+                'level' => Constant::MSG_TOASTR_WARNING, 'title' => 'Error!', ];
         }
     }
 
     /**
      * Export Object for Export Download
      *
-     * @param array $filters
+     * @param  array  $filters
      * @return StateExport
+     *
      * @throws Exception
      */
     public function exportState(array $filters = []): StateExport
     {
-        return (new StateExport($this->stateRepository->getWith($filters)));
+        return new StateExport($this->stateRepository->getWith($filters));
     }
 
     /**
-     * @param array $filters
+     * @param  array  $filters
      * @return array
+     *
      * @throws Exception
      */
     public function getStateDropdown(array $filters = [], bool $showNative = false): array
@@ -223,8 +242,9 @@ class StateService extends Service
         $states = $this->getAllStates($filters);
         $stateArray = [];
 
-        foreach ($states as $state)
+        foreach ($states as $state) {
             $stateArray[$state->id] = ($showNative == false) ? $state->name : $state->native;
+        }
 
         return $stateArray;
     }

@@ -11,19 +11,18 @@ use OwenIt\Auditing\Contracts\Auditable;
 
 /**
  * @class Enumerator
- * @package App\Models\Backend\Organization
  */
 class Survey extends Model implements Auditable
 {
     use AuditableTrait, HasFactory, SoftDeletes, Sortable;
 
     /**
-     * @var string $table
+     * @var string
      */
     protected $table = 'surveys';
 
     /**
-     * @var string $primaryKey
+     * @var string
      */
     protected $primaryKey = 'id';
 
@@ -56,7 +55,7 @@ class Survey extends Model implements Auditable
      * @var array
      */
     protected $attributes = [
-        'enabled' => 'yes'
+        'enabled' => 'yes',
     ];
 
     /************************ Audit Relations ************************/

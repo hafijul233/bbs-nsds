@@ -21,19 +21,18 @@ use Spatie\Permission\Traits\HasRoles;
 
 /**
  * Class Preference
- * @package App\Models\Backend\Auth
  */
 class User extends Authenticatable implements HasMedia, Auditable
 {
     use AuditableTrait, HasFactory, Notifiable, InteractsWithMedia, HasRoles, Sortable, SoftDeletes;
 
     /**
-     * @var string $table
+     * @var string
      */
     protected $table = 'users';
 
     /**
-     * @var string $primaryKey
+     * @var string
      */
     protected $primaryKey = 'id';
 
@@ -57,7 +56,7 @@ class User extends Authenticatable implements HasMedia, Auditable
         'parent_id',
         'created_by',
         'updated_by',
-        'deleted_by'
+        'deleted_by',
 
     ];
 
@@ -78,7 +77,7 @@ class User extends Authenticatable implements HasMedia, Auditable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
-        'force_pass_reset' => 'bool'
+        'force_pass_reset' => 'bool',
     ];
 
     /************************ Audit Relations ************************/
@@ -110,6 +109,7 @@ class User extends Authenticatable implements HasMedia, Auditable
     /************************ Other Methods ************************/
     /**
      * Register profile Image Media Collection
+     *
      * @return void
      */
     public function registerMediaCollections(): void

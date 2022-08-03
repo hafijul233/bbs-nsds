@@ -12,7 +12,6 @@ use Illuminate\Support\Facades\Session;
 
 /**
  * @class AuthenticatedSessionController
- * @package App\Http\Controllers\Auth;
  */
 class AuthenticatedSessionController extends Controller
 {
@@ -22,7 +21,7 @@ class AuthenticatedSessionController extends Controller
     private $authenticatedSessionService;
 
     /**
-     * @param AuthenticatedSessionService $authenticatedSessionService
+     * @param  AuthenticatedSessionService  $authenticatedSessionService
      */
     public function __construct(AuthenticatedSessionService $authenticatedSessionService)
     {
@@ -42,7 +41,7 @@ class AuthenticatedSessionController extends Controller
     /**
      * Handle an incoming auth request.
      *
-     * @param LoginRequest $request
+     * @param  LoginRequest  $request
      * @return RedirectResponse
      */
     public function store(LoginRequest $request): RedirectResponse
@@ -51,17 +50,19 @@ class AuthenticatedSessionController extends Controller
 
         if ($confirm['status'] === true) {
             notify($confirm['message'], $confirm['level'], $confirm['title']);
+
             return redirect()->to($confirm['landing_page']);
         }
 
         notify($confirm['message'], $confirm['level'], $confirm['title']);
+
         return redirect()->back();
     }
 
     /**
      * Destroy an authenticated session.
      *
-     * @param Request $request
+     * @param  Request  $request
      * @return RedirectResponse
      */
     public function destroy(Request $request): RedirectResponse
@@ -69,10 +70,12 @@ class AuthenticatedSessionController extends Controller
         $confirm = $this->authenticatedSessionService->attemptLogout($request);
         if ($confirm['status'] === true) {
             notify($confirm['message'], $confirm['level'], $confirm['title']);
+
             return redirect()->to(route('home'));
         }
 
         notify($confirm['message'], $confirm['level'], $confirm['title']);
+
         return redirect()->back();
     }
 }

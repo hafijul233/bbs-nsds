@@ -6,7 +6,7 @@ return [
     'name' => 'Core',
     'guard' => [
         'web' => 'WEB',
-        'api' => 'API'
+        'api' => 'API',
     ],
     /*
     |--------------------------------------------------------------------------
@@ -85,9 +85,9 @@ return [
             'route' => 'backend.settings.states.index',
             'color' => '#007bff',
             'description' => 'states available on countries',
-            'enabled' => Constant::ENABLED_OPTION
+            'enabled' => Constant::ENABLED_OPTION,
         ],
-/*        'city' => [
+        /*        'city' => [
             'module' => 'Contact',
             'name' => 'City',
             'icon' => 'fas fa-building',
@@ -148,7 +148,7 @@ return [
             'route' => 'backend.settings.users.index',
             'color' => '#007bff',
             'description' => 'user who can access this system',
-            'enabled' => Constant::ENABLED_OPTION
+            'enabled' => Constant::ENABLED_OPTION,
         ],
         'role' => [
             'module' => 'Core',
@@ -157,7 +157,7 @@ return [
             'route' => 'backend.settings.roles.index',
             'color' => '#007bff',
             'description' => 'user who can access this system',
-            'enabled' => Constant::ENABLED_OPTION
+            'enabled' => Constant::ENABLED_OPTION,
         ],
         'permission' => [
             'module' => 'Core',
@@ -166,7 +166,7 @@ return [
             'route' => 'backend.settings.permissions.index',
             'color' => '#007bff',
             'description' => 'user who can access this system',
-            'enabled' => Constant::ENABLED_OPTION
+            'enabled' => Constant::ENABLED_OPTION,
         ],
         'catalog' => [
             'module' => 'Core',
@@ -175,7 +175,7 @@ return [
             'route' => 'backend.settings.catalogs.index',
             'color' => '#007bff',
             'description' => 'user who can access this system',
-            'enabled' => Constant::ENABLED_OPTION
+            'enabled' => Constant::ENABLED_OPTION,
         ],
     ],
 
@@ -217,6 +217,5 @@ return [
     */
 
     'version' => env('APP_VERSION', '1.0'),
-
 
 ];

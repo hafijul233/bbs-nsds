@@ -6,7 +6,6 @@ use Illuminate\Foundation\Http\FormRequest;
 
 /**
  * @class CountryRequest
- * @package App\Http\Requests\Backend\Setting
  */
 class CountryRequest extends FormRequest
 {
