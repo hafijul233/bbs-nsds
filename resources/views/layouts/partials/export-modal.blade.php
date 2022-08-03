@@ -11,7 +11,7 @@
             <form method="get" id="exportOptionForm">
             <div class="modal-body">
                 @if(\Route::is('backend.organization.enumerators.index'))
-                {!! \Form::nSelect('filter', 'Report By', [ 'enumerator' => 'Enumerator Wise', 'survey' => 'Survey Wise'],
+                {!! \Form::nSelect('filter', 'Report By', [ 'enumerator' => 'List of Enumerators', 'survey' => 'List of Enumerators by Experience'],
                      'enumerator', true) !!}
                 @endif
 
