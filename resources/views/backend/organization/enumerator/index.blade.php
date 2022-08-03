@@ -243,6 +243,15 @@ old('survey_id', isset($request['survey_id']) ? request('survey_id') : ''), fals
                 $("#future_post_state_id").val('').trigger('change');
                 $("#search").val('');
                 $('input:radio[name="work_options"]').prop('checked', false);
+                $("#select-section").hide();
+                $("#prev_post_state_id").prop("disabled", true);
+                $("#prev_post_state_id").parent().parent().hide();
+
+                $("#future_post_state_id").prop("disabled", true);
+                $("#future_post_state_id").parent().parent().hide();
+
+                $("#division_id").prop("disabled", true);
+                $("#division_id").parent().parent().hide();
             });
         });
     </script>
