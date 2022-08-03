@@ -83,4 +83,7 @@ return [
     'Select a Division Option' => 'Select a Division Option',
     'Division' => 'Division',
     'Select the district(s) where you have worked earlier or want to work in future' => 'Select the district(s) where you have worked earlier or want to work in future',
+    'Created Date' => 'Created Date',
+    'Created By' => 'Created By',
+
 ];

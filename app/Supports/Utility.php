@@ -209,4 +209,21 @@ class Utility
 
         return $amount;
     }
+
+    /**
+     * Return string array to list string
+     * @param $data
+     * @param bool $ordered
+     * @return string
+     */
+    public static function arrayToList($data, $ordered = true) : string
+    {
+        $counter = 0;
+        $formattedItemArray = array_map(function ($item) use($ordered, &$counter){
+            $counter++;
+            return ($ordered == true) ? "{$counter}. {$item}" : "{$item}";
+        }, $data);
+
+        return implode("\n", $formattedItemArray);
+    }
 }
