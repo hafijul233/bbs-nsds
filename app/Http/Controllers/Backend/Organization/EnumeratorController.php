@@ -96,7 +96,7 @@ class EnumeratorController extends Controller
     public function index(Request $request)
     {
         $filters = $request->except('page');
-        if(isset(auth()->user()->roles[0]) && in_array(auth()->user()->roles[0]->id, array(1,2))):
+        if (isset(auth()->user()->roles[0]) && in_array(auth()->user()->roles[0]->id, array(1, 2))):
             $filters['created_by'] = '';
         else:
             $filters['created_by'] = auth()->user()->id;
@@ -293,16 +293,14 @@ class EnumeratorController extends Controller
      */
     public function export(Request $request)
     {
-        if ($request->get('filter') == 'survey') :
-            $request['is_total_survey'] = true;
-            $request['sort'] = 'totalSurvey';
-            $request['direction'] = 'DESC';
-        endif;
+        $counter = 1;
 
         $filters = $request->except('page');
+
         $enumeratorExport = $this->enumeratorService->exportEnumerator($filters);
-        $filename = 'Enumerator-' . date('Ymd-His') . '-' .$request->get('filter') .'.' . ($filters['format'] ?? 'xlsx');
-        $counter = 1;
+
+        $filename = 'Enumerator-' . date('Ymd-His') . '-' . $request->get('filter') . '.' . ($filters['format'] ?? 'xlsx');
+
         return $enumeratorExport->download($filename, function ($enumerator) use ($enumeratorExport, &$counter) {
             $enumerator->counter = $counter;
             $counter++;

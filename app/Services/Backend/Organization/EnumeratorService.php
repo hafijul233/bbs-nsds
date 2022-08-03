@@ -3,7 +3,8 @@
 namespace App\Services\Backend\Organization;
 
 use App\Abstracts\Service\Service;
-use App\Exports\Backend\Organization\EnumeratorExport;
+use App\Exports\Backend\Organization\Enumerator\EnumeratorWiseExport;
+use App\Exports\Backend\Organization\Enumerator\SurveyWiseExport;
 use App\Models\Backend\Organization\Enumerator;
 use App\Repositories\Eloquent\Backend\Organization\EnumeratorRepository;
 use App\Repositories\Eloquent\Backend\Setting\ExamLevelRepository;
@@ -324,11 +325,21 @@ class EnumeratorService extends Service
      * Export Object for Export Download
      *
      * @param array $filters
-     * @return EnumeratorExport
+     * @return SurveyWiseExport|EnumeratorWiseExport
      * @throws Exception
      */
-    public function exportEnumerator(array $filters = []): EnumeratorExport
+    public function exportEnumerator(array $filters = [])
     {
-        return (new EnumeratorExport($this->enumeratorRepository->getWith($filters)));
+        $filterType = $filters['filter'] ?? 'enumerator';
+
+        if ($filterType == 'survey') {
+            $filters['is_total_survey'] = true;
+            $filters['sort'] = 'totalSurvey';
+            $filters['direction'] = 'desc';
+        }
+
+        return ($filterType == 'enumerator')
+            ? (new EnumeratorWiseExport($this->enumeratorRepository->exportWith($filters)))
+            : (new SurveyWiseExport($this->enumeratorRepository->exportWith($filters)));
     }
 }

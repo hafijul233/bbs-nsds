@@ -102,9 +102,7 @@ class EnumeratorRepository extends EloquentRepository
 
         if (isset($filters['is_total_survey']) && $filters['is_total_survey'] == true) {
             $query->leftJoin(
-                DB::raw(
-                    '(SELECT enumerator_id, COUNT(survey_id) AS totalSurvey FROM enumerator_survey GROUP BY enumerator_id) AS ES'
-                ),
+                DB::raw('(SELECT enumerator_id, COUNT(survey_id) AS totalSurvey FROM enumerator_survey GROUP BY enumerator_id) AS ES'),
                 function ($join) {
                     $join->on('ES.enumerator_id', '=', 'enumerators.id');
                 }
@@ -170,6 +168,27 @@ class EnumeratorRepository extends EloquentRepository
             $this->handleException($exception);
         } finally {
             return $query->with($eagerRelations)->get();
+        }
+    }
+
+    /**
+     * @param array $filters
+     * @param array $eagerRelations
+     * @param bool $is_sortable
+     * @return \Generator
+     * @throws Exception
+     */
+    public function exportWith(array $filters = [], array $eagerRelations = [], bool $is_sortable = false): \Generator
+    {
+        try {
+            $query = $this->filterData($filters, $is_sortable);
+        } catch (Exception $exception) {
+            $this->handleException($exception);
+        } finally {
+            $collection = $query->with($eagerRelations);
+            foreach ($collection->cursor() as $enumerator) {
+                yield $enumerator;
+            }
         }
     }
 }
