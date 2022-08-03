@@ -332,6 +332,8 @@ class EnumeratorService extends Service
     {
         $filterType = $filters['filter'] ?? 'enumerator';
 
+        unset($filters['filter']);
+
         if ($filterType == 'survey') {
             $filters['is_total_survey'] = true;
             $filters['sort'] = 'totalSurvey';
