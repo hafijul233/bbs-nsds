@@ -46,10 +46,10 @@ class SurveyWiseExport extends FastExcelExport
             trans('enumerator.Email', [], 'en') => $row->email ?? null,
             trans('enumerator.Whatsapp Number', [], 'en') => $row->whatsapp ?? null,
             trans('enumerator.Facebook ID', [], 'en') => $row->facebook ?? null,
-            trans('enumerator.Work Experience in BBS', [], 'en') => (($row->surveys()->exists() == true)
+            trans('enumerator.Total Survey', [], 'en') => $row->totalSurvey ?? null,
+            trans('enumerator.Survey Name', [], 'en') => (($row->surveys()->exists() == true)
                 ? Utility::arrayToList($row->surveys->pluck('name')->toArray())
                 : 'No Survey Available'),
-            trans('enumerator.Total Experience', [], 'en') => $row->totalSurvey ?? null,
         ];
 
         return $this->formatRow;
