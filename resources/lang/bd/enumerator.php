@@ -83,4 +83,12 @@ return [
     'Select a Division Option' => 'একটি বিভাগ নির্বাচন করুন',
     'Division' => 'বিভাগ',
     'Select the district(s) where you have worked earlier or want to work in future' => 'আপনি আগে যেখানে কাজ করেছেন বা ভবিষ্যতে কাজ করতে চান সেই জেলা(গুলি) নির্বাচন করুন',
+    'Created Date' => 'তৈরীর তারিখ',
+    'Created By' => 'প্রস্তুতকারক',
+    'Sl. No.' => 'ক্রম নং',
+    'Age' => 'বয়স (বছর)',
+    'Education' => 'শিক্ষা',
+    'Office Name' => 'অফিসের নাম',
+    'Revenue staff of BBS' => 'বিবিএসের রাজস্ব কর্মচারী',
+    'Work Experience in BBS' => 'বিবিএসে কাজের অভিজ্ঞতা',
 ];
