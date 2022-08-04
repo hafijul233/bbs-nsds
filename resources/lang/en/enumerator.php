@@ -91,5 +91,7 @@ return [
     'Office Name' => 'Office Name',
     'Revenue staff of BBS' => 'Revenue staff of BBS',
     'Work Experience in BBS' => 'Work Experience in BBS',
+    'Total Survey' => 'Total Survey',
+    'Survey Name' => 'Survey Name',
 
 ];
