@@ -35,13 +35,13 @@ class EnumeratorWiseExport extends FastExcelExport
     {
         $this->formatRow = [
             trans('enumerator.Sl. No.', [], 'en') => $row->counter ?? $row->id,
-            trans('enumerator.Name (English)', [], 'en') => $row->name ?? null,
+            trans('enumerator.Name', [], 'en') => $row->name ?? null,
             trans('enumerator.Name(Bangla)', [], 'en') => $row->name_bd ?? null,
             trans('enumerator.Gender', [], 'en') => $row->gender->name ?? null,
             trans('enumerator.Date of Birth', [], 'en') => isset($row) ? Carbon::parse($row->dob)->format('d/m/Y') : null,
-            trans('enumerator.Age (years)', [], 'en') => isset($row) ? Carbon::parse($row->dob)->age : null,
-            trans('enumerator.Father\'s Name', [], 'en') => $row->father ?? null,
-            trans('enumerator.Mother\' Name', [], 'en') => $row->mother ?? null,
+            trans('enumerator.Age', [], 'en') => isset($row) ? Carbon::parse($row->dob)->age : null,
+            trans('enumerator.Father Name', [], 'en') => $row->father ?? null,
+            trans('enumerator.Mother Name', [], 'en') => $row->mother ?? null,
             trans('enumerator.NID Number', [], 'en') => $row->nid ?? null,
             trans('enumerator.Present Address', [], 'en') => $row->present_address ?? null,
             trans('enumerator.Permanent Address', [], 'en') => $row->permanent_address ?? null,
