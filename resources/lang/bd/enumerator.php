@@ -91,4 +91,6 @@ return [
     'Office Name' => 'অফিসের নাম',
     'Revenue staff of BBS' => 'বিবিএসের রাজস্ব কর্মচারী',
     'Work Experience in BBS' => 'বিবিএসে কাজের অভিজ্ঞতা',
+    'Total Survey' => 'মোট জরিপ',
+    'Survey Name' => 'জরিপের নাম',
 ];
