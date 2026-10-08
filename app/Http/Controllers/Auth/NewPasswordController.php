@@ -16,9 +16,6 @@ class NewPasswordController extends Controller
      */
     private $newPasswordService;
 
-    /**
-     * @param  NewPasswordService  $newPasswordService
-     */
     public function __construct(NewPasswordService $newPasswordService)
     {
         $this->newPasswordService = $newPasswordService;
@@ -26,21 +23,13 @@ class NewPasswordController extends Controller
 
     /**
      * Display the password reset view.
-     *
-     * @param  Request  $request
-     * @return View
      */
-    public function create(Request $request): View
-    {
-    }
+    public function create(Request $request): View {}
 
     /**
      * Handle an incoming new password request.
      *
-     * @param  NewPasswordRequest  $request
      * @return RedirectResponse
      */
-    public function store(NewPasswordRequest $request)
-    {
-    }
+    public function store(NewPasswordRequest $request) {}
 }

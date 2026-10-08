@@ -19,8 +19,6 @@ interface RepositoryInterface
     /**
      * create a new record in the database
      *
-     * @param  array  $data
-     * @return Model|null
      *
      * @throws Exception
      */
@@ -29,25 +27,18 @@ interface RepositoryInterface
     /**
      * update record in the database
      *
-     * @param  array  $data
-     * @param $id
      * @return mixed
      */
     public function update(array $data, $id): bool;
 
     /**
      * remove record from the database
-     *
-     * @param $id
-     * @return bool
      */
     public function delete($id): bool;
 
     /**
      * show the record with the given id
      *
-     * @param $id
-     * @param  bool  $purge
      * @return mixed
      *
      * @throws Exception
@@ -56,39 +47,26 @@ interface RepositoryInterface
 
     /**
      * Get the associated model
-     *
-     * @return Model
      */
     public function getModel(): Model;
 
     /**
      * Associated Dynamically  model
      *
-     * @param  Model  $model
      * @return void
      */
     public function setModel(Model $model);
 
     /**
      * Eager load database relationships
-     *
-     * @param $relations
-     * @return Builder
      */
     public function with($relations): Builder;
 
-    /**
-     * @return Builder
-     */
     public function getQueryBuilder(): Builder;
 
     /**
      * Get the first Model meet this criteria
      *
-     * @param  string  $column
-     * @param  string  $operator
-     * @param $value
-     * @return Model|null
      *
      * @throws Exception
      */
@@ -97,10 +75,6 @@ interface RepositoryInterface
     /**
      * Get the all Model meet this criteria
      *
-     * @param  string  $column
-     * @param  string  $operator
-     * @param $value
-     * @param  array  $with
      * @return Collection|null
      *
      * @throws Exception
@@ -110,7 +84,6 @@ interface RepositoryInterface
     /**
      * Get the all Model Columns Collection
      *
-     * @param  string  $column
      * @return mixed
      *
      * @throws Exception
@@ -120,15 +93,12 @@ interface RepositoryInterface
     /**
      * Handle All catch Exceptions
      *
-     * @param $exception
      *
      * @throws Exception
      */
     public function handleException($exception);
 
     /**
-     * @param  array  $filters
-     * @param  array  $eagerRelations
      * @return mixed
      */
     public function paginateWith(array $filters = [], array $eagerRelations = []);
@@ -136,7 +106,6 @@ interface RepositoryInterface
     /**
      * Restore any Soft-Deleted Table Row/Model
      *
-     * @param $id
      * @return mixed
      */
     public function restore($id): bool;

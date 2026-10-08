@@ -11,7 +11,6 @@ class TranslateController extends Controller
     /**
      * Handle the incoming request.
      *
-     * @param  Request  $request
      * @return RedirectResponse
      */
     public function __invoke(Request $request)

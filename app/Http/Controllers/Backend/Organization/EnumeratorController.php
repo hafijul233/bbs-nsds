@@ -65,13 +65,6 @@ class EnumeratorController extends Controller
 
     /**
      * EnumeratorController Constructor
-     *
-     * @param  AuthenticatedSessionService  $authenticatedSessionService
-     * @param  EnumeratorService  $enumeratorService
-     * @param  SurveyService  $surveyService
-     * @param  CatalogService  $catalogService
-     * @param  ExamLevelService  $examLevelService
-     * @param  StateService  $stateService
      */
     public function __construct(AuthenticatedSessionService $authenticatedSessionService,
         EnumeratorService $enumeratorService,
@@ -91,7 +84,6 @@ class EnumeratorController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @param  Request  $request
      * @return Application|Factory|View
      *
      * @throws Exception
@@ -146,8 +138,6 @@ class EnumeratorController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  CreateEnumeratorRequest  $request
-     * @return RedirectResponse
      *
      * @throws Exception|\Throwable
      */
@@ -171,7 +161,6 @@ class EnumeratorController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param    $id
      * @return Application|Factory|View
      *
      * @throws Exception
@@ -191,7 +180,6 @@ class EnumeratorController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param $id
      * @return Application|Factory|View
      *
      * @throws ContainerExceptionInterface
@@ -222,9 +210,6 @@ class EnumeratorController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  UpdateEnumeratorRequest  $request
-     * @param    $id
-     * @return RedirectResponse
      *
      * @throws \Throwable
      */
@@ -247,8 +232,6 @@ class EnumeratorController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param $id
-     * @param  Request  $request
      * @return RedirectResponse
      *
      * @throws \Throwable
@@ -272,8 +255,6 @@ class EnumeratorController extends Controller
     /**
      * Restore a Soft Deleted Resource
      *
-     * @param $id
-     * @param  Request  $request
      * @return RedirectResponse|void
      *
      * @throws \Throwable
@@ -297,7 +278,6 @@ class EnumeratorController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @param  Request  $request
      * @return string|StreamedResponse
      *
      * @throws IOException
@@ -327,8 +307,6 @@ class EnumeratorController extends Controller
     /**
      * Display a detail of the resource.
      *
-     * @param  Request  $request
-     * @return JsonResponse
      *
      * @throws Exception
      */

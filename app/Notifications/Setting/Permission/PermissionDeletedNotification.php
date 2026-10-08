@@ -24,8 +24,6 @@ class PermissionDeletedNotification extends Notification
 
     /**
      * Create a new notification instance.
-     *
-     * @param  Permission  $permission
      */
     public function __construct(Permission $permission)
     {
@@ -61,7 +59,6 @@ class PermissionDeletedNotification extends Notification
      * Get the database representation of the notification.
      *
      * @param  mixed  $notifiable
-     * @return array
      */
     public function toDatabase($notifiable): array
     {

@@ -26,8 +26,6 @@ class StateService extends Service
 
     /**
      * StateService constructor.
-     *
-     * @param  StateRepository  $stateRepository
      */
     public function __construct(StateRepository $stateRepository)
     {
@@ -38,8 +36,6 @@ class StateService extends Service
     /**
      * Get All State models as collection
      *
-     * @param  array  $filters
-     * @param  array  $eagerRelations
      * @return Builder[]|Collection
      *
      * @throws Exception
@@ -52,9 +48,6 @@ class StateService extends Service
     /**
      * Create State Model Pagination
      *
-     * @param  array  $filters
-     * @param  array  $eagerRelations
-     * @return LengthAwarePaginator
      *
      * @throws Exception
      */
@@ -67,7 +60,6 @@ class StateService extends Service
      * Show State Model
      *
      * @param  int  $id
-     * @param  bool  $purge
      * @return mixed
      *
      * @throws Exception
@@ -80,8 +72,6 @@ class StateService extends Service
     /**
      * Save State Model
      *
-     * @param  array  $inputs
-     * @return array
      *
      * @throws Exception
      * @throws Throwable
@@ -114,9 +104,6 @@ class StateService extends Service
     /**
      * Update State Model
      *
-     * @param  array  $inputs
-     * @param $id
-     * @return array
      *
      * @throws Throwable
      */
@@ -153,8 +140,6 @@ class StateService extends Service
     /**
      * Destroy State Model
      *
-     * @param $id
-     * @return array
      *
      * @throws Throwable
      */
@@ -185,8 +170,6 @@ class StateService extends Service
     /**
      * Restore State Model
      *
-     * @param $id
-     * @return array
      *
      * @throws Throwable
      */
@@ -217,8 +200,6 @@ class StateService extends Service
     /**
      * Export Object for Export Download
      *
-     * @param  array  $filters
-     * @return StateExport
      *
      * @throws Exception
      */
@@ -228,9 +209,6 @@ class StateService extends Service
     }
 
     /**
-     * @param  array  $filters
-     * @return array
-     *
      * @throws Exception
      */
     public function getStateDropdown(array $filters = [], bool $showNative = false): array

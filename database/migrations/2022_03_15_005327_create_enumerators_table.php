@@ -14,10 +14,10 @@ class CreateEnumeratorsTable extends Migration
      */
     public function up()
     {
-        //Temporary Disable Foreign Key Constraints
+        // Temporary Disable Foreign Key Constraints
         Schema::disableForeignKeyConstraints();
 
-        //Table Structure
+        // Table Structure
         Schema::create('enumerators', function (Blueprint $table) {
             $table->id();
             $table->foreignId('survey_id')->nullable()->index()->constrained('surveys');
@@ -53,7 +53,7 @@ class CreateEnumeratorsTable extends Migration
             $table->dateTime('deleted_at')->nullable();
         });
 
-        //Temporary Disable Foreign Key Constraints
+        // Temporary Disable Foreign Key Constraints
         Schema::enableForeignKeyConstraints();
     }
 
@@ -64,13 +64,13 @@ class CreateEnumeratorsTable extends Migration
      */
     public function down()
     {
-        //Temporary Disable Foreign Key Constraints
+        // Temporary Disable Foreign Key Constraints
         Schema::disableForeignKeyConstraints();
 
-        //Remove Table Structure
+        // Remove Table Structure
         Schema::dropIfExists('enumerators');
 
-        //Temporary Disable Foreign Key Constraints
+        // Temporary Disable Foreign Key Constraints
         Schema::enableForeignKeyConstraints();
     }
 }

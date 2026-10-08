@@ -27,7 +27,6 @@ class DriverExport extends FastExcelExport
 
     /**
      * @param  Driver  $row
-     * @return array
      */
     public function map($row): array
     {

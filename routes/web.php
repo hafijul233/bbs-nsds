@@ -46,7 +46,7 @@ Route::get('cache-clear', function () {
     Artisan::call('optimize:clear');
 });
 
-//Frontend
+// Frontend
 /*Route::name('frontend.')->group(function () {
     Route::name('organization.')->group(function () {
         Route::get('applicant-registration', [ApplicantController::class, 'create'])
@@ -136,24 +136,24 @@ Route::prefix('backend')->group(function () {
         Route::post('applicant-registration', [ApplicantController::class, 'store'])
             ->name('applicants.store');
 
-        //Common Operations
+        // Common Operations
         Route::prefix('common')->name('common.')->group(function () {
             Route::get('delete/{route}/{id}', ModelSoftDeleteController::class)->name('delete');
             Route::get('restore/{route}/{id}', ModelRestoreController::class)->name('restore');
             Route::get('enabled', ModelEnabledController::class)->name('enabled');
         });
 
-        //Organization
+        // Organization
         Route::get('organization', OrganizationController::class)->name('organization');
         Route::prefix('organization')->name('organization.')->group(function () {
-            //Survey
+            // Survey
             Route::prefix('surveys')->name('surveys.')->group(function () {
                 Route::patch('{survey}/restore', [SurveyController::class, 'restore'])->name('restore');
                 Route::get('export', [SurveyController::class, 'export'])->name('export');
             });
             Route::resource('surveys', SurveyController::class)->where(['survey' => '([0-9]+)']);
 
-            //Enumerator
+            // Enumerator
             Route::prefix('enumerators')->name('enumerators.')->group(function () {
                 Route::patch('{survey}/restore', [EnumeratorController::class, 'restore'])->name('restore');
                 Route::get('export', [EnumeratorController::class, 'export'])->name('export');
@@ -162,10 +162,10 @@ Route::prefix('backend')->group(function () {
             Route::resource('enumerators', EnumeratorController::class)->where(['enumerator' => '([0-9]+)']);
         });
 
-        //Setting
+        // Setting
         Route::get('settings', SettingController::class)->name('settings');
         Route::prefix('settings')->name('settings.')->group(function () {
-            //User
+            // User
             Route::prefix('users')->name('users.')->group(function () {
                 Route::patch('{user}/restore', [UserController::class, 'restore'])->name('restore');
                 Route::get('export', [UserController::class, 'export'])->name('export');
@@ -173,14 +173,14 @@ Route::prefix('backend')->group(function () {
             });
             Route::resource('users', UserController::class)->where(['user' => '([0-9]+)']);
 
-            //Permission
+            // Permission
             Route::prefix('permissions')->name('permissions.')->group(function () {
                 Route::patch('{permission}/restore', [PermissionController::class, 'restore'])->name('restore');
                 Route::get('/export', [PermissionController::class, 'export'])->name('export');
             });
             Route::resource('permissions', PermissionController::class)->where(['permission' => '([0-9]+)']);
 
-            //Role
+            // Role
             Route::prefix('roles')->name('roles.')->group(function () {
                 Route::patch('{role}/restore', [RoleController::class, 'restore'])->name('restore');
                 Route::put('{role}/permission', [RoleController::class, 'permission'])
@@ -190,7 +190,7 @@ Route::prefix('backend')->group(function () {
             });
             Route::resource('roles', RoleController::class)->where(['role' => '([0-9]+)']);
 
-            //Catalogs
+            // Catalogs
             Route::prefix('catalogs')->name('catalogs.')->group(function () {
                 Route::patch('{catalog}/restore', [CatalogController::class, 'restore'])->name('restore');
                 Route::get('export', [CatalogController::class, 'export'])->name('export');
@@ -198,7 +198,7 @@ Route::prefix('backend')->group(function () {
             });
             Route::resource('catalogs', CatalogController::class)->where(['catalog' => '([0-9]+)']);
 
-            //State
+            // State
             Route::prefix('states')->name('states.')->group(function () {
                 Route::patch('{state}/restore', [StateController::class, 'restore'])->name('restore');
                 Route::get('/export', [StateController::class, 'export'])->name('export');
@@ -206,7 +206,7 @@ Route::prefix('backend')->group(function () {
             });
             Route::resource('states', StateController::class)->where(['state' => '([0-9]+)']);
 
-            //Exam Group
+            // Exam Group
             Route::prefix('exam-groups')->name('exam-groups.')->group(function () {
                 Route::get('ajax', [ExamGroupController::class, 'ajax'])->name('ajax')->middleware('ajax')->withoutMiddleware('auth');
             });

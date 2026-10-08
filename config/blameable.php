@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Backend\Setting\User;
+
 return [
     'columns' => [
         'createdByAttribute' => 'created_by',
@@ -7,7 +9,7 @@ return [
         'deletedByAttribute' => 'deleted_by',
     ],
     'models' => [
-        'user' => \App\Models\Backend\Setting\User::class,
+        'user' => User::class,
     ],
     'foreign_id' => 'id',
 ];

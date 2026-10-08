@@ -26,8 +26,6 @@ class DistrictService extends Service
 
     /**
      * DistrictService constructor.
-     *
-     * @param  DistrictRepository  $districtRepository
      */
     public function __construct(DistrictRepository $districtRepository)
     {
@@ -38,8 +36,6 @@ class DistrictService extends Service
     /**
      * Get All District models as collection
      *
-     * @param  array  $filters
-     * @param  array  $eagerRelations
      * @return Builder[]|Collection
      *
      * @throws Exception
@@ -52,9 +48,6 @@ class DistrictService extends Service
     /**
      * Create District Model Pagination
      *
-     * @param  array  $filters
-     * @param  array  $eagerRelations
-     * @return LengthAwarePaginator
      *
      * @throws Exception
      */
@@ -67,7 +60,6 @@ class DistrictService extends Service
      * Show District Model
      *
      * @param  int  $id
-     * @param  bool  $purge
      * @return mixed
      *
      * @throws Exception
@@ -80,8 +72,6 @@ class DistrictService extends Service
     /**
      * Save District Model
      *
-     * @param  array  $inputs
-     * @return array
      *
      * @throws Exception
      * @throws Throwable
@@ -114,9 +104,6 @@ class DistrictService extends Service
     /**
      * Update District Model
      *
-     * @param  array  $inputs
-     * @param $id
-     * @return array
      *
      * @throws Throwable
      */
@@ -153,8 +140,6 @@ class DistrictService extends Service
     /**
      * Destroy District Model
      *
-     * @param $id
-     * @return array
      *
      * @throws Throwable
      */
@@ -185,8 +170,6 @@ class DistrictService extends Service
     /**
      * Restore District Model
      *
-     * @param $id
-     * @return array
      *
      * @throws Throwable
      */
@@ -217,8 +200,6 @@ class DistrictService extends Service
     /**
      * Export Object for Export Download
      *
-     * @param  array  $filters
-     * @return DistrictExport
      *
      * @throws Exception
      */
@@ -228,9 +209,6 @@ class DistrictService extends Service
     }
 
     /**
-     * @param  array  $filters
-     * @return array
-     *
      * @throws Exception
      */
     public function getDistrictDropdown(array $filters = [], bool $showNative = false): array

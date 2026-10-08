@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Backend\Setting\User;
+
 return [
 
     /*
@@ -105,7 +107,7 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model' => \App\Models\Backend\Setting\User::class,
+            'model' => User::class,
         ],
 
         // 'users' => [

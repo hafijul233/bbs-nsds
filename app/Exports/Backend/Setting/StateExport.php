@@ -4,8 +4,9 @@ namespace App\Exports\Backend\Setting;
 
 use App\Abstracts\Export\FastExcelExport;
 use App\Models\Setting\Role;
-use function config;
 use OpenSpout\Common\Exception\InvalidArgumentException;
+
+use function config;
 
 class StateExport extends FastExcelExport
 {
@@ -23,7 +24,6 @@ class StateExport extends FastExcelExport
 
     /**
      * @param  Role  $row
-     * @return array
      */
     public function map($row): array
     {

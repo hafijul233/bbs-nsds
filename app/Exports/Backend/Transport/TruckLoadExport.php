@@ -27,7 +27,6 @@ class TruckLoadExport extends FastExcelExport
 
     /**
      * @param  TruckLoad  $row
-     * @return array
      */
     public function map($row): array
     {

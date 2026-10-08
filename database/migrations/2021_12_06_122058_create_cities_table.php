@@ -14,10 +14,10 @@ class CreateCitiesTable extends Migration
      */
     public function up()
     {
-        //Temporary Disable Foreign Key Constraints
+        // Temporary Disable Foreign Key Constraints
         Schema::disableForeignKeyConstraints();
 
-        //Table Structure
+        // Table Structure
         Schema::create('cities', function (Blueprint $table) {
             $table->id();
             $table->string('name')->nullable();
@@ -42,13 +42,13 @@ class CreateCitiesTable extends Migration
      */
     public function down()
     {
-        //Temporary Disable Foreign Key Constraints
+        // Temporary Disable Foreign Key Constraints
         Schema::disableForeignKeyConstraints();
 
-        //Remove Table Structure
+        // Remove Table Structure
         Schema::dropIfExists('cities');
 
-        //Temporary Disable Foreign Key Constraints
+        // Temporary Disable Foreign Key Constraints
         Schema::enableForeignKeyConstraints();
     }
 }

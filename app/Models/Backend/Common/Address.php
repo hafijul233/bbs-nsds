@@ -66,57 +66,36 @@ class Address extends Model implements Auditable
 
     /************************ Audit Relations ************************/
 
-    /**
-     * @return BelongsTo
-     */
     public function createdBy(): BelongsTo
     {
         return $this->belongsTo(User::class, 'created_by');
     }
 
-    /**
-     * @return BelongsTo
-     */
     public function updatedBy(): BelongsTo
     {
         return $this->belongsTo(User::class, 'updated_by');
     }
 
-    /**
-     * @return BelongsTo
-     */
     public function deletedBy(): BelongsTo
     {
         return $this->belongsTo(User::class, 'deleted_by');
     }
 
-    /**
-     * @return MorphTo
-     */
     public function addressable(): MorphTo
     {
         return $this->morphTo();
     }
 
-    /**
-     * @return BelongsTo
-     */
     public function city(): BelongsTo
     {
         return $this->belongsTo(City::class);
     }
 
-    /**
-     * @return BelongsTo
-     */
     public function state(): BelongsTo
     {
         return $this->belongsTo(State::class);
     }
 
-    /**
-     * @return BelongsTo
-     */
     public function country(): BelongsTo
     {
         return $this->belongsTo(Country::class);

@@ -32,9 +32,6 @@ class SurveyController extends Controller
 
     /**
      * SurveyController Constructor
-     *
-     * @param  AuthenticatedSessionService  $authenticatedSessionService
-     * @param  SurveyService  $surveyService
      */
     public function __construct(AuthenticatedSessionService $authenticatedSessionService,
         SurveyService $surveyService)
@@ -46,7 +43,6 @@ class SurveyController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @param  Request  $request
      * @return Application|Factory|View
      *
      * @throws Exception
@@ -74,8 +70,6 @@ class SurveyController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param    $request
-     * @return RedirectResponse
      *
      * @throws Exception|\Throwable
      */
@@ -96,7 +90,6 @@ class SurveyController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param    $id
      * @return Application|Factory|View
      *
      * @throws Exception
@@ -116,7 +109,6 @@ class SurveyController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param $id
      * @return Application|Factory|View
      *
      * @throws Exception
@@ -135,9 +127,6 @@ class SurveyController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  SurveyRequest  $request
-     * @param    $id
-     * @return RedirectResponse
      *
      * @throws \Throwable
      */
@@ -159,8 +148,6 @@ class SurveyController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param $id
-     * @param  Request  $request
      * @return RedirectResponse
      *
      * @throws \Throwable
@@ -184,8 +171,6 @@ class SurveyController extends Controller
     /**
      * Restore a Soft Deleted Resource
      *
-     * @param $id
-     * @param  Request  $request
      * @return RedirectResponse|void
      *
      * @throws \Throwable

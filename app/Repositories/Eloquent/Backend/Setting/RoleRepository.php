@@ -23,11 +23,6 @@ class RoleRepository extends EloquentRepository
         parent::__construct(new Role);
     }
 
-    /**
-     * @param  array  $permissions
-     * @param $id
-     * @return bool
-     */
     public function attachPermissions(array $permissions, $id): bool
     {
         try {
@@ -38,18 +33,13 @@ class RoleRepository extends EloquentRepository
             $role->permissions()->attach($permissions);
 
             return true;
-        } catch (\Exception $exception) {
+        } catch (Exception $exception) {
             \Log::error($exception->getMessage());
 
             return false;
         }
     }
 
-    /**
-     * @param  array  $permissions
-     * @param $id
-     * @return bool
-     */
     public function syncPermissions(array $permissions, $id): bool
     {
         try {
@@ -60,18 +50,13 @@ class RoleRepository extends EloquentRepository
             $role->permissions()->sync($permissions);
 
             return true;
-        } catch (\Exception $exception) {
+        } catch (Exception $exception) {
             \Log::error($exception->getMessage());
 
             return false;
         }
     }
 
-    /**
-     * @param  array  $permissions
-     * @param $id
-     * @return bool
-     */
     public function detachPermissions(array $permissions, $id): bool
     {
         try {
@@ -81,18 +66,18 @@ class RoleRepository extends EloquentRepository
             $role = $this->show($id);
             $existingPermissionIds = $role->permissions()->pluck('id');
 
-            //Remove All
+            // Remove All
             if (empty($existingPermissionIds)) {
                 $role->permissions()->detach($existingPermissionIds);
             }
 
-            //Remove Selected
+            // Remove Selected
             else {
                 $role->permissions()->detach($permissions);
             }
 
             return true;
-        } catch (\Exception $exception) {
+        } catch (Exception $exception) {
             \Log::error($exception->getMessage());
 
             return false;
@@ -101,10 +86,6 @@ class RoleRepository extends EloquentRepository
 
     /**
      * Search Function for Permissions
-     *
-     * @param  array  $filters
-     * @param  bool  $is_sortable
-     * @return Builder
      */
     private function filterData(array $filters = [], bool $is_sortable = false): Builder
     {
@@ -146,10 +127,6 @@ class RoleRepository extends EloquentRepository
     /**
      * Pagination Generator
      *
-     * @param  array  $filters
-     * @param  array  $eagerRelations
-     * @param  bool  $is_sortable
-     * @return LengthAwarePaginator
      *
      * @throws Exception
      */
@@ -166,9 +143,6 @@ class RoleRepository extends EloquentRepository
     }
 
     /**
-     * @param  array  $filters
-     * @param  array  $eagerRelations
-     * @param  bool  $is_sortable
      * @return Builder[]|Collection
      *
      * @throws Exception

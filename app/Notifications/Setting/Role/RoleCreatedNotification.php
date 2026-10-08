@@ -62,7 +62,6 @@ class RoleCreatedNotification extends Notification
      * Get the database representation of the notification.
      *
      * @param  mixed  $notifiable
-     * @return array
      */
     public function toDatabase($notifiable): array
     {
@@ -83,7 +82,7 @@ class RoleCreatedNotification extends Notification
      * Get the mail representation of the notification.
      *
      * @param  mixed  $notifiable
-     * @return \Illuminate\Notifications\Messages\MailMessage
+     * @return MailMessage
      */
     public function toMail($notifiable)
     {

@@ -59,42 +59,27 @@ class State extends Model implements Auditable
 
     /************************ Audit Relations ************************/
 
-    /**
-     * @return BelongsTo
-     */
     public function createdBy(): BelongsTo
     {
         return $this->belongsTo(User::class, 'created_by');
     }
 
-    /**
-     * @return BelongsTo
-     */
     public function updatedBy(): BelongsTo
     {
         return $this->belongsTo(User::class, 'updated_by');
     }
 
-    /**
-     * @return BelongsTo
-     */
     public function deletedBy(): BelongsTo
     {
         return $this->belongsTo(User::class, 'deleted_by');
     }
 
     /************************ Relations ************************/
-    /**
-     * @return BelongsTo
-     */
     public function country(): BelongsTo
     {
         return $this->belongsTo(Country::class, 'country_id', 'id');
     }
 
-    /**
-     * @return HasMany
-     */
     public function cities(): HasMany
     {
         return $this->hasMany(City::class, 'country_id', 'id');

@@ -27,7 +27,6 @@ class CostExport extends FastExcelExport
 
     /**
      * @param  ExamTitle  $row
-     * @return array
      */
     public function map($row): array
     {

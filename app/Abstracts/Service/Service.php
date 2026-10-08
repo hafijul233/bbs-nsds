@@ -2,6 +2,4 @@
 
 namespace App\Abstracts\Service;
 
-abstract class Service
-{
-}
+abstract class Service {}

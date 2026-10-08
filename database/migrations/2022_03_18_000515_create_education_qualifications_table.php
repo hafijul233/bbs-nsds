@@ -14,10 +14,10 @@ class CreateEducationQualificationsTable extends Migration
      */
     public function up()
     {
-        //Temporary Disable Foreign Key Constraints
+        // Temporary Disable Foreign Key Constraints
         Schema::disableForeignKeyConstraints();
 
-        //Table Structure
+        // Table Structure
         Schema::create('education_qualifications', function (Blueprint $table) {
             $table->id();
             $table->foreignId('enumerator_id')->index()->constrained('enumerators');
@@ -31,13 +31,13 @@ class CreateEducationQualificationsTable extends Migration
             $table->unsignedInteger('grade_type');
             $table->string('grade_point')->nullable();
             $table->enum('enabled', array_keys(Constant::ENABLED_OPTIONS))
-                  ->default(Constant::ENABLED_OPTION)->nullable();
+                ->default(Constant::ENABLED_OPTION)->nullable();
             $table->dateTime('created_at')->nullable();
             $table->dateTime('updated_at')->nullable();
             $table->dateTime('deleted_at')->nullable();
         });
 
-        //Temporary Disable Foreign Key Constraints
+        // Temporary Disable Foreign Key Constraints
         Schema::enableForeignKeyConstraints();
     }
 
@@ -48,13 +48,13 @@ class CreateEducationQualificationsTable extends Migration
      */
     public function down()
     {
-        //Temporary Disable Foreign Key Constraints
+        // Temporary Disable Foreign Key Constraints
         Schema::disableForeignKeyConstraints();
 
-        //Remove Table Structure
+        // Remove Table Structure
         Schema::dropIfExists('education_qualifications');
 
-        //Temporary Disable Foreign Key Constraints
+        // Temporary Disable Foreign Key Constraints
         Schema::enableForeignKeyConstraints();
     }
 }

@@ -19,6 +19,7 @@ use Spatie\MediaLibrary\ResponsiveImages\WidthCalculator\FileSizeOptimizedWidthC
 use Spatie\MediaLibrary\Support\FileNamer\DefaultFileNamer;
 use Spatie\MediaLibrary\Support\PathGenerator\DefaultPathGenerator;
 use Spatie\MediaLibrary\Support\UrlGenerator\DefaultUrlGenerator;
+use Spatie\MediaLibraryPro\Models\TemporaryUpload;
 
 return [
 
@@ -53,7 +54,7 @@ return [
     /*
      * The fully qualified class name of the model used for temporary uploads.
      */
-    'temporary_upload_model' => Spatie\MediaLibraryPro\Models\TemporaryUpload::class,
+    'temporary_upload_model' => TemporaryUpload::class,
 
     /*
      * This is the class that is responsible for naming generated files.

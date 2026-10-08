@@ -26,8 +26,6 @@ class CountryService extends Service
 
     /**
      * CountryService constructor.
-     *
-     * @param  CountryRepository  $countryRepository
      */
     public function __construct(CountryRepository $countryRepository)
     {
@@ -38,8 +36,6 @@ class CountryService extends Service
     /**
      * Get All Country models as collection
      *
-     * @param  array  $filters
-     * @param  array  $eagerRelations
      * @return Builder[]|Collection
      *
      * @throws Exception
@@ -52,9 +48,6 @@ class CountryService extends Service
     /**
      * Create Country Model Pagination
      *
-     * @param  array  $filters
-     * @param  array  $eagerRelations
-     * @return LengthAwarePaginator
      *
      * @throws Exception
      */
@@ -67,7 +60,6 @@ class CountryService extends Service
      * Show Country Model
      *
      * @param  int  $id
-     * @param  bool  $purge
      * @return mixed
      *
      * @throws Exception
@@ -80,8 +72,6 @@ class CountryService extends Service
     /**
      * Save Country Model
      *
-     * @param  array  $inputs
-     * @return array
      *
      * @throws Exception
      * @throws Throwable
@@ -114,9 +104,6 @@ class CountryService extends Service
     /**
      * Update Country Model
      *
-     * @param  array  $inputs
-     * @param $id
-     * @return array
      *
      * @throws Throwable
      */
@@ -153,8 +140,6 @@ class CountryService extends Service
     /**
      * Destroy Country Model
      *
-     * @param $id
-     * @return array
      *
      * @throws Throwable
      */
@@ -185,8 +170,6 @@ class CountryService extends Service
     /**
      * Restore Country Model
      *
-     * @param $id
-     * @return array
      *
      * @throws Throwable
      */
@@ -217,8 +200,6 @@ class CountryService extends Service
     /**
      * Export Object for Export Download
      *
-     * @param  array  $filters
-     * @return CountryExport
      *
      * @throws Exception
      */
@@ -228,9 +209,6 @@ class CountryService extends Service
     }
 
     /**
-     * @param  array  $filters
-     * @return array
-     *
      * @throws Exception
      */
     public function getCountryDropdown(array $filters = []): array

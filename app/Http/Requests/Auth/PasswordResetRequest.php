@@ -11,8 +11,6 @@ class PasswordResetRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
-     *
-     * @return bool
      */
     public function authorize(): bool
     {
@@ -21,14 +19,12 @@ class PasswordResetRequest extends FormRequest
 
     /**
      * Get the validation rules that apply to the request.
-     *
-     * @return array
      */
     public function rules(): array
     {
         $rules = [];
 
-        //Credential Field
+        // Credential Field
         if (config('auth.credential_field') == Constant::LOGIN_EMAIL
             || (config('auth.credential_field') == Constant::LOGIN_OTP
                 && config('auth.credential_otp_field') == Constant::OTP_EMAIL)) {

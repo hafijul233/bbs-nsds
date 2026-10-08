@@ -27,10 +27,6 @@ class CountryController extends Controller
      */
     private $countryService;
 
-    /**
-     * @param  AuthenticatedSessionService  $authenticatedSessionService
-     * @param  CountryService  $countryService
-     */
     public function __construct(AuthenticatedSessionService $authenticatedSessionService,
         CountryService $countryService)
     {
@@ -68,8 +64,6 @@ class CountryController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  CountryRequest  $request
-     * @return RedirectResponse
      *
      * @throws Exception|\Throwable
      */
@@ -90,7 +84,6 @@ class CountryController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param    $id
      * @return Application|Factory|View
      *
      * @throws Exception
@@ -110,7 +103,6 @@ class CountryController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param $id
      * @return Application|Factory|View
      *
      * @throws Exception
@@ -129,9 +121,6 @@ class CountryController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  CountryRequest  $request
-     * @param    $id
-     * @return RedirectResponse
      *
      * @throws \Throwable
      */
@@ -153,8 +142,6 @@ class CountryController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param $id
-     * @param  Request  $request
      * @return RedirectResponse
      *
      * @throws \Throwable
@@ -178,8 +165,6 @@ class CountryController extends Controller
     /**
      * Restore a Soft Deleted Resource
      *
-     * @param $id
-     * @param  Request  $request
      * @return RedirectResponse|void
      *
      * @throws \Throwable

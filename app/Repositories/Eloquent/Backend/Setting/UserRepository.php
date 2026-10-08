@@ -22,16 +22,12 @@ class UserRepository extends EloquentRepository
         /**
          * Set the model that will be used for repo
          */
-        $model = $model ?? new User();
+        $model = $model ?? new User;
 
         parent::__construct($model);
     }
 
-    /**
-     * @param  User|null  $user
-     * @return Collection
-     */
-    public function getAssignedRoles(User $user = null): ?Collection
+    public function getAssignedRoles(?User $user = null): ?Collection
     {
         if (is_null($user)) {
             return $this->model->roles;
@@ -40,11 +36,6 @@ class UserRepository extends EloquentRepository
         return $user->roles;
     }
 
-    /**
-     * @param  array  $roles
-     * @param  bool  $detachOldRoles
-     * @return bool
-     */
     public function manageRoles(array $roles = [], bool $detachOldRoles = false): bool
     {
         $alreadyAssignedRoles = [];
@@ -61,7 +52,6 @@ class UserRepository extends EloquentRepository
     }
 
     /**
-     * @param  string  $roleName
      * @return mixed
      */
     public function usersByRole(string $roleName)
@@ -70,10 +60,7 @@ class UserRepository extends EloquentRepository
     }
 
     /**
-     * @param  string  $testUserName
-     * @return bool
-     *
-     * @throws \Exception
+     * @throws Exception
      */
     public function verifyUniqueUsername(string $testUserName): bool
     {
@@ -82,10 +69,6 @@ class UserRepository extends EloquentRepository
 
     /**
      * Search Function for Permissions
-     *
-     * @param  array  $filters
-     * @param  bool  $is_sortable
-     * @return Builder
      */
     private function filterData(array $filters = [], bool $is_sortable = false): Builder
     {
@@ -111,7 +94,7 @@ class UserRepository extends EloquentRepository
             $query->orderBy($filters['sort'], $filters['direction']);
         }
 
-        //Role may be int, string, array
+        // Role may be int, string, array
         if (isset($filters['role']) && ! empty($filters['role'])) {
             $query->whereHas('roles', function ($subQuery) use ($filters) {
                 if (! is_array($filters['role'])) {
@@ -143,10 +126,6 @@ class UserRepository extends EloquentRepository
     /**
      * Pagination Generator
      *
-     * @param  array  $filters
-     * @param  array  $eagerRelations
-     * @param  bool  $is_sortable
-     * @return LengthAwarePaginator
      *
      * @throws Exception
      */
@@ -163,9 +142,6 @@ class UserRepository extends EloquentRepository
     }
 
     /**
-     * @param  array  $filters
-     * @param  array  $eagerRelations
-     * @param  bool  $is_sortable
      * @return Builder[]|\Illuminate\Database\Eloquent\Collection
      *
      * @throws Exception

@@ -27,7 +27,6 @@ class InvoiceExport extends FastExcelExport
 
     /**
      * @param  Invoice  $row
-     * @return array
      */
     public function map($row): array
     {

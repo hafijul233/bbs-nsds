@@ -13,16 +13,16 @@ class CreateEnumeratorSurveyTable extends Migration
      */
     public function up()
     {
-        //Temporary Disable Foreign Key Constraints
+        // Temporary Disable Foreign Key Constraints
         Schema::disableForeignKeyConstraints();
 
-        //Table Structure
+        // Table Structure
         Schema::create('enumerator_survey', function (Blueprint $table) {
             $table->foreignId('enumerator_id')->index()->nullable();
             $table->foreignId('survey_id')->index()->nullable();
         });
 
-        //Temporary Disable Foreign Key Constraints
+        // Temporary Disable Foreign Key Constraints
         Schema::enableForeignKeyConstraints();
     }
 
@@ -33,13 +33,13 @@ class CreateEnumeratorSurveyTable extends Migration
      */
     public function down()
     {
-        //Temporary Disable Foreign Key Constraints
+        // Temporary Disable Foreign Key Constraints
         Schema::disableForeignKeyConstraints();
 
-        //Remove Table Structure
+        // Remove Table Structure
         Schema::dropIfExists('enumerator_survey');
 
-        //Temporary Disable Foreign Key Constraints
+        // Temporary Disable Foreign Key Constraints
         Schema::enableForeignKeyConstraints();
     }
 }

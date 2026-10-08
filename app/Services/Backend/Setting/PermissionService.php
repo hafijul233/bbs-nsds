@@ -2,7 +2,6 @@
 
 namespace App\Services\Backend\Setting;
 
-use function __;
 use App\Abstracts\Service\Service;
 use App\Exports\Backend\Setting\CountryExport;
 use App\Models\Backend\Setting\Permission;
@@ -14,6 +13,8 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Throwable;
 
+use function __;
+
 class PermissionService extends Service
 {
     /**
@@ -23,8 +24,6 @@ class PermissionService extends Service
 
     /**
      * PermissionService constructor.
-     *
-     * @param  PermissionRepository  $permissionRepository
      */
     public function __construct(PermissionRepository $permissionRepository)
     {
@@ -35,8 +34,6 @@ class PermissionService extends Service
     /**
      * Get All Permission models as collection
      *
-     * @param  array  $filters
-     * @param  array  $eagerRelations
      * @return Builder[]|Collection
      *
      * @throws Exception
@@ -49,8 +46,6 @@ class PermissionService extends Service
     /**
      * Create Permission Model Pagination
      *
-     * @param  array  $filters
-     * @param  array  $eagerRelations
      * @return LengthAwarePaginator
      *
      * @throws Exception
@@ -64,7 +59,6 @@ class PermissionService extends Service
      * Show Permission Model
      *
      * @param  int  $id
-     * @param  bool  $purge
      * @return mixed
      *
      * @throws Exception
@@ -77,8 +71,6 @@ class PermissionService extends Service
     /**
      * Save Permission Model
      *
-     * @param  array  $inputs
-     * @return array
      *
      * @throws Exception
      * @throws Throwable
@@ -111,9 +103,6 @@ class PermissionService extends Service
     /**
      * Update Permission Model
      *
-     * @param  array  $inputs
-     * @param $id
-     * @return array
      *
      * @throws Throwable
      */
@@ -150,8 +139,6 @@ class PermissionService extends Service
     /**
      * Destroy Permission Model
      *
-     * @param $id
-     * @return array
      *
      * @throws Throwable
      */
@@ -182,8 +169,6 @@ class PermissionService extends Service
     /**
      * Restore Permission Model
      *
-     * @param $id
-     * @return array
      *
      * @throws Throwable
      */
@@ -214,8 +199,6 @@ class PermissionService extends Service
     /**
      * Export Object for Export Download
      *
-     * @param  array  $filters
-     * @return CountryExport
      *
      * @throws Exception
      */

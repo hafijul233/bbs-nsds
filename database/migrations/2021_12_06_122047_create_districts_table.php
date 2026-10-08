@@ -14,10 +14,10 @@ class CreateDistrictsTable extends Migration
      */
     public function up()
     {
-        //Temporary Disable Foreign Key Constraints
+        // Temporary Disable Foreign Key Constraints
         Schema::disableForeignKeyConstraints();
 
-        //Table Structure
+        // Table Structure
         Schema::create('districts', function (Blueprint $table) {
             $table->id();
             $table->foreignId('state_id')->nullable()->index()->constrained('states');
@@ -42,13 +42,13 @@ class CreateDistrictsTable extends Migration
      */
     public function down()
     {
-        //Temporary Disable Foreign Key Constraints
+        // Temporary Disable Foreign Key Constraints
         Schema::disableForeignKeyConstraints();
 
-        //Remove Table Structure
+        // Remove Table Structure
         Schema::dropIfExists('districts');
 
-        //Temporary Disable Foreign Key Constraints
+        // Temporary Disable Foreign Key Constraints
         Schema::enableForeignKeyConstraints();
     }
 }

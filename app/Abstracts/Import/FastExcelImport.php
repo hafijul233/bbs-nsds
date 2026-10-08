@@ -36,9 +36,6 @@ abstract class FastExcelImport extends FastExcel implements ExportInterface
 
     /**
      * Modify Output Row Cells
-     *
-     * @param $row
-     * @return array
      */
     abstract public function map($row): array;
 
@@ -51,7 +48,7 @@ abstract class FastExcelImport extends FastExcel implements ExportInterface
     {
         parent::__construct();
 
-        $this->setHeadingStyle((new StyleBuilder())
+        $this->setHeadingStyle((new StyleBuilder)
             ->setFontBold()
             ->setFontSize(12)
             ->setFontColor(Color::WHITE)
@@ -59,20 +56,19 @@ abstract class FastExcelImport extends FastExcel implements ExportInterface
             ->setBackgroundColor(Color::BLACK)
             ->setCellAlignment(CellAlignment::CENTER));
 
-        $this->setBorderStyle((new BorderBuilder())
+        $this->setBorderStyle((new BorderBuilder)
             ->setBorderTop(Color::RED, Border::WIDTH_THIN)
             ->setBorderRight(Color::RED, Border::WIDTH_THIN)
             ->setBorderBottom(Color::RED, Border::WIDTH_THIN)
             ->setBorderLeft(Color::RED, Border::WIDTH_THIN));
 
-        $this->setRowStyle((new StyleBuilder())
+        $this->setRowStyle((new StyleBuilder)
             ->setFontSize(12)
             ->setShouldWrapText()
             ->setCellAlignment(CellAlignment::LEFT));
     }
 
     /**
-     * @param  BorderBuilder  $borderBuilder
      * @return FastExport
      */
     public function setBorderStyle(BorderBuilder $borderBuilder): self
@@ -83,12 +79,11 @@ abstract class FastExcelImport extends FastExcel implements ExportInterface
     }
 
     /**
-     * @param  StyleBuilder  $styleBuilder
      * @return FastExport
      */
     public function setRowStyle(StyleBuilder $styleBuilder): self
     {
-        //add Border Style for excel and ods
+        // add Border Style for excel and ods
         if ($this->borderStyle instanceof BorderBuilder) {
             $borderStyle = $this->borderStyle->build();
             $styleBuilder->setBorder($borderStyle);
@@ -102,12 +97,11 @@ abstract class FastExcelImport extends FastExcel implements ExportInterface
     }
 
     /**
-     * @param  StyleBuilder  $styleBuilder
      * @return FastExport
      */
     public function setHeadingStyle(StyleBuilder $styleBuilder): self
     {
-        //add Border Style for excel and ods
+        // add Border Style for excel and ods
         if ($this->borderStyle instanceof BorderBuilder) {
             $borderStyle = $this->borderStyle->build();
             $styleBuilder->setBorder($borderStyle);
@@ -122,8 +116,6 @@ abstract class FastExcelImport extends FastExcel implements ExportInterface
 
     /**
      * Returns all super admin columns
-     *
-     * @param $row
      */
     public function getSupperAdminColumns($row)
     {

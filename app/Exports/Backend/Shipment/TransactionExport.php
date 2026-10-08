@@ -27,7 +27,6 @@ class TransactionExport extends FastExcelExport
 
     /**
      * @param  Transaction  $row
-     * @return array
      */
     public function map($row): array
     {

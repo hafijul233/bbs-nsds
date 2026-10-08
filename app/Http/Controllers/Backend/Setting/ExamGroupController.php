@@ -28,10 +28,6 @@ class ExamGroupController extends Controller
      */
     private $examGroupService;
 
-    /**
-     * @param  AuthenticatedSessionService  $authenticatedSessionService
-     * @param  ExamGroupService  $examGroupService
-     */
     public function __construct(AuthenticatedSessionService $authenticatedSessionService,
         ExamGroupService $examGroupService)
     {
@@ -69,8 +65,6 @@ class ExamGroupController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  ExamGroupRequest  $request
-     * @return RedirectResponse
      *
      * @throws Exception|\Throwable
      */
@@ -91,7 +85,6 @@ class ExamGroupController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param    $id
      * @return Application|Factory|View
      *
      * @throws Exception
@@ -111,7 +104,6 @@ class ExamGroupController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param $id
      * @return Application|Factory|View
      *
      * @throws Exception
@@ -130,9 +122,6 @@ class ExamGroupController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  ExamGroupRequest  $request
-     * @param    $id
-     * @return RedirectResponse
      *
      * @throws \Throwable
      */
@@ -154,8 +143,6 @@ class ExamGroupController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param $id
-     * @param  Request  $request
      * @return RedirectResponse
      *
      * @throws \Throwable
@@ -179,8 +166,6 @@ class ExamGroupController extends Controller
     /**
      * Restore a Soft Deleted Resource
      *
-     * @param $id
-     * @param  Request  $request
      * @return RedirectResponse|void
      *
      * @throws \Throwable
@@ -271,8 +256,6 @@ class ExamGroupController extends Controller
     /**
      * Display a detail of the resource.
      *
-     * @param  Request  $request
-     * @return JsonResponse
      *
      * @throws Exception
      */

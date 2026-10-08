@@ -10,8 +10,6 @@ class MinLength implements Rule
 
     /**
      * Create a new rule instance.
-     *
-     * @param $limit
      */
     public function __construct($limit)
     {
@@ -23,7 +21,6 @@ class MinLength implements Rule
      *
      * @param  string  $attribute
      * @param  mixed  $value
-     * @return bool
      */
     public function passes($attribute, $value): bool
     {
@@ -32,8 +29,6 @@ class MinLength implements Rule
 
     /**
      * Get the validation error message.
-     *
-     * @return string
      */
     public function message(): string
     {

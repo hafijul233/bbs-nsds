@@ -34,10 +34,6 @@ class DistrictController extends Controller
      */
     private $stateService;
 
-    /**
-     * @param  AuthenticatedSessionService  $authenticatedSessionService
-     * @param  DistrictService  $districtService
-     */
     public function __construct(AuthenticatedSessionService $authenticatedSessionService,
         DistrictService $districtService)
     {
@@ -48,7 +44,6 @@ class DistrictController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @param  Request  $request
      * @return Application|Factory|View
      *
      * @throws Exception
@@ -78,8 +73,6 @@ class DistrictController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  DistrictRequest  $request
-     * @return RedirectResponse
      *
      * @throws Exception|\Throwable
      */
@@ -100,7 +93,6 @@ class DistrictController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param    $id
      * @return Application|Factory|View
      *
      * @throws Exception
@@ -120,7 +112,6 @@ class DistrictController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param $id
      * @return Application|Factory|View
      *
      * @throws Exception
@@ -139,9 +130,6 @@ class DistrictController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  DistrictRequest  $request
-     * @param    $id
-     * @return RedirectResponse
      *
      * @throws \Throwable
      */
@@ -163,8 +151,6 @@ class DistrictController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param $id
-     * @param  Request  $request
      * @return RedirectResponse
      *
      * @throws \Throwable
@@ -188,8 +174,6 @@ class DistrictController extends Controller
     /**
      * Restore a Soft Deleted Resource
      *
-     * @param $id
-     * @param  Request  $request
      * @return RedirectResponse|void
      *
      * @throws \Throwable
@@ -280,8 +264,6 @@ class DistrictController extends Controller
     /**
      * Display a detail of the resource.
      *
-     * @param  Request  $request
-     * @return JsonResponse
      *
      * @throws Exception
      */

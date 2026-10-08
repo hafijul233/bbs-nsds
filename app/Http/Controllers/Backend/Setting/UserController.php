@@ -42,10 +42,6 @@ class UserController extends Controller
 
     /**
      * PermissionController constructor.
-     *
-     * @param  AuthenticatedSessionService  $authenticatedSessionService
-     * @param  UserService  $userService
-     * @param  RoleService  $roleService
      */
     public function __construct(AuthenticatedSessionService $authenticatedSessionService,
         UserService $userService,
@@ -59,7 +55,6 @@ class UserController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @param  Request  $request
      * @return Application|Factory|View
      *
      * @throws Exception
@@ -99,8 +94,6 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  UserRequest  $request
-     * @return RedirectResponse
      *
      * @throws \Throwable
      */
@@ -125,10 +118,9 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
      * @return Application|Factory|View|void
      *
-     * @throws \Exception
+     * @throws Exception
      */
     public function show(int $id)
     {
@@ -153,10 +145,9 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
      * @return Application|Factory|View
      *
-     * @throws \Exception
+     * @throws Exception
      */
     public function edit(int $id)
     {
@@ -177,9 +168,6 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  UserRequest  $request
-     * @param    $id
-     * @return RedirectResponse
      *
      * @throws \Throwable
      */
@@ -205,8 +193,6 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
-     * @param  UserSettingRequest  $request
      * @return RedirectResponse
      *
      * @throws Exception
@@ -233,8 +219,6 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param $id
-     * @param  Request  $request
      * @return RedirectResponse|void
      *
      * @throws \Throwable
@@ -258,8 +242,6 @@ class UserController extends Controller
     /**
      * Restore a Soft Deleted Resource
      *
-     * @param $id
-     * @param  Request  $request
      * @return RedirectResponse|void
      *
      * @throws \Throwable

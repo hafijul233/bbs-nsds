@@ -17,7 +17,7 @@ class UniqueEmail implements Rule
      */
     public function __construct()
     {
-        $this->validationService = new ValidationService();
+        $this->validationService = new ValidationService;
     }
 
     /**

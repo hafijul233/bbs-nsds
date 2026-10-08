@@ -62,7 +62,6 @@ class RoleDeletedNotification extends Notification
      * Get the database representation of the notification.
      *
      * @param  mixed  $notifiable
-     * @return array
      */
     public function toDatabase($notifiable): array
     {
@@ -88,8 +87,8 @@ class RoleDeletedNotification extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+            ->line('The introduction to the notification.')
+            ->action('Notification Action', url('/'))
+            ->line('Thank you for using our application!');
     }
 }

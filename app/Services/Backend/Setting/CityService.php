@@ -26,8 +26,6 @@ class CityService extends Service
 
     /**
      * CityService constructor.
-     *
-     * @param  CityRepository  $cityRepository
      */
     public function __construct(CityRepository $cityRepository)
     {
@@ -38,8 +36,6 @@ class CityService extends Service
     /**
      * Get All City models as collection
      *
-     * @param  array  $filters
-     * @param  array  $eagerRelations
      * @return Builder[]|Collection
      *
      * @throws Exception
@@ -52,9 +48,6 @@ class CityService extends Service
     /**
      * Create City Model Pagination
      *
-     * @param  array  $filters
-     * @param  array  $eagerRelations
-     * @return LengthAwarePaginator
      *
      * @throws Exception
      */
@@ -67,7 +60,6 @@ class CityService extends Service
      * Show City Model
      *
      * @param  int  $id
-     * @param  bool  $purge
      * @return mixed
      *
      * @throws Exception
@@ -80,8 +72,6 @@ class CityService extends Service
     /**
      * Save City Model
      *
-     * @param  array  $inputs
-     * @return array
      *
      * @throws Exception
      * @throws Throwable
@@ -114,9 +104,6 @@ class CityService extends Service
     /**
      * Update City Model
      *
-     * @param  array  $inputs
-     * @param $id
-     * @return array
      *
      * @throws Throwable
      */
@@ -153,8 +140,6 @@ class CityService extends Service
     /**
      * Destroy City Model
      *
-     * @param $id
-     * @return array
      *
      * @throws Throwable
      */
@@ -185,8 +170,6 @@ class CityService extends Service
     /**
      * Restore City Model
      *
-     * @param $id
-     * @return array
      *
      * @throws Throwable
      */
@@ -217,8 +200,6 @@ class CityService extends Service
     /**
      * Export Object for Export Download
      *
-     * @param  array  $filters
-     * @return CityExport
      *
      * @throws Exception
      */
@@ -228,9 +209,6 @@ class CityService extends Service
     }
 
     /**
-     * @param  array  $filters
-     * @return array
-     *
      * @throws Exception
      */
     public function getCityDropdown(array $filters = []): array

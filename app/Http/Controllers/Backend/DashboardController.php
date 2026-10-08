@@ -32,10 +32,6 @@ class DashboardController extends Controller
 
     /**
      * DashboardController constructor.
-     *
-     * @param  UserService  $userService
-     * @param  EnumeratorService  $enumeratorService
-     * @param  SurveyService  $surveyService
      */
     public function __construct(UserService $userService,
         EnumeratorService $enumeratorService,
@@ -47,7 +43,6 @@ class DashboardController extends Controller
     }
 
     /**
-     * @param  Request  $request
      * @return array|Application|Factory|View|mixed
      *
      * @throws \Exception

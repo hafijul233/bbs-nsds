@@ -27,7 +27,6 @@ class SmsExport extends FastExcelExport
 
     /**
      * @param  Institute  $row
-     * @return array
      */
     public function map($row): array
     {

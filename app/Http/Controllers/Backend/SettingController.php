@@ -7,9 +7,7 @@ use Illuminate\Routing\Controller;
 
 class SettingController extends Controller
 {
-    public function __construct()
-    {
-    }
+    public function __construct() {}
 
     public function __invoke(Request $request)
     {

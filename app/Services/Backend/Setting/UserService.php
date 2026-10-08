@@ -36,9 +36,6 @@ class UserService extends Service
 
     /**
      * UserService constructor.
-     *
-     * @param  UserRepository  $userRepository
-     * @param  FileUploadService  $fileUploadService
      */
     public function __construct(UserRepository $userRepository,
         FileUploadService $fileUploadService)
@@ -48,8 +45,6 @@ class UserService extends Service
     }
 
     /**
-     * @param  array  $filters
-     * @param  array  $eagerRelations
      * @return Builder[]|Collection
      *
      * @throws Exception
@@ -60,10 +55,6 @@ class UserService extends Service
     }
 
     /**
-     * @param  array  $filters
-     * @param  array  $eagerRelations
-     * @return LengthAwarePaginator
-     *
      * @throws Exception
      */
     public function userPaginate(array $filters = [], array $eagerRelations = []): LengthAwarePaginator
@@ -72,15 +63,11 @@ class UserService extends Service
     }
 
     /**
-     * @param  array  $requestData
-     * @param  UploadedFile|null  $photo
-     * @return array
-     *
      * @throws Exception
      */
-    public function storeUser(array $requestData, UploadedFile $photo = null): array
+    public function storeUser(array $requestData, ?UploadedFile $photo = null): array
     {
-        //extract role id
+        // extract role id
         if (! empty($requestData['role_id'])) {
             $roles = $requestData['role_id'];
             unset($requestData['role_id']);
@@ -88,10 +75,10 @@ class UserService extends Service
             $roles = [Constant::GUEST_ROLE_ID];
         }
 
-        //hash user password
+        // hash user password
         $requestData['password'] = Utility::hashPassword(($requestData['password'] ?? Constant::PASSWORD));
 
-        //force password reset
+        // force password reset
         $requestData['force_pass_reset'] = false;
 
         DB::beginTransaction();
@@ -126,7 +113,6 @@ class UserService extends Service
     }
 
     /**
-     * @param  string  $roleName
      * @return mixed
      *
      * @throws Exception
@@ -143,8 +129,6 @@ class UserService extends Service
     }
 
     /**
-     * @param $id
-     * @param  bool  $purge
      * @return mixed|null
      *
      * @throws Exception
@@ -155,27 +139,22 @@ class UserService extends Service
     }
 
     /**
-     * @param  array  $requestData
-     * @param $id
-     * @param  UploadedFile|null  $photo
-     * @return array
-     *
      * @throws Exception
      */
-    public function updateUser(array $requestData, $id, UploadedFile $photo = null): array
+    public function updateUser(array $requestData, $id, ?UploadedFile $photo = null): array
     {
-        //extract role id
+        // extract role id
         if (! empty($requestData['role_id'])) {
             $roles = $requestData['role_id'];
             unset($requestData['role_id']);
         } else {
             $roles = [Constant::GUEST_ROLE_ID];
         }
-        //hash user password
+        // hash user password
         if (! empty($requestData['password'])) {
             $requestData['password'] = Utility::hashPassword($requestData['password']);
 
-            //force password reset
+            // force password reset
             $requestData['force_pass_reset'] = false;
         } else {
             unset($requestData['password']);
@@ -183,7 +162,7 @@ class UserService extends Service
 
         DB::beginTransaction();
         try {
-            //check if user is available or not
+            // check if user is available or not
             if ($selectUserModel = $this->getUserById($id)) {
                 $this->userRepository->setModel($selectUserModel);
                 if ($this->userRepository->update($requestData, $id) &&
@@ -217,9 +196,6 @@ class UserService extends Service
     }
 
     /**
-     * @param $id
-     * @return array
-     *
      * @throws Exception
      */
     public function destroyUser($id): array
@@ -237,7 +213,7 @@ class UserService extends Service
                 return ['status' => false, 'message' => __('User is Delete Failed'),
                     'level' => Constant::MSG_TOASTR_ERROR, 'title' => 'Alert!', ];
             }
-        } catch (\Exception $exception) {
+        } catch (Exception $exception) {
             $this->userRepository->handleException($exception);
             DB::rollBack();
 
@@ -249,16 +225,12 @@ class UserService extends Service
     /**
      * Attach avatar image to model
      *
-     * @param  User  $user
-     * @param  UploadedFile|null  $photo
-     * @param  bool  $replace
-     * @return bool
      *
      * @throws FileDoesNotExist
      * @throws FileIsTooBig
      * @throws Exception
      */
-    protected function attachAvatarImage(User $user, UploadedFile $photo = null, bool $replace = false): bool
+    protected function attachAvatarImage(User $user, ?UploadedFile $photo = null, bool $replace = false): bool
     {
         if ($photo == null && $replace == true) {
             return true;
@@ -272,9 +244,6 @@ class UserService extends Service
     }
 
     /**
-     * @param $id
-     * @return array
-     *
      * @throws \Throwable
      */
     public function restoreUser($id): array
@@ -304,8 +273,6 @@ class UserService extends Service
     /**
      * Export Object for Export Download
      *
-     * @param  array  $filters
-     * @return UserExport
      *
      * @throws Exception
      * @throws InvalidArgumentException

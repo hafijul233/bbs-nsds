@@ -14,14 +14,11 @@ class ModelEnabledController extends Controller
     /**
      * ModelEnabledController constructor.
      */
-    public function __construct()
-    {
-    }
+    public function __construct() {}
 
     /**
      * Change a model status from enabled to disabled ro vise-versa.
      *
-     * @param  ModelEnabledRequest  $request
      * @return JsonResponse|void
      */
     public function __invoke(ModelEnabledRequest $request)

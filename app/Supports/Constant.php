@@ -64,7 +64,7 @@ class Constant
 
     const YEAR = '31536000';
 
-    const DECADE = '315360000'; //1de=10y
+    const DECADE = '315360000'; // 1de=10y
 
     /**
      * Toastr Message Levels
@@ -98,7 +98,7 @@ class Constant
     const EXPORT_OPTIONS = [
         'xlsx' => 'Microsoft Excel (.xlsx)',
         'ods' => 'Open Document Spreadsheet (.ods)',
-        /*        'csv' => 'Comma Seperated Values (.csv)'*/
+        /*        'csv' => 'Comma Seperated Values (.csv)' */
     ];
 
     /**

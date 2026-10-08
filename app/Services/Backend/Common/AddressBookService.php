@@ -28,8 +28,6 @@ class AddressBookService extends Service
 
     /**
      * AddressBookService constructor.
-     *
-     * @param  AddressBookRepository  $addressBookRepository
      */
     public function __construct(AddressBookRepository $addressBookRepository)
     {
@@ -40,8 +38,6 @@ class AddressBookService extends Service
     /**
      * Get All Address models as collection
      *
-     * @param  array  $filters
-     * @param  array  $eagerRelations
      * @return Builder[]|Collection
      *
      * @throws Exception
@@ -54,9 +50,6 @@ class AddressBookService extends Service
     /**
      * Create Address Model Pagination
      *
-     * @param  array  $filters
-     * @param  array  $eagerRelations
-     * @return LengthAwarePaginator
      *
      * @throws Exception
      */
@@ -73,7 +66,6 @@ class AddressBookService extends Service
      * Show Address Model
      *
      * @param  int  $id
-     * @param  bool  $purge
      * @return mixed
      *
      * @throws Exception
@@ -86,8 +78,6 @@ class AddressBookService extends Service
     /**
      * Save Address Model
      *
-     * @param  array  $inputs
-     * @return array
      *
      * @throws Exception
      * @throws Throwable
@@ -120,9 +110,6 @@ class AddressBookService extends Service
     /**
      * Update Address Model
      *
-     * @param  array  $inputs
-     * @param $id
-     * @return array
      *
      * @throws Throwable
      */
@@ -159,8 +146,6 @@ class AddressBookService extends Service
     /**
      * Destroy Address Model
      *
-     * @param $id
-     * @return array
      *
      * @throws Throwable
      */
@@ -191,8 +176,6 @@ class AddressBookService extends Service
     /**
      * Restore Address Model
      *
-     * @param $id
-     * @return array
      *
      * @throws Throwable
      */
@@ -223,8 +206,6 @@ class AddressBookService extends Service
     /**
      * Export Object for Export Download
      *
-     * @param  array  $filters
-     * @return AddressBookExport
      *
      * @throws Exception
      */

@@ -17,8 +17,6 @@ class BBSUserSeeder extends Seeder
 
     /**
      * BBSUserSeeder constructor.
-     *
-     * @param  UserRepository  $userRepository
      */
     public function __construct(UserRepository $userRepository)
     {
@@ -34,7 +32,7 @@ class BBSUserSeeder extends Seeder
     {
         $faker = Factory::create('bn_BD');
 
-        //Project Information User ID
+        // Project Information User ID
         $PD_LFS = $this->userRepository->create(
             [
                 'name' => 'শ্রমশক্তি জরিপের মাধ্যমে শ্রমবাজার তথ্যের উন্নয়ন প্রকল্প',
@@ -201,7 +199,7 @@ class BBSUserSeeder extends Seeder
             throw new \RuntimeException('PD_ICTUS User Role Assignment Failed');
         }
 
-        //Project Information User ID
+        // Project Information User ID
         $FPO_PSL = $this->userRepository->create(
             [
                 'name' => 'দারিদ্র্য পরিস্থিতি পরিমাপে র‌্যাপিড জরিপ ২০২১',
@@ -281,9 +279,6 @@ class BBSUserSeeder extends Seeder
 
     /**
      * Attach Role to user Model
-     *
-     * @param  User  $user
-     * @return bool
      */
     protected function attachUserRoles(User $user, $role = ''): bool
     {

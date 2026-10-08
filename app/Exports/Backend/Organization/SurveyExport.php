@@ -27,7 +27,6 @@ class SurveyExport extends FastExcelExport
 
     /**
      * @param  Enumerator  $row
-     * @return array
      */
     public function map($row): array
     {

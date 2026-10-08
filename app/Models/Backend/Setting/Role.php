@@ -49,25 +49,16 @@ class Role extends SpatieRole implements Auditable
 
     /************************ Audit Relations ************************/
 
-    /**
-     * @return BelongsTo
-     */
     public function createdBy(): BelongsTo
     {
         return $this->belongsTo(User::class, 'created_by');
     }
 
-    /**
-     * @return BelongsTo
-     */
     public function updatedBy(): BelongsTo
     {
         return $this->belongsTo(User::class, 'updated_by');
     }
 
-    /**
-     * @return BelongsTo
-     */
     public function deletedBy(): BelongsTo
     {
         return $this->belongsTo(User::class, 'deleted_by');
@@ -75,8 +66,6 @@ class Role extends SpatieRole implements Auditable
 
     /**
      * Count Total Permission Assigned to this role
-     *
-     * @return int
      */
     public function getTotalPermissionsAttribute(): int
     {
@@ -85,8 +74,6 @@ class Role extends SpatieRole implements Auditable
 
     /**
      * Count Total User Assigned to this role
-     *
-     * @return int
      */
     public function getTotalUsersAttribute(): int
     {

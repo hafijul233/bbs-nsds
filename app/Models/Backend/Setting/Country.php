@@ -61,25 +61,16 @@ class Country extends Model implements Auditable
 
     /************************ Audit Relations ************************/
 
-    /**
-     * @return BelongsTo
-     */
     public function createdBy(): BelongsTo
     {
         return $this->belongsTo(User::class, 'created_by');
     }
 
-    /**
-     * @return BelongsTo
-     */
     public function updatedBy(): BelongsTo
     {
         return $this->belongsTo(User::class, 'updated_by');
     }
 
-    /**
-     * @return BelongsTo
-     */
     public function deletedBy(): BelongsTo
     {
         return $this->belongsTo(User::class, 'deleted_by');
@@ -88,33 +79,21 @@ class Country extends Model implements Auditable
     /************************ Events ************************/
 
     /************************ Relations ************************/
-    /**
-     * @return HasMany
-     */
     public function states(): HasMany
     {
         return $this->hasMany(State::class, 'country_id', 'id');
     }
 
-    /**
-     * @return HasMany
-     */
     public function cities(): HasMany
     {
         return $this->hasMany(City::class, 'country_id', 'id');
     }
 
-    /**
-     * @return int
-     */
     public function getTotalStatesAttribute(): int
     {
         return $this->hasMany(State::class, 'country_id', 'id')->count();
     }
 
-    /**
-     * @return int
-     */
     public function getTotalCitiesAttribute(): int
     {
         return $this->hasMany(City::class, 'country_id', 'id')->count();

@@ -14,7 +14,7 @@ use OwenIt\Auditing\Contracts\Auditable;
  */
 class ExamGroup extends Model implements Auditable
 {
-    use \OwenIt\Auditing\Auditable, HasFactory, SoftDeletes, Sortable;
+    use HasFactory, \OwenIt\Auditing\Auditable, SoftDeletes, Sortable;
 
     /**
      * @var string

@@ -17,7 +17,7 @@ class UniqueMobile implements Rule
      */
     public function __construct()
     {
-        $this->verifyService = new VerifyService();
+        $this->verifyService = new VerifyService;
     }
 
     /**
@@ -25,7 +25,6 @@ class UniqueMobile implements Rule
      *
      * @param  string  $attribute
      * @param  mixed  $value
-     * @return bool
      */
     public function passes($attribute, $value): bool
     {
@@ -34,8 +33,6 @@ class UniqueMobile implements Rule
 
     /**
      * Get the validation error message.
-     *
-     * @return string
      */
     public function message(): string
     {

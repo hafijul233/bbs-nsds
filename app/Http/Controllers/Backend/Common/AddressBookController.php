@@ -32,9 +32,6 @@ class AddressBookController extends Controller
 
     /**
      * AddressBookController Constructor
-     *
-     * @param  AuthenticatedSessionService  $authenticatedSessionService
-     * @param  AddressBookService  $addressBookService
      */
     public function __construct(AuthenticatedSessionService $authenticatedSessionService,
         AddressBookService $addressBookService)
@@ -73,8 +70,6 @@ class AddressBookController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  AddressBookRequest  $request
-     * @return RedirectResponse
      *
      * @throws Exception|\Throwable
      */
@@ -95,7 +90,6 @@ class AddressBookController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param    $id
      * @return Application|Factory|View
      *
      * @throws Exception
@@ -115,7 +109,6 @@ class AddressBookController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param $id
      * @return Application|Factory|View
      *
      * @throws Exception
@@ -134,9 +127,6 @@ class AddressBookController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  AddressBookRequest  $request
-     * @param    $id
-     * @return RedirectResponse
      *
      * @throws \Throwable
      */
@@ -158,8 +148,6 @@ class AddressBookController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param $id
-     * @param  Request  $request
      * @return RedirectResponse
      *
      * @throws \Throwable
@@ -183,8 +171,6 @@ class AddressBookController extends Controller
     /**
      * Restore a Soft Deleted Resource
      *
-     * @param $id
-     * @param  Request  $request
      * @return RedirectResponse|void
      *
      * @throws \Throwable

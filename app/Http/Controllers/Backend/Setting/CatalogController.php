@@ -32,9 +32,6 @@ class CatalogController extends Controller
 
     /**
      * CatalogController Constructor
-     *
-     * @param  AuthenticatedSessionService  $authenticatedSessionService
-     * @param  CatalogService  $catalogService
      */
     public function __construct(AuthenticatedSessionService $authenticatedSessionService,
         CatalogService $catalogService)
@@ -46,7 +43,6 @@ class CatalogController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @param  Request  $request
      * @return Application|Factory|View
      *
      * @throws Exception
@@ -74,8 +70,6 @@ class CatalogController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  CatalogRequest  $request
-     * @return RedirectResponse
      *
      * @throws Exception|\Throwable
      */
@@ -96,7 +90,6 @@ class CatalogController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param    $id
      * @return Application|Factory|View
      *
      * @throws Exception
@@ -116,7 +109,6 @@ class CatalogController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param $id
      * @return Application|Factory|View
      *
      * @throws Exception
@@ -138,9 +130,6 @@ class CatalogController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  CatalogRequest  $request
-     * @param    $id
-     * @return RedirectResponse
      *
      * @throws \Throwable
      */
@@ -162,8 +151,6 @@ class CatalogController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param $id
-     * @param  Request  $request
      * @return RedirectResponse
      *
      * @throws \Throwable
@@ -187,8 +174,6 @@ class CatalogController extends Controller
     /**
      * Restore a Soft Deleted Resource
      *
-     * @param $id
-     * @param  Request  $request
      * @return RedirectResponse|void
      *
      * @throws \Throwable

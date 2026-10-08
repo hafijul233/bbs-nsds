@@ -38,10 +38,6 @@ class RoleController extends Controller
 
     /**
      * PermissionController constructor.
-     *
-     * @param  AuthenticatedSessionService  $authenticatedSessionService
-     * @param  RoleService  $roleService
-     * @param  PermissionService  $permissionService
      */
     public function __construct(AuthenticatedSessionService $authenticatedSessionService,
         RoleService $roleService,
@@ -55,7 +51,6 @@ class RoleController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @param  Request  $request
      * @return Application|Factory|View
      *
      * @throws Exception
@@ -83,8 +78,6 @@ class RoleController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  RoleRequest  $request
-     * @return RedirectResponse
      *
      * @throws Exception|Throwable
      */
@@ -106,7 +99,6 @@ class RoleController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
      * @return Application|Factory|View
      *
      * @throws Exception
@@ -151,9 +143,6 @@ class RoleController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  RoleRequest  $request
-     * @param    $id
-     * @return RedirectResponse
      *
      * @throws Throwable
      */
@@ -176,7 +165,6 @@ class RoleController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @param  Request  $request
      * @return RedirectResponse
      *
      * @throws Throwable
@@ -199,11 +187,9 @@ class RoleController extends Controller
     /**
      * Restore a Soft Deleted Resource
      *
-     * @param $id
-     * @param  Request  $request
      * @return RedirectResponse|void
      *
-     * @throws \Throwable
+     * @throws Throwable
      */
     public function restore($id, Request $request)
     {
@@ -315,8 +301,6 @@ class RoleController extends Controller
     }
 
     /**
-     * @param $id
-     * @param  Request  $request
      * @return JsonResponse|void
      *
      * @throws Exception
@@ -330,7 +314,7 @@ class RoleController extends Controller
                 $roles = $request->get('permissions', []);
                 $confirm = $this->roleService->syncPermission($id, $roles);
 
-                //formatted response is collected from service
+                // formatted response is collected from service
                 return response()->json(array_merge($jsonResponse, $confirm));
             } else {
                 throw ValidationException::withMessages([
@@ -345,8 +329,6 @@ class RoleController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @param  Request  $request
-     * @return JsonResponse
      *
      * @throws Exception
      */

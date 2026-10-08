@@ -11,20 +11,15 @@ use Illuminate\Support\HtmlString;
 class CHTML
 {
     /**
-     * @param  Model  $model
-     * @param  string  $field
-     * @param  array  $options
      * @param  null  $current_value
-     * @param  array  $states
-     * @return HtmlString
      */
     public static function flagChangeButton(Model $model, string $field, array $options = [], $current_value = null, array $states = []): HtmlString
-    { //Get Model information
+    { // Get Model information
         $model_id_field = $model->getKeyName();
         $model_id = $model->$model_id_field;
-        $model_path = get_class($model); //generate switch states
+        $model_path = get_class($model); // generate switch states
         $options['on'] = $options['on'] ?? array_shift($options);
-        $options['off'] = $options['off'] ?? array_shift($options); //generate switch states colors
+        $options['off'] = $options['off'] ?? array_shift($options); // generate switch states colors
         $states['on'] = $states['on'] ?? 'success';
         $states['off'] = $states['off'] ?? 'danger';
         $HTML = "<input class='toggle-class' type='checkbox' ";
@@ -42,8 +37,7 @@ class CHTML
     }
 
     /**
-     * @param $collection
-     * @param  string  $type [default, simple]
+     * @param  string  $type  [default, simple]
      * @return mixed
      */
     public static function pagination($collection, string $type = 'default')
@@ -52,11 +46,6 @@ class CHTML
             ->links('layouts.paginate.'.$type.'-paginate');
     }
 
-    /**
-     * @param  string  $modelName
-     * @param  array  $actions
-     * @return HtmlString
-     */
     public static function confirmModal(string $modelName = 'Item', array $actions = []): HtmlString
     {
         $HTML = '';
@@ -87,10 +76,6 @@ class CHTML
         return new HtmlString($HTML);
     }
 
-    /**
-     * @param  string  $event
-     * @return string
-     */
     public static function eventIcons(string $event): string
     {
         $eventIcons = [
@@ -103,12 +88,7 @@ class CHTML
         return $eventIcons[$event] ?? '<i class="fas fa-user bg-secondary" data-toggle="tooltip" data-placement="top" title="Undefined"></i>';
     }
 
-    /**
-     * @param  array  $tags
-     * @param  string|null  $icon_class
-     * @return string
-     */
-    public static function displayTags(array $tags, string $icon_class = null): string
+    public static function displayTags(array $tags, ?string $icon_class = null): string
     {
         $HTML = '';
         if (count($tags) > 0) {

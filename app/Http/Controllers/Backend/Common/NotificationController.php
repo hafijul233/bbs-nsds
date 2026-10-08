@@ -27,8 +27,6 @@ class NotificationController extends Controller
 
     /**
      * NotificationController constructor.
-     *
-     * @param  NotificationService  $notificationService
      */
     public function __construct(NotificationService $notificationService)
     {
@@ -57,7 +55,6 @@ class NotificationController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  string  $id
      * @return RedirectResponse
      *
      * @throws \Exception
@@ -76,8 +73,6 @@ class NotificationController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  string  $id
-     * @return Response
      *
      * @throws \Exception
      */
@@ -88,15 +83,12 @@ class NotificationController extends Controller
                 return $query->where('id', $id);
             })->markAsRead();
 
-        //TODO forward to notification url
+        // TODO forward to notification url
         return response()->noContent();
     }
 
     /**
      * Update the specified resource in storage.
-     *
-     * @param  Request  $request
-     * @return RedirectResponse
      */
     public function markAll(Request $request): RedirectResponse
     {

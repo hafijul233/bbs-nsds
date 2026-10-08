@@ -19,9 +19,6 @@ class Utility
     /**
      * Hash any text with laravel default has algo.
      * Currently, only support bcrypt() with cost 10
-     *
-     * @param  string  $password
-     * @return string
      */
     public static function hashPassword(string $password): string
     {
@@ -32,33 +29,27 @@ class Utility
      * Create a unique random username with given having input
      * As prefix text and a random number
      *
-     * @param  string  $name
-     * @param  UserRepository|null  $userRepository
-     * @return string
      *
      * @throws \Exception
      */
-    public static function generateUsername(string $name, UserRepository $userRepository = null): string
+    public static function generateUsername(string $name, ?UserRepository $userRepository = null): string
     {
         if (is_null($userRepository)) {
             $userRepository = new UserRepository;
         }
 
-        //removed white space from name
+        // removed white space from name
         $firstPart = preg_replace("([\s]+)", '-', Str::lower($name));
 
-        //add a random number to end
+        // add a random number to end
         $username = trim($firstPart).random_int(100, 1000);
 
-        //verify generated username is unique
+        // verify generated username is unique
         return ($userRepository->verifyUniqueUsername($username)) ? $username : self::generateUsername($name, $userRepository);
     }
 
     /**
      * Admin LTE 3 Supported Random Badge Colors
-     *
-     * @param  bool  $rounded
-     * @return string
      */
     public static function randomBadgeBackground(bool $rounded = false): string
     {
@@ -87,7 +78,6 @@ class Utility
     /**
      * Rename laravel log filename to more human readable format
      *
-     * @param  string  $filename
      * @return array|string|string[]|null
      */
     public static function formatLogFilename(string $filename)
@@ -97,20 +87,12 @@ class Utility
 
     /**
      * Convert Route Name Human Readable Style
-     *
-     * @param  string  $permission
-     * @return string
      */
     public static function permissionDisplay(string $permission): string
     {
         return ucwords(str_replace(['.', '-', '_'], [' ', ' ', ' '], $permission));
     }
 
-    /**
-     * @param  Model  $model
-     * @param  string  $group
-     * @return array
-     */
     public static function modelAudits(Model $model, string $group = 'date'): array
     {
         $auditCollection = [];
@@ -124,10 +106,6 @@ class Utility
         return $auditCollection;
     }
 
-    /**
-     * @param  string  $method
-     * @return array
-     */
     public static function routeMethodNameArray(string $method = 'GET'): array
     {
         $routeCollection = Route::getRoutes()->getRoutesByMethod();
@@ -148,10 +126,6 @@ class Utility
         return $routes;
     }
 
-    /**
-     * @param  Address  $addressBook
-     * @return string
-     */
     public static function getAddressBlock(Address $addressBook): string
     {
         $address = ($addressBook->street_1 ?? null).', ';
@@ -173,7 +147,7 @@ class Utility
         }
 
         if (! empty($addressBook->country_id)) {
-            $address .= ($addressBook->country->name. /*', ' . $addressBook->country->iso3 .*/ '.');
+            $address .= ($addressBook->country->name. /* ', ' . $addressBook->country->iso3 . */ '.');
         }
 
         return $address;
@@ -183,8 +157,6 @@ class Utility
      * Return Currency Formatted string from number
      *
      * @param  null  $amount
-     * @param  string  $currency
-     * @param  bool  $onlyCurrency
      * @return string|null
      */
     public static function money($amount = null, string $currency = 'USD', bool $onlyCurrency = false)
@@ -212,9 +184,7 @@ class Utility
     /**
      * Return string array to list string
      *
-     * @param $data
      * @param  bool  $ordered
-     * @return string
      */
     public static function arrayToList($data, $ordered = true): string
     {

@@ -29,7 +29,6 @@ class EnumeratorWiseExport extends FastExcelExport
 
     /**
      * @param  Enumerator  $row
-     * @return array
      */
     public function map($row): array
     {
@@ -74,10 +73,6 @@ class EnumeratorWiseExport extends FastExcelExport
         return $this->formatRow;
     }
 
-    /**
-     * @param $data
-     * @return string
-     */
     private function stateArrayToString($data): string
     {
         $stateArray = [];
@@ -92,10 +87,6 @@ class EnumeratorWiseExport extends FastExcelExport
         return $stateString;
     }
 
-    /**
-     * @param $data
-     * @return string
-     */
     private function surveys($data): string
     {
         $stateArray = [];

@@ -27,7 +27,6 @@ class SmsTemplateExport extends FastExcelExport
 
     /**
      * @param  SmsTemplate  $row
-     * @return array
      */
     public function map($row): array
     {

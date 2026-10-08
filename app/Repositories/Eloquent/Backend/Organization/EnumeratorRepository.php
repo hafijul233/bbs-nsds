@@ -30,10 +30,6 @@ class EnumeratorRepository extends EloquentRepository
 
     /**
      * Search Function
-     *
-     * @param  array  $filters
-     * @param  bool  $is_sortable
-     * @return Builder
      */
     private function filterData(array $filters = [], bool $is_sortable = false): Builder
     {
@@ -65,7 +61,7 @@ class EnumeratorRepository extends EloquentRepository
             $query->where('enumerator_survey.survey_id', '=', $filters['survey_id']);
         }
 
-        //TODO
+        // TODO
         if (isset($filters['division_id']) && ! empty($filters['division_id'])) {
             if (! empty($filters['work_options']) && $filters['work_options'] == Constant::WORKED_EARLIER) {
                 $query->leftJoin('enumerator_previous_state', 'enumerator_previous_state.enumerator_id', '=', 'enumerators.id');
@@ -136,10 +132,6 @@ class EnumeratorRepository extends EloquentRepository
     /**
      * Pagination Generator
      *
-     * @param  array  $filters
-     * @param  array  $eagerRelations
-     * @param  bool  $is_sortable
-     * @return LengthAwarePaginator
      *
      * @throws Exception
      */
@@ -155,9 +147,6 @@ class EnumeratorRepository extends EloquentRepository
     }
 
     /**
-     * @param  array  $filters
-     * @param  array  $eagerRelations
-     * @param  bool  $is_sortable
      * @return Builder[]|Collection
      *
      * @throws Exception
@@ -174,11 +163,6 @@ class EnumeratorRepository extends EloquentRepository
     }
 
     /**
-     * @param  array  $filters
-     * @param  array  $eagerRelations
-     * @param  bool  $is_sortable
-     * @return \Generator
-     *
      * @throws Exception
      */
     public function exportWith(array $filters = [], array $eagerRelations = [], bool $is_sortable = false): \Generator

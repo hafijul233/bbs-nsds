@@ -11,8 +11,6 @@ class UserRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
-     *
-     * @return bool
      */
     public function authorize(): bool
     {
@@ -21,8 +19,6 @@ class UserRequest extends FormRequest
 
     /**
      * Get the validation rules that apply to the request.
-     *
-     * @return array
      */
     public function rules(): array
     {
@@ -38,7 +34,7 @@ class UserRequest extends FormRequest
             'mobile' => ['string', 'min:11', 'max:13', new PhoneNumber, 'unique:users,mobile,'.$this->user],
         ];
 
-        //Credential Field
+        // Credential Field
         if (config('auth.credential_field') == Constant::LOGIN_EMAIL
             || (config('auth.credential_field') == Constant::LOGIN_OTP
                 && config('auth.credential_otp_field') == Constant::OTP_EMAIL)) {
@@ -61,6 +57,6 @@ class UserRequest extends FormRequest
             $rules['username'][] = 'nullable';
         }
 
-        return  $rules;
+        return $rules;
     }
 }

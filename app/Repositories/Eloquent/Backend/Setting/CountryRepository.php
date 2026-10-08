@@ -25,10 +25,6 @@ class CountryRepository extends EloquentRepository
 
     /**
      * Search Function for Permissions
-     *
-     * @param  array  $filters
-     * @param  bool  $is_sortable
-     * @return Builder
      */
     private function filterData(array $filters = [], bool $is_sortable = false): Builder
     {
@@ -62,10 +58,6 @@ class CountryRepository extends EloquentRepository
     /**
      * Pagination Generator
      *
-     * @param  array  $filters
-     * @param  array  $eagerRelations
-     * @param  bool  $is_sortable
-     * @return LengthAwarePaginator
      *
      * @throws Exception
      */
@@ -81,9 +73,6 @@ class CountryRepository extends EloquentRepository
     }
 
     /**
-     * @param  array  $filters
-     * @param  array  $eagerRelations
-     * @param  bool  $is_sortable
      * @return Builder[]|Collection
      *
      * @throws Exception

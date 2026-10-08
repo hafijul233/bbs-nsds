@@ -26,8 +26,6 @@ class CatalogService extends Service
 
     /**
      * CatalogService constructor.
-     *
-     * @param  CatalogRepository  $catalogRepository
      */
     public function __construct(CatalogRepository $catalogRepository)
     {
@@ -38,8 +36,6 @@ class CatalogService extends Service
     /**
      * Get All Catalog models as collection
      *
-     * @param  array  $filters
-     * @param  array  $eagerRelations
      * @return Builder[]|Collection
      *
      * @throws Exception
@@ -52,9 +48,6 @@ class CatalogService extends Service
     /**
      * Create Catalog Model Pagination
      *
-     * @param  array  $filters
-     * @param  array  $eagerRelations
-     * @return LengthAwarePaginator
      *
      * @throws Exception
      */
@@ -67,7 +60,6 @@ class CatalogService extends Service
      * Show Catalog Model
      *
      * @param  int  $id
-     * @param  bool  $purge
      * @return mixed
      *
      * @throws Exception
@@ -80,8 +72,6 @@ class CatalogService extends Service
     /**
      * Save Catalog Model
      *
-     * @param  array  $inputs
-     * @return array
      *
      * @throws Exception
      * @throws Throwable
@@ -114,9 +104,6 @@ class CatalogService extends Service
     /**
      * Update Catalog Model
      *
-     * @param  array  $inputs
-     * @param $id
-     * @return array
      *
      * @throws Throwable
      */
@@ -153,8 +140,6 @@ class CatalogService extends Service
     /**
      * Destroy Catalog Model
      *
-     * @param $id
-     * @return array
      *
      * @throws Throwable
      */
@@ -185,8 +170,6 @@ class CatalogService extends Service
     /**
      * Restore Catalog Model
      *
-     * @param $id
-     * @return array
      *
      * @throws Throwable
      */
@@ -217,8 +200,6 @@ class CatalogService extends Service
     /**
      * Export Object for Export Download
      *
-     * @param  array  $filters
-     * @return CatalogExport
      *
      * @throws Exception
      */
@@ -230,7 +211,6 @@ class CatalogService extends Service
     /**
      * Return catalog type list as array
      *
-     * @return array
      *
      * @throws Exception
      */
@@ -246,7 +226,6 @@ class CatalogService extends Service
     }
 
     /**
-     * @param  array  $filters
      * @param  null  $translation
      * @return array
      *

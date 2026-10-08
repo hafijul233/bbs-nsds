@@ -7,9 +7,7 @@ use Illuminate\Routing\Controller;
 
 class OrganizationController extends Controller
 {
-    public function __construct()
-    {
-    }
+    public function __construct() {}
 
     public function __invoke(Request $request)
     {

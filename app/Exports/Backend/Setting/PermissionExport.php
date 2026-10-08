@@ -4,8 +4,9 @@ namespace App\Exports\Backend\Setting;
 
 use App\Abstracts\Export\FastExcelExport;
 use App\Models\Setting\Permission;
-use function config;
 use OpenSpout\Common\Exception\InvalidArgumentException;
+
+use function config;
 
 class PermissionExport extends FastExcelExport
 {
@@ -23,7 +24,6 @@ class PermissionExport extends FastExcelExport
 
     /**
      * @param  Permission  $row
-     * @return array
      */
     public function map($row): array
     {

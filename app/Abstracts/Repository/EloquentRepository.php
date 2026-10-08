@@ -28,9 +28,6 @@ abstract class EloquentRepository implements RepositoryInterface
     /**
      * Repository constructor.
      * Constructor to bind model to repo
-     *
-     * @param  Model  $model
-     * @param  int  $itemsPerPage
      */
     public function __construct(Model $model, int $itemsPerPage = 10)
     {
@@ -51,8 +48,6 @@ abstract class EloquentRepository implements RepositoryInterface
     /**
      * create a new record in the database
      *
-     * @param  array  $data
-     * @return Model
      *
      * @throws Exception
      */
@@ -73,9 +68,6 @@ abstract class EloquentRepository implements RepositoryInterface
     /**
      * update record in the database
      *
-     * @param  array  $data
-     * @param $id
-     * @return bool
      *
      * @throws Exception
      */
@@ -95,9 +87,6 @@ abstract class EloquentRepository implements RepositoryInterface
 
     /**
      * remove record from the database
-     *
-     * @param $id
-     * @return bool
      */
     public function delete($id): bool
     {
@@ -107,8 +96,6 @@ abstract class EloquentRepository implements RepositoryInterface
     /**
      * show the record with the given id
      *
-     * @param $id
-     * @param  bool  $purge
      * @return mixed
      *
      * @throws Exception
@@ -131,9 +118,6 @@ abstract class EloquentRepository implements RepositoryInterface
 
     /**
      * remove record from the database
-     *
-     * @param $id
-     * @return bool
      */
     public function restore($id): bool
     {
@@ -142,8 +126,6 @@ abstract class EloquentRepository implements RepositoryInterface
 
     /**
      * Get the associated model
-     *
-     * @return Model
      */
     public function getModel(): Model
     {
@@ -153,7 +135,6 @@ abstract class EloquentRepository implements RepositoryInterface
     /**
      * Associated Dynamically  model
      *
-     * @param  Model  $model
      * @return void
      */
     public function setModel(Model $model)
@@ -163,18 +144,12 @@ abstract class EloquentRepository implements RepositoryInterface
 
     /**
      * Eager load database relationships
-     *
-     * @param $relations
-     * @return Builder
      */
     public function with($relations): Builder
     {
         return $this->model->with($relations);
     }
 
-    /**
-     * @return Builder
-     */
     public function getQueryBuilder(): Builder
     {
         return $this->model->newQuery();
@@ -183,10 +158,6 @@ abstract class EloquentRepository implements RepositoryInterface
     /**
      * Get the first Model meet this criteria
      *
-     * @param  string  $column
-     * @param  string  $operator
-     * @param $value
-     * @return Model|null
      *
      * @throws Exception
      */
@@ -205,10 +176,6 @@ abstract class EloquentRepository implements RepositoryInterface
     /**
      * Get the all Model meet this criteria
      *
-     * @param  string  $column
-     * @param  string  $operator
-     * @param $value
-     * @param  array  $with
      * @return mixed
      *
      * @throws Exception
@@ -229,7 +196,6 @@ abstract class EloquentRepository implements RepositoryInterface
     /**
      * Get the all Model Columns Collection
      *
-     * @param  string  $column
      * @return mixed
      *
      * @throws Exception
@@ -249,7 +215,6 @@ abstract class EloquentRepository implements RepositoryInterface
     /**
      * Handle All catch Exceptions
      *
-     * @param $exception
      *
      * @throws Exception
      */
@@ -257,33 +222,30 @@ abstract class EloquentRepository implements RepositoryInterface
     {
         \Log::error('Query Exception: ');
         \Log::error($exception->getMessage());
-        //if application is on production keep silent
+        // if application is on production keep silent
         if (\App::environment('production')) {
             \Log::error($exception->getMessage());
         }
 
-        //Eloquent Model Exception
+        // Eloquent Model Exception
         elseif ($exception instanceof ModelNotFoundException) {
             throw new ModelNotFoundException($exception->getMessage());
         }
 
-        //DB Error
+        // DB Error
         elseif ($exception instanceof PDOException) {
             throw new PDOException($exception->getMessage());
         } elseif ($exception instanceof \BadMethodCallException) {
             throw new \BadMethodCallException($exception->getMessage());
         }
 
-        //Through general Exception
+        // Through general Exception
         else {
             throw new Exception($exception->getMessage());
         }
     }
 
     /**
-     * @param  array  $filters
-     * @param  array  $eagerRelations
-     * @param  bool  $is_sortable
      * @return mixed
      *
      * @throws Exception
@@ -291,13 +253,13 @@ abstract class EloquentRepository implements RepositoryInterface
     public function paginateWith(array $filters = [], array $eagerRelations = [], bool $is_sortable = false)
     {
         try {
-            //if Sorting is available for this column
+            // if Sorting is available for this column
             if ($is_sortable) {
                 $this->model->sortable();
             }
 
             if (isset($filters['sort']) && isset($filters['direction'])) {
-                /*                $this->model->orderBy($filters['sort'], $filters['direction']);*/
+                /*                $this->model->orderBy($filters['sort'], $filters['direction']); */
                 unset($filters['sort'], $filters['direction']);
             }
         } catch (BadMethodCallException $exception) {

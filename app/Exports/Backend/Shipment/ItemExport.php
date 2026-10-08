@@ -27,7 +27,6 @@ class ItemExport extends FastExcelExport
 
     /**
      * @param  Item  $row
-     * @return array
      */
     public function map($row): array
     {

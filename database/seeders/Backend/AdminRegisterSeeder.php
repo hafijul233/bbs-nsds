@@ -35,10 +35,6 @@ class AdminRegisterSeeder extends Seeder
 
     /**
      * UserSeeder constructor.
-     *
-     * @param  UserRepository  $userRepository
-     * @param  FileUploadService  $fileUploadService
-     * @param  AddressBookRepository  $addressBookRepository
      */
     public function __construct(UserRepository $userRepository,
         FileUploadService $fileUploadService,
@@ -59,11 +55,11 @@ class AdminRegisterSeeder extends Seeder
     public function run()
     {
         Model::unguard();
-        //disable Observer
+        // disable Observer
         $eventDispatcher = User::getEventDispatcher();
         User::unsetEventDispatcher();
 
-        //Default User "Ami"
+        // Default User "Ami"
 
         try {
             $newUser = [
@@ -80,7 +76,7 @@ class AdminRegisterSeeder extends Seeder
             $newUser = $this->userRepository->create($newUser);
             if ($newUser instanceof User) {
                 if (! $this->attachProfilePicture($newUser)) {
-                    //throw new \RuntimeException("User Photo Create Failed");
+                    // throw new \RuntimeException("User Photo Create Failed");
                 }
 
                 if (! $this->attachUserRoles($newUser)) {
@@ -93,15 +89,13 @@ class AdminRegisterSeeder extends Seeder
             $this->userRepository->handleException($exception);
         }
 
-        //Enable observer
+        // Enable observer
         User::setEventDispatcher($eventDispatcher);
     }
 
     /**
      * Attach Profile Image to User Model
      *
-     * @param  User  $user
-     * @return bool
      *
      * @throws FileDoesNotExist
      * @throws FileIsTooBig
@@ -109,7 +103,7 @@ class AdminRegisterSeeder extends Seeder
      */
     protected function attachProfilePicture(User $user): bool
     {
-        //add profile image
+        // add profile image
         $profileImagePath = $this->fileUploadService->createAvatarImageFromText($user->name);
         if (is_string($profileImagePath)) {
             return $user->addMedia($profileImagePath)->toMediaCollection('avatars')->save();
@@ -120,9 +114,6 @@ class AdminRegisterSeeder extends Seeder
 
     /**
      * Attach Role to user Model
-     *
-     * @param  User  $user
-     * @return bool
      */
     protected function attachUserRoles(User $user): bool
     {

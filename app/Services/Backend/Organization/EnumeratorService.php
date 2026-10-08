@@ -34,9 +34,6 @@ class EnumeratorService extends Service
 
     /**
      * EnumeratorService constructor.
-     *
-     * @param  EnumeratorRepository  $enumeratorRepository
-     * @param  ExamLevelRepository  $examLevelRepository
      */
     public function __construct(EnumeratorRepository $enumeratorRepository,
         ExamLevelRepository $examLevelRepository)
@@ -49,8 +46,6 @@ class EnumeratorService extends Service
     /**
      * Get All Enumerator models as collection
      *
-     * @param  array  $filters
-     * @param  array  $eagerRelations
      * @return Builder[]|Collection
      *
      * @throws Exception
@@ -63,9 +58,6 @@ class EnumeratorService extends Service
     /**
      * Create Enumerator Model Pagination
      *
-     * @param  array  $filters
-     * @param  array  $eagerRelations
-     * @return LengthAwarePaginator
      *
      * @throws Exception
      */
@@ -78,7 +70,6 @@ class EnumeratorService extends Service
      * Show Enumerator Model
      *
      * @param  int  $id
-     * @param  bool  $purge
      * @return mixed
      *
      * @throws Exception
@@ -91,8 +82,6 @@ class EnumeratorService extends Service
     /**
      * Save Enumerator Model
      *
-     * @param  array  $inputs
-     * @return array
      *
      * @throws Exception
      * @throws Throwable
@@ -104,7 +93,7 @@ class EnumeratorService extends Service
         try {
             $newEnumerator = $this->enumeratorRepository->create($newEnumeratorInfo);
             if ($newEnumerator instanceof Enumerator) {
-                //handling Survey List
+                // handling Survey List
                 $newEnumerator->surveys()->attach($inputs['survey_id']);
                 $newEnumerator->previousPostings()->attach($inputs['prev_post_state_id']);
                 $newEnumerator->futurePostings()->attach($inputs['future_post_state_id']);
@@ -135,7 +124,6 @@ class EnumeratorService extends Service
     /**
      * Return formatted applicant profile format array
      *
-     * @param  array  $inputs
      * @return array
      */
     private function formatEnumeratorInfo(array $inputs)
@@ -177,8 +165,6 @@ class EnumeratorService extends Service
     /**
      * Return formatted education qualification model collection
      *
-     * @param  array  $inputs
-     * @return array
      *
      * @throws Exception
      */
@@ -208,8 +194,6 @@ class EnumeratorService extends Service
     /**
      * Return formatted work experience model collection
      *
-     * @param  array  $inputs
-     * @return array
      *
      * @throws Exception
      */
@@ -232,9 +216,6 @@ class EnumeratorService extends Service
     /**
      * Update Enumerator Model
      *
-     * @param  array  $inputs
-     * @param $id
-     * @return array
      *
      * @throws Throwable
      */
@@ -246,7 +227,7 @@ class EnumeratorService extends Service
             $enumerator = $this->enumeratorRepository->show($id);
             if ($enumerator instanceof Enumerator) {
                 if ($this->enumeratorRepository->update($newEnumeratorInfo, $id)) {
-                    //handling Survey List
+                    // handling Survey List
                     $enumerator->surveys()->sync($inputs['survey_id']);
                     $enumerator->previousPostings()->sync($inputs['prev_post_state_id']);
                     $enumerator->futurePostings()->sync($inputs['future_post_state_id']);
@@ -280,8 +261,6 @@ class EnumeratorService extends Service
     /**
      * Destroy Enumerator Model
      *
-     * @param $id
-     * @return array
      *
      * @throws Throwable
      */
@@ -312,8 +291,6 @@ class EnumeratorService extends Service
     /**
      * Restore Enumerator Model
      *
-     * @param $id
-     * @return array
      *
      * @throws Throwable
      */
@@ -344,7 +321,6 @@ class EnumeratorService extends Service
     /**
      * Export Object for Export Download
      *
-     * @param  array  $filters
      * @return SurveyWiseExport|EnumeratorWiseExport
      *
      * @throws Exception

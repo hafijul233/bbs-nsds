@@ -14,10 +14,10 @@ class CreateWorkQualificationsTable extends Migration
      */
     public function up()
     {
-        //Temporary Disable Foreign Key Constraints
+        // Temporary Disable Foreign Key Constraints
         Schema::disableForeignKeyConstraints();
 
-        //Table Structure
+        // Table Structure
         Schema::create('work_qualifications', function (Blueprint $table) {
             $table->id();
             $table->foreignId('enumerator_id')->index()->constrained('enumerators');
@@ -33,7 +33,7 @@ class CreateWorkQualificationsTable extends Migration
             $table->dateTime('deleted_at')->nullable();
         });
 
-        //Temporary Disable Foreign Key Constraints
+        // Temporary Disable Foreign Key Constraints
         Schema::enableForeignKeyConstraints();
     }
 
@@ -44,13 +44,13 @@ class CreateWorkQualificationsTable extends Migration
      */
     public function down()
     {
-        //Temporary Disable Foreign Key Constraints
+        // Temporary Disable Foreign Key Constraints
         Schema::disableForeignKeyConstraints();
 
-        //Remove Table Structure
+        // Remove Table Structure
         Schema::dropIfExists('work_qualifications');
 
-        //Temporary Disable Foreign Key Constraints
+        // Temporary Disable Foreign Key Constraints
         Schema::enableForeignKeyConstraints();
     }
 }

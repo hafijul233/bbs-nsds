@@ -4,9 +4,10 @@ namespace App\Exports\Backend\Setting;
 
 use App\Abstracts\Export\FastExcelExport;
 use App\Models\Backend\Setting\User;
-use function config;
 use Illuminate\Database\Eloquent\Collection;
 use OpenSpout\Common\Exception\InvalidArgumentException;
+
+use function config;
 
 class UserExport extends FastExcelExport
 {
@@ -24,7 +25,6 @@ class UserExport extends FastExcelExport
 
     /**
      * @param  User  $row
-     * @return array
      */
     public function map($row): array
     {

@@ -20,7 +20,7 @@ use OwenIt\Auditing\Contracts\Auditable;
  */
 class Enumerator extends Model implements Auditable
 {
-    use AuditableTrait, HasFactory, SoftDeletes, Sortable, BlamableTrait;
+    use AuditableTrait, BlamableTrait, HasFactory, SoftDeletes, Sortable;
 
     /**
      * @var string

@@ -25,8 +25,6 @@ class ExamLevelService extends Service
 
     /**
      * ExamLevelService constructor.
-     *
-     * @param  ExamLevelRepository  $examLevelRepository
      */
     public function __construct(ExamLevelRepository $examLevelRepository)
     {
@@ -37,8 +35,6 @@ class ExamLevelService extends Service
     /**
      * Get All ExamLevel models as collection
      *
-     * @param  array  $filters
-     * @param  array  $eagerRelations
      * @return Builder[]|Collection
      *
      * @throws Exception
@@ -51,9 +47,6 @@ class ExamLevelService extends Service
     /**
      * Create ExamLevel Model Pagination
      *
-     * @param  array  $filters
-     * @param  array  $eagerRelations
-     * @return LengthAwarePaginator
      *
      * @throws Exception
      */
@@ -66,7 +59,6 @@ class ExamLevelService extends Service
      * Show ExamLevel Model
      *
      * @param  int  $id
-     * @param  bool  $purge
      * @return mixed
      *
      * @throws Exception
@@ -79,8 +71,6 @@ class ExamLevelService extends Service
     /**
      * Save ExamLevel Model
      *
-     * @param  array  $inputs
-     * @return array
      *
      * @throws Exception
      * @throws Throwable
@@ -113,9 +103,6 @@ class ExamLevelService extends Service
     /**
      * Update ExamLevel Model
      *
-     * @param  array  $inputs
-     * @param $id
-     * @return array
      *
      * @throws Throwable
      */
@@ -152,8 +139,6 @@ class ExamLevelService extends Service
     /**
      * Destroy ExamLevel Model
      *
-     * @param $id
-     * @return array
      *
      * @throws Throwable
      */
@@ -184,8 +169,6 @@ class ExamLevelService extends Service
     /**
      * Restore ExamLevel Model
      *
-     * @param $id
-     * @return array
      *
      * @throws Throwable
      */
@@ -216,8 +199,6 @@ class ExamLevelService extends Service
     /**
      * Export Object for Export Download
      *
-     * @param  array  $filters
-     * @return ExamLevelExport
      *
      * @throws Exception
      */
@@ -227,9 +208,6 @@ class ExamLevelService extends Service
     }
 
     /**
-     * @param  array  $filters
-     * @return array
-     *
      * @throws Exception
      */
     public function getExamLevelDropdown(array $filters = []): array

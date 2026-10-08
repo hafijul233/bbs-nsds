@@ -28,10 +28,6 @@ class SurveyRepository extends EloquentRepository
 
     /**
      * Search Function
-     *
-     * @param  array  $filters
-     * @param  bool  $is_sortable
-     * @return Builder
      */
     private function filterData(array $filters = [], bool $is_sortable = false): Builder
     {
@@ -63,10 +59,6 @@ class SurveyRepository extends EloquentRepository
     /**
      * Pagination Generator
      *
-     * @param  array  $filters
-     * @param  array  $eagerRelations
-     * @param  bool  $is_sortable
-     * @return LengthAwarePaginator
      *
      * @throws Exception
      */
@@ -82,9 +74,6 @@ class SurveyRepository extends EloquentRepository
     }
 
     /**
-     * @param  array  $filters
-     * @param  array  $eagerRelations
-     * @param  bool  $is_sortable
      * @return Builder[]|Collection
      *
      * @throws Exception

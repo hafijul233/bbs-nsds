@@ -13,16 +13,11 @@ class ModelRestoreController extends Controller
     /**
      * ModelRestoreController constructor.
      */
-    public function __construct()
-    {
-    }
+    public function __construct() {}
 
     /**
      * Change a model status from enabled to disabled ro vise-versa.
      *
-     * @param $route
-     * @param $id
-     * @param  ModelRestoreRequest  $request
      * @return Application|Factory|View
      */
     public function __invoke($route, $id, ModelRestoreRequest $request)

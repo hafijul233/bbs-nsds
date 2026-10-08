@@ -2,6 +2,7 @@
 
 namespace App\Models\Backend;
 
+use App\Database\Factories\CategoryFactory;
 use App\Models\Backend\Setting\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -62,30 +63,21 @@ class Category extends Model implements Auditable
 
     protected static function newFactory()
     {
-        return \App\Database\Factories\CategoryFactory::new();
+        return CategoryFactory::new();
     }
 
     /************************ Audit Relations ************************/
 
-    /**
-     * @return BelongsTo
-     */
     public function createdBy(): BelongsTo
     {
         return $this->belongsTo(User::class, 'created_by');
     }
 
-    /**
-     * @return BelongsTo
-     */
     public function updatedBy(): BelongsTo
     {
         return $this->belongsTo(User::class, 'updated_by');
     }
 
-    /**
-     * @return BelongsTo
-     */
     public function deletedBy(): BelongsTo
     {
         return $this->belongsTo(User::class, 'deleted_by');

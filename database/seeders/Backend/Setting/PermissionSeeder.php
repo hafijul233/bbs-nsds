@@ -18,10 +18,10 @@ class PermissionSeeder extends Seeder
     public function run()
     {
         Model::unguard();
-        //disable Observer
+        // disable Observer
         $eventDispatcher = Permission::getEventDispatcher();
         Permission::unsetEventDispatcher();
-        //get all routes
+        // get all routes
         $routes = array_keys(Route::getRoutes()->getRoutesByName());
 
         foreach ($routes as $route) {
@@ -35,7 +35,7 @@ class PermissionSeeder extends Seeder
                 throw new \PDOException($exception->getMessage());
             }
         }
-        //Enable Observer
+        // Enable Observer
         Permission::setEventDispatcher($eventDispatcher);
     }
 }

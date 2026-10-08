@@ -27,7 +27,6 @@ class VehicleExport extends FastExcelExport
 
     /**
      * @param  Vehicle  $row
-     * @return array
      */
     public function map($row): array
     {

@@ -35,10 +35,6 @@ class StateController extends Controller
      */
     private $countryService;
 
-    /**
-     * @param  AuthenticatedSessionService  $authenticatedSessionService
-     * @param  StateService  $stateService
-     */
     public function __construct(AuthenticatedSessionService $authenticatedSessionService,
         StateService $stateService)
     {
@@ -49,7 +45,6 @@ class StateController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @param  Request  $request
      * @return Application|Factory|View
      *
      * @throws Exception
@@ -81,8 +76,6 @@ class StateController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  StateRequest  $request
-     * @return RedirectResponse
      *
      * @throws Exception|\Throwable
      */
@@ -103,7 +96,6 @@ class StateController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param    $id
      * @return Application|Factory|View
      *
      * @throws Exception
@@ -123,7 +115,6 @@ class StateController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param $id
      * @return Application|Factory|View
      *
      * @throws Exception
@@ -144,9 +135,6 @@ class StateController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  StateRequest  $request
-     * @param    $id
-     * @return RedirectResponse
      *
      * @throws \Throwable
      */
@@ -168,8 +156,6 @@ class StateController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param $id
-     * @param  Request  $request
      * @return RedirectResponse
      *
      * @throws \Throwable
@@ -193,8 +179,6 @@ class StateController extends Controller
     /**
      * Restore a Soft Deleted Resource
      *
-     * @param $id
-     * @param  Request  $request
      * @return RedirectResponse|void
      *
      * @throws \Throwable
@@ -285,8 +269,6 @@ class StateController extends Controller
     /**
      * Display a detail of the resource.
      *
-     * @param  Request  $request
-     * @return JsonResponse
      *
      * @throws Exception
      */

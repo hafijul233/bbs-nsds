@@ -15,7 +15,7 @@ class RolePermissionSeeder extends Seeder
 
     public function __construct()
     {
-        $this->command = new Command();
+        $this->command = new Command;
     }
 
     /**
@@ -27,14 +27,14 @@ class RolePermissionSeeder extends Seeder
     {
         Model::unguard();
 
-        //get all Routes
+        // get all Routes
         $permissions = Permission::all();
 
-        $superAdminRole = Role::findByName(Constant::SUPER_ADMIN_ROLE); //super admin
+        $superAdminRole = Role::findByName(Constant::SUPER_ADMIN_ROLE); // super admin
 
-        $adminRole = Role::findByName('Administrator'); //admin
+        $adminRole = Role::findByName('Administrator'); // admin
 
-        $operatorRole = Role::findByName('Director'); //manager&operator
+        $operatorRole = Role::findByName('Director'); // manager&operator
 
         foreach ($permissions as $permission) {
             $superAdminRole->givePermissionTo($permission);
@@ -49,6 +49,6 @@ class RolePermissionSeeder extends Seeder
                 }
             }
         }
-        //Default permission for all other
+        // Default permission for all other
     }
 }

@@ -12,8 +12,6 @@ class UserSettingRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
-     *
-     * @return bool
      */
     public function authorize(): bool
     {
@@ -22,8 +20,6 @@ class UserSettingRequest extends FormRequest
 
     /**
      * Get the validation rules that apply to the request.
-     *
-     * @return array
      */
     public function rules(): array
     {
@@ -37,7 +33,7 @@ class UserSettingRequest extends FormRequest
             'role_id.*' => ['required', 'integer', 'min:1', 'max:255'],
         ];
 
-        //Credential Field
+        // Credential Field
         if (config('auth.credential_field') == Constant::LOGIN_EMAIL
             || (config('auth.credential_field') == Constant::LOGIN_OTP
                 && config('auth.credential_otp_field') == Constant::OTP_EMAIL)) {

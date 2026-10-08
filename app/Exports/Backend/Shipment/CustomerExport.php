@@ -27,7 +27,6 @@ class CustomerExport extends FastExcelExport
 
     /**
      * @param  Customer  $row
-     * @return array
      */
     public function map($row): array
     {

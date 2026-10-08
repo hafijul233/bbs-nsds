@@ -50,12 +50,6 @@ class ApplicantController extends Controller
 
     /**
      * ApplicantController Constructor
-     *
-     * @param  EnumeratorService  $enumeratorService
-     * @param  SurveyService  $surveyService
-     * @param  CatalogService  $catalogService
-     * @param  ExamLevelService  $examLevelService
-     * @param  StateService  $stateService
      */
     public function __construct(EnumeratorService $enumeratorService,
         SurveyService $surveyService,
@@ -102,8 +96,6 @@ class ApplicantController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  ApplicantRequest  $request
-     * @return RedirectResponse
      *
      * @throws \Throwable
      */

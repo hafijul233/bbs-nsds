@@ -17,9 +17,6 @@ class PasswordResetService
      */
     private $userRepository;
 
-    /**
-     * @param  UserRepository  $userRepository
-     */
     public function __construct(UserRepository $userRepository)
     {
         $this->userRepository = $userRepository;
@@ -27,9 +24,6 @@ class PasswordResetService
 
     /**
      * create a new token to  reset user password
-     *
-     * @param  array  $credentials
-     * @return array
      */
     public function createPasswordResetToken(array $credentials): array
     {
@@ -40,10 +34,6 @@ class PasswordResetService
         return $this->credentialBasedPasswordReset($credentials);
     }
 
-    /**
-     * @param  array  $credentials
-     * @return array
-     */
     public function updatePassword(array $credentials): array
     {
         $status = Password::reset(
@@ -54,7 +44,7 @@ class PasswordResetService
                     'force_pass_reset' => 0,
                     'remember_token' => Str::random(60),
                 ], $user->id);
-                //event(new PasswordReset($user));
+                // event(new PasswordReset($user));
             }
         );
 
@@ -91,10 +81,6 @@ class PasswordResetService
         return $confirmation;
     }
 
-    /**
-     * @param  array  $credentials
-     * @return array
-     */
     private function credentialBasedPasswordReset(array $credentials): array
     {
         $resetToken = null;
@@ -130,10 +116,6 @@ class PasswordResetService
         return $confirmation;
     }
 
-    /**
-     * @param  array  $credential
-     * @return array
-     */
     private function otpBasedPasswordReset(array $credential): array
     {
         $confirmation = ['status' => false, 'message' => __('auth.login.failed'), 'level' => Constant::MSG_TOASTR_ERROR, 'title' => 'Alert!'];

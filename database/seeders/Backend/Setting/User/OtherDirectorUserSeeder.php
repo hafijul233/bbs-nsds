@@ -40,7 +40,7 @@ class OtherDirectorUserSeeder extends Seeder
                     ];
                     User::factory()->asJointDirector()->create($director);
                 } else {
-                    //nothing
+                    // nothing
                 }
             } catch (\Exception $exception) {
                 throw new \Exception($exception->getMessage());

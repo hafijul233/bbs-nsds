@@ -6,6 +6,7 @@ return [
      * be selected form this section
      *
      * @var string style
+     *
      * @value bootstrap3, bootstrap4, bootstrap5
      */
     'style' => 'bootstrap4',
@@ -16,6 +17,7 @@ return [
      * @reference month, day etc
      *
      * @var string style
+     *
      * @value bootstrap3, bootstrap4, bootstrap5
      */
     'locale' => 'en',

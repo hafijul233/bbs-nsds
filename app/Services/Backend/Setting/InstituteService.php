@@ -25,8 +25,6 @@ class InstituteService extends Service
 
     /**
      * InstituteService constructor.
-     *
-     * @param  InstituteRepository  $instituteRepository
      */
     public function __construct(InstituteRepository $instituteRepository)
     {
@@ -37,8 +35,6 @@ class InstituteService extends Service
     /**
      * Get All Institute models as collection
      *
-     * @param  array  $filters
-     * @param  array  $eagerRelations
      * @return Builder[]|Collection
      *
      * @throws Exception
@@ -51,9 +47,6 @@ class InstituteService extends Service
     /**
      * Create Institute Model Pagination
      *
-     * @param  array  $filters
-     * @param  array  $eagerRelations
-     * @return LengthAwarePaginator
      *
      * @throws Exception
      */
@@ -66,7 +59,6 @@ class InstituteService extends Service
      * Show Institute Model
      *
      * @param  int  $id
-     * @param  bool  $purge
      * @return mixed
      *
      * @throws Exception
@@ -79,8 +71,6 @@ class InstituteService extends Service
     /**
      * Save Institute Model
      *
-     * @param  array  $inputs
-     * @return array
      *
      * @throws Exception
      * @throws Throwable
@@ -113,9 +103,6 @@ class InstituteService extends Service
     /**
      * Update Institute Model
      *
-     * @param  array  $inputs
-     * @param $id
-     * @return array
      *
      * @throws Throwable
      */
@@ -152,8 +139,6 @@ class InstituteService extends Service
     /**
      * Destroy Institute Model
      *
-     * @param $id
-     * @return array
      *
      * @throws Throwable
      */
@@ -184,8 +169,6 @@ class InstituteService extends Service
     /**
      * Restore Institute Model
      *
-     * @param $id
-     * @return array
      *
      * @throws Throwable
      */
@@ -216,8 +199,6 @@ class InstituteService extends Service
     /**
      * Export Object for Export Download
      *
-     * @param  array  $filters
-     * @return InstituteExport
      *
      * @throws Exception
      */

@@ -22,9 +22,9 @@ use Spatie\Permission\Traits\HasRoles;
 /**
  * Class Preference
  */
-class User extends Authenticatable implements HasMedia, Auditable
+class User extends Authenticatable implements Auditable, HasMedia
 {
-    use AuditableTrait, HasFactory, Notifiable, InteractsWithMedia, HasRoles, Sortable, SoftDeletes;
+    use AuditableTrait, HasFactory, HasRoles, InteractsWithMedia, Notifiable, SoftDeletes, Sortable;
 
     /**
      * @var string
@@ -82,25 +82,16 @@ class User extends Authenticatable implements HasMedia, Auditable
 
     /************************ Audit Relations ************************/
 
-    /**
-     * @return BelongsTo
-     */
     public function createdBy(): BelongsTo
     {
         return $this->belongsTo(User::class, 'created_by');
     }
 
-    /**
-     * @return BelongsTo
-     */
     public function updatedBy(): BelongsTo
     {
         return $this->belongsTo(User::class, 'updated_by');
     }
 
-    /**
-     * @return BelongsTo
-     */
     public function deletedBy(): BelongsTo
     {
         return $this->belongsTo(User::class, 'deleted_by');
@@ -109,8 +100,6 @@ class User extends Authenticatable implements HasMedia, Auditable
     /************************ Other Methods ************************/
     /**
      * Register profile Image Media Collection
-     *
-     * @return void
      */
     public function registerMediaCollections(): void
     {
@@ -123,8 +112,6 @@ class User extends Authenticatable implements HasMedia, Auditable
 
     /**
      * Verify if current user as super admin role
-     *
-     * @return bool
      */
     public function getIsAdminAttribute(): bool
     {
@@ -133,8 +120,6 @@ class User extends Authenticatable implements HasMedia, Auditable
 
     /**
      * Return all Role ID's of a user
-     *
-     * @return array
      */
     public function getRoleIdsAttribute(): array
     {
@@ -143,41 +128,27 @@ class User extends Authenticatable implements HasMedia, Auditable
 
     /**
      * Return all Permission ID's of a user
-     *
-     * @return array
      */
     public function getPermissionIdsAttribute(): array
     {
         return $this->permissions()->pluck('id')->toArray();
     }
 
-    /**
-     * @return HasMany
-     */
     public function receivers(): HasMany
     {
         return $this->hasMany(User::class, 'parent_id', 'id');
     }
 
-    /**
-     * @return HasMany
-     */
     public function senders(): HasMany
     {
         return $this->hasMany(User::class, 'id', 'parent_id');
     }
 
-    /**
-     * @return HasMany
-     */
     public function items(): HasMany
     {
         return $this->hasMany(Item::class, 'user_id', 'id');
     }
 
-    /**
-     * @return MorphMany
-     */
     public function addresses(): MorphMany
     {
         return $this->morphMany(Address::class, 'addressable', 'addressable_type', 'addressable_id');

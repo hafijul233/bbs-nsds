@@ -26,8 +26,6 @@ class SurveyService extends Service
 
     /**
      * SurveyService constructor.
-     *
-     * @param  SurveyRepository  $surveyRepository
      */
     public function __construct(SurveyRepository $surveyRepository)
     {
@@ -38,8 +36,6 @@ class SurveyService extends Service
     /**
      * Get All Survey models as collection
      *
-     * @param  array  $filters
-     * @param  array  $eagerRelations
      * @return Builder[]|Collection
      *
      * @throws Exception
@@ -52,9 +48,6 @@ class SurveyService extends Service
     /**
      * Create Survey Model Pagination
      *
-     * @param  array  $filters
-     * @param  array  $eagerRelations
-     * @return LengthAwarePaginator
      *
      * @throws Exception
      */
@@ -67,7 +60,6 @@ class SurveyService extends Service
      * Show Survey Model
      *
      * @param  int  $id
-     * @param  bool  $purge
      * @return mixed
      *
      * @throws Exception
@@ -80,8 +72,6 @@ class SurveyService extends Service
     /**
      * Save Survey Model
      *
-     * @param  array  $inputs
-     * @return array
      *
      * @throws Exception
      * @throws Throwable
@@ -114,9 +104,6 @@ class SurveyService extends Service
     /**
      * Update Survey Model
      *
-     * @param  array  $inputs
-     * @param $id
-     * @return array
      *
      * @throws Throwable
      */
@@ -153,8 +140,6 @@ class SurveyService extends Service
     /**
      * Destroy Survey Model
      *
-     * @param $id
-     * @return array
      *
      * @throws Throwable
      */
@@ -185,8 +170,6 @@ class SurveyService extends Service
     /**
      * Restore Survey Model
      *
-     * @param $id
-     * @return array
      *
      * @throws Throwable
      */
@@ -217,8 +200,6 @@ class SurveyService extends Service
     /**
      * Export Object for Export Download
      *
-     * @param  array  $filters
-     * @return SurveyExport
      *
      * @throws Exception
      */
@@ -230,7 +211,6 @@ class SurveyService extends Service
     /**
      * Created Array Styled Survey List for dropdown
      *
-     * @param  array  $filters
      * @return array
      *
      * @throws Exception

@@ -19,17 +19,12 @@ class NotificationDropDownComposer
      *
      * @return void
      */
-    public function __construct()
-    {
-    }
+    public function __construct() {}
 
     /**
      * Bind data to the view.
      *
-     * @param  View  $view
      * @return void
      */
-    public function compose(View $view)
-    {
-    }
+    public function compose(View $view) {}
 }

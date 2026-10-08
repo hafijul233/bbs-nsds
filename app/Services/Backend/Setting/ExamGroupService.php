@@ -25,8 +25,6 @@ class ExamGroupService extends Service
 
     /**
      * ExamGroupService constructor.
-     *
-     * @param  ExamGroupRepository  $examGroupRepository
      */
     public function __construct(ExamGroupRepository $examGroupRepository)
     {
@@ -37,8 +35,6 @@ class ExamGroupService extends Service
     /**
      * Get All ExamTitle models as collection
      *
-     * @param  array  $filters
-     * @param  array  $eagerRelations
      * @return Builder[]|Collection
      *
      * @throws Exception
@@ -51,9 +47,6 @@ class ExamGroupService extends Service
     /**
      * Create ExamTitle Model Pagination
      *
-     * @param  array  $filters
-     * @param  array  $eagerRelations
-     * @return LengthAwarePaginator
      *
      * @throws Exception
      */
@@ -66,7 +59,6 @@ class ExamGroupService extends Service
      * Show ExamTitle Model
      *
      * @param  int  $id
-     * @param  bool  $purge
      * @return mixed
      *
      * @throws Exception
@@ -79,8 +71,6 @@ class ExamGroupService extends Service
     /**
      * Save ExamTitle Model
      *
-     * @param  array  $inputs
-     * @return array
      *
      * @throws Exception
      * @throws Throwable
@@ -113,9 +103,6 @@ class ExamGroupService extends Service
     /**
      * Update ExamTitle Model
      *
-     * @param  array  $inputs
-     * @param $id
-     * @return array
      *
      * @throws Throwable
      */
@@ -152,8 +139,6 @@ class ExamGroupService extends Service
     /**
      * Destroy ExamTitle Model
      *
-     * @param $id
-     * @return array
      *
      * @throws Throwable
      */
@@ -184,8 +169,6 @@ class ExamGroupService extends Service
     /**
      * Restore ExamTitle Model
      *
-     * @param $id
-     * @return array
      *
      * @throws Throwable
      */
@@ -216,8 +199,6 @@ class ExamGroupService extends Service
     /**
      * Export Object for Export Download
      *
-     * @param  array  $filters
-     * @return ExamGroupExport
      *
      * @throws Exception
      */

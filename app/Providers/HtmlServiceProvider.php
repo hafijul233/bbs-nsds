@@ -34,7 +34,7 @@ class HtmlServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //Buttons
+        // Buttons
         Html::component('linkButton', 'htmls.link-button', ['title', 'route', 'param' => [], 'icon', 'color' => 'success']);
         Html::component('actionButton', 'htmls.action-buttons', ['resourceRouteName', 'id' => 0, 'options' => []]);
         Html::component('backButton', 'htmls.back-button', ['route', 'param' => []]);
@@ -44,19 +44,19 @@ class HtmlServiceProvider extends ServiceProvider
         Html::component('restoreButton', 'htmls.restore-button', ['route', 'param' => []]);
         Html::component('toggleButton', 'htmls.toggle-button', ['route', 'param' => []]);
 
-        //Card
+        // Card
         Html::component('cardHeader', 'htmls.card-header', ['title', 'icon', 'short' => null]);
         Html::component('cardSearch', 'htmls.search-form', ['field', 'route', 'attributes' => []]);
 
-        //Dropdown
+        // Dropdown
         Html::component('actionDropdown', 'htmls.action-dropdowns', ['resourceRouteName', 'id' => 0, 'options' => []]);
         Html::component('modelDropdown', 'htmls.model-dropdown', ['resourceRouteName', 'id' => 0, 'options' => ['color' => 'success', 'actions' => []]]);
         Html::component('bulkDropdown', 'htmls.bulk-dropdown', ['resourceRouteName', 'id' => 0, 'options' => []]);
 
-        //Selection
+        // Selection
         Html::component('selection', 'htmls.selection', ['target']);
 
-        //Bootstrap4 Toggle
+        // Bootstrap4 Toggle
         Html::component('enableToggle', 'htmls.enable-button', ['model' => null, 'options' => []]);
     }
 }
